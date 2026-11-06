@@ -10,7 +10,7 @@
 
 ## Roadmap
 - [x] Phase 1: Foundation and architecture (Folder structure, design system, DB schema, auth architecture conventions).
-- [ ] Phase 2: Cinematic landing page (GSAP opening title animation, hero section, responsive navigation).
+- [x] Phase 2: Cinematic landing page (GSAP opening title animation, hero section, responsive navigation).
 - [ ] Phase 3: Authentication and student profiles (Verification, login, privacy settings).
 - [ ] Phase 4: Community features (Events, announcements, blood donor network, job referrals).
 - [ ] Phase 5: Administration dashboard (Role-based access, approval workflows, audit logs).
