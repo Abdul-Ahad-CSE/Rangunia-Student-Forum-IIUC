@@ -3,6 +3,10 @@
 import * as React from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
+import {
+  getHasIntroPlayed,
+  setHasIntroPlayed,
+} from "@/features/landing/utils/intro-state";
 
 interface CinematicIntroProps {
   onComplete?: () => void;
@@ -19,13 +23,9 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
 
   const [isVisible, setIsVisible] = React.useState(false);
 
-  // Callback to finish intro and store session flag
+  // Callback to finish intro and mark memory state for SPA routing
   const finishIntro = React.useCallback(() => {
-    try {
-      sessionStorage.setItem("rsf_intro_has_played", "true");
-    } catch {
-      // Ignore storage access errors in restricted iframe/browser modes
-    }
+    setHasIntroPlayed(true);
     setIsVisible(false);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("rsf_intro_finished"));
@@ -35,18 +35,13 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
 
   React.useEffect(() => {
     const rafId = requestAnimationFrame(() => {
-      // 1. Check if user already saw the intro in this browser session
-      try {
-        const alreadyPlayed = sessionStorage.getItem("rsf_intro_has_played");
-        if (alreadyPlayed === "true") {
-          if (typeof window !== "undefined") {
-            window.dispatchEvent(new CustomEvent("rsf_intro_finished"));
-          }
-          onComplete?.();
-          return;
+      // 1. Check if intro already played in this in-memory client navigation session
+      if (getHasIntroPlayed()) {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("rsf_intro_finished"));
         }
-      } catch {
-        // Fallback if sessionStorage is not accessible
+        onComplete?.();
+        return;
       }
 
       // 2. Check prefers-reduced-motion media query
@@ -59,7 +54,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
         return;
       }
 
-      // If not played and reduced motion is false, activate intro
+      // If hard reload or first visit and reduced motion is false, activate intro
       setIsVisible(true);
     });
 

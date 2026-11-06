@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
+import { getHasIntroPlayed } from "@/features/landing/utils/intro-state";
 
 // Performance Rule: Animate strictly transform and opacity (no layout-thrashing properties)
 const containerVariants: Variants = {
@@ -44,16 +45,11 @@ export function HeroSection() {
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
 
   React.useEffect(() => {
-    // Check if intro has already played or is skipped via RAF
+    // If intro already played during SPA navigation, show immediately
     const rafId = requestAnimationFrame(() => {
-      try {
-        const alreadyPlayed = sessionStorage.getItem("rsf_intro_has_played");
-        if (alreadyPlayed === "true") {
-          setShouldAnimate(true);
-          return;
-        }
-      } catch {
-        // Fallback
+      if (getHasIntroPlayed()) {
+        setShouldAnimate(true);
+        return;
       }
 
       // Check prefers-reduced-motion
@@ -92,21 +88,24 @@ export function HeroSection() {
           fill
           priority
           sizes="100vw"
-          quality={90}
+          quality={95}
           className="object-cover object-center scale-[1.02] transform-gpu"
         />
 
-        {/* Sophisticated Multi-Stop Dark / Emerald Vignette Overlay */}
+        {/* Lightweight Translucent Vignette Overlays - lets IIUC campus shine clearly */}
+        {/* Subtle base scrim for global readability */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-[#040907] via-[#040907]/85 to-[#040907]/40"
+          className="absolute inset-0 bg-black/35"
           aria-hidden="true"
         />
+        {/* Soft bottom-to-top gradient to ground the content */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-[#040907]/95 via-[#040907]/75 to-[#040907]/95"
+          className="absolute inset-0 bg-gradient-to-t from-[#040907] via-[#040907]/45 to-transparent"
           aria-hidden="true"
         />
+        {/* Subtle emerald ambient top aura */}
         <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-950/30 via-transparent to-[#040907]/90"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-950/20 via-transparent to-black/30"
           aria-hidden="true"
         />
       </div>
@@ -121,7 +120,7 @@ export function HeroSection() {
         >
           {/* Badge */}
           <motion.div variants={itemVariants} className="mb-5 sm:mb-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-inner backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-lg backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -133,7 +132,7 @@ export function HeroSection() {
           {/* Main Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15]"
+            className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
           >
             Connecting Rangunia&apos;s{" "}
             <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
@@ -145,11 +144,11 @@ export function HeroSection() {
           {/* Subheading */}
           <motion.p
             variants={itemVariants}
-            className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed px-2"
+            className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
           >
             The dedicated platform uniting students and alumni through lifelong
             brotherhood, academic guidance, career referrals, and an instant{" "}
-            <span className="text-rose-400 font-medium">
+            <span className="text-rose-400 font-semibold underline decoration-rose-500/40 underline-offset-4">
               emergency blood donor network
             </span>
             .
@@ -190,45 +189,45 @@ export function HeroSection() {
             className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left"
           >
             {/* Feature 1 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 backdrop-blur-md transition-all hover:border-emerald-500/30 hover:bg-white/[0.05]">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-rose-500/30 bg-rose-950/40 text-rose-400 shadow-inner">
+            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-rose-500/30 bg-rose-950/60 text-rose-400 shadow-inner">
                 <Droplet className="h-5 w-5 fill-rose-500/40 text-rose-400" />
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-semibold text-white">
                   24/7 Blood Network
                 </h2>
-                <p className="mt-0.5 text-xs text-zinc-400 leading-normal">
+                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
                   Rapid volunteer coordination for emergency transfusion cases in Chittagong.
                 </p>
               </div>
             </div>
 
             {/* Feature 2 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 backdrop-blur-md transition-all hover:border-emerald-500/30 hover:bg-white/[0.05]">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-emerald-400 shadow-inner">
+            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-inner">
                 <Users className="h-5 w-5" />
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-semibold text-white">
                   Verified Directory
                 </h2>
-                <p className="mt-0.5 text-xs text-zinc-400 leading-normal">
+                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
                   Strictly authenticated IIUC student profiles with private-by-default controls.
                 </p>
               </div>
             </div>
 
             {/* Feature 3 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 backdrop-blur-md transition-all hover:border-emerald-500/30 hover:bg-white/[0.05]">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-teal-500/30 bg-teal-950/40 text-teal-400 shadow-inner">
+            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-teal-500/30 bg-teal-950/60 text-teal-400 shadow-inner">
                 <MapPin className="h-5 w-5" />
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-semibold text-white">
                   15 Unions & Wards
                 </h2>
-                <p className="mt-0.5 text-xs text-zinc-400 leading-normal">
+                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
                   Connecting students from Betagi to Mariamnagar with localized brotherhood.
                 </p>
               </div>
