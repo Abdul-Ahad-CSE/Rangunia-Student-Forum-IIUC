@@ -1,0 +1,190 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  VERIFIED_STUDENT
+  STUDENT
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+model User {
+  id                 String             @id @default(cuid())
+  name               String?
+  email              String             @unique
+  emailVerified      DateTime?
+  passwordHash       String?
+  role               Role               @default(STUDENT)
+  verificationStatus VerificationStatus @default(PENDING)
+  isActive           Boolean            @default(true)
+  lastLoginAt        DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  // Relationships
+  profile            StudentProfile?
+  verification       StudentVerification?
+  bloodDonor         BloodDonor?
+  auditLogs          AuditLog[]
+  accounts           Account[]
+  sessions           Session[]
+
+  @@index([email])
+  @@index([role])
+  @@index([verificationStatus])
+}
+
+model StudentProfile {
+  id               String      @id @default(cuid())
+  userId           String      @unique
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName         String
+  studentId        String      @unique // IIUC Matriculation / Student ID
+  department       String      // e.g. CSE, EEE, BBA, Pharmacy
+  academicSession  String      // e.g. Autumn 2021, Spring 2022
+  batch            String?     // e.g. 54th, 55th
+  phone            String?
+  whatsapp         String?
+  avatarUrl        String?
+  bio              String?     @db.Text
+  presentAddress   String?
+  permanentAddress String?
+  upazila          String      @default("Rangunia")
+  unionWard        String?     // Union/Ward within Rangunia
+  bloodGroup       BloodGroup?
+
+  // Privacy by Default Controls
+  // Student data is strictly private until explicitly set to true by the owner
+  isProfilePublic  Boolean     @default(false)
+  isPhonePublic    Boolean     @default(false)
+  isEmailPublic    Boolean     @default(false)
+  isAddressPublic  Boolean     @default(false)
+  showInDirectory  Boolean     @default(false)
+
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([studentId])
+  @@index([department])
+  @@index([academicSession])
+  @@index([bloodGroup])
+  @@index([upazila])
+}
+
+model StudentVerification {
+  id              String             @id @default(cuid())
+  userId          String             @unique
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idCardImageUrl  String             // Secure cloud URL of student ID card
+  supportingDocUrl String?
+  status          VerificationStatus @default(PENDING)
+  reviewerNotes   String?            @db.Text
+  verifiedAt      DateTime?
+  verifiedByAdminId String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([status])
+  @@index([verifiedByAdminId])
+}
+
+model BloodDonor {
+  id                         String      @id @default(cuid())
+  userId                     String      @unique
+  user                       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bloodGroup                 BloodGroup
+  isAvailable                Boolean     @default(false) // Private & unavailable until donor toggles
+  lastDonationDate           DateTime?
+  totalDonations             Int         @default(0)
+  emergencyContact           String?     // Dedicated phone for emergency calls
+  preferredDonationArea      String?     @default("Rangunia") // Rangunia, IIUC Campus, Chattogram City
+  hideContactUnlessEmergency Boolean     @default(true) // Privacy protection shield
+  medicalNotes               String?     @db.Text
+
+  createdAt                  DateTime    @default(now())
+  updatedAt                  DateTime    @updatedAt
+
+  @@index([bloodGroup])
+  @@index([isAvailable])
+  @@index([preferredDonationArea])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorId     String?
+  actor       User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action      String   // e.g. "USER_LOGIN", "PROFILE_UPDATED", "VERIFICATION_APPROVED", "DONOR_OPT_IN"
+  entityType  String   // e.g. "User", "StudentProfile", "BloodDonor", "Verification"
+  entityId    String?
+  ipAddress   String?
+  userAgent   String?  @db.Text
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([actorId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
