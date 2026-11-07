@@ -205,7 +205,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
       <button
         ref={skipBtnRef}
         onClick={finishIntro}
-        className="absolute top-5 right-5 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-zinc-300 backdrop-blur-md transition-all hover:border-emerald-500/50 hover:bg-emerald-950/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-[#040907]"
+        className="absolute top-5 right-5 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-zinc-300 opacity-0 backdrop-blur-md transition-all hover:border-emerald-500/50 hover:bg-emerald-950/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-[#040907]"
         aria-label="Skip intro animation"
       >
         <span>Skip Intro</span>
@@ -218,12 +218,12 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
         <div className="relative mb-6">
           <div
             ref={logoGlowRef}
-            className="pointer-events-none absolute -inset-4 rounded-full bg-emerald-500/25 blur-2xl"
+            className="pointer-events-none absolute -inset-4 rounded-full bg-emerald-500/25 blur-2xl opacity-0"
             aria-hidden="true"
           />
           <div
             ref={logoWrapperRef}
-            className="relative flex h-24 w-24 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-950/30 p-2.5 shadow-[0_0_50px_rgba(16,185,129,0.15)] backdrop-blur-xl sm:h-28 sm:w-28"
+            className="relative flex h-24 w-24 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-950/30 p-2.5 opacity-0 shadow-[0_0_50px_rgba(16,185,129,0.15)] backdrop-blur-xl sm:h-28 sm:w-28"
           >
             <Image
               src="/images/rsf_logo.png"
@@ -241,16 +241,16 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
           ref={textWordsRef}
           className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-serif text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl"
         >
-          <span className="intro-word inline-block bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+          <span className="intro-word opacity-0 inline-block bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
             Rangunia
           </span>
-          <span className="intro-word inline-block bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+          <span className="intro-word opacity-0 inline-block bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
             Students
           </span>
-          <span className="intro-word inline-block bg-gradient-to-b from-emerald-200 via-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+          <span className="intro-word opacity-0 inline-block bg-gradient-to-b from-emerald-200 via-emerald-400 to-emerald-600 bg-clip-text text-transparent">
             Forum
           </span>
-          <span className="intro-word inline-block rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-xl font-bold tracking-widest text-emerald-300 sm:text-3xl">
+          <span className="intro-word opacity-0 inline-block rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-xl font-bold tracking-widest text-emerald-300 sm:text-3xl">
             IIUC
           </span>
         </div>
@@ -258,13 +258,13 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
         {/* Elegant Horizon Line */}
         <div
           ref={lineAccentRef}
-          className="my-5 h-[1.5px] w-44 origin-center bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent"
+          className="my-5 h-[1.5px] w-44 origin-center bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent opacity-0"
         />
 
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="max-w-md text-xs font-medium tracking-widest text-emerald-100/70 uppercase sm:text-sm"
+          className="max-w-md text-xs font-medium tracking-widest text-emerald-100/70 uppercase sm:text-sm opacity-0"
         >
           Unity • Welfare • Academic Excellence
         </p>

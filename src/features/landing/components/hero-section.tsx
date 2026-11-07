@@ -20,8 +20,8 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
+      staggerChildren: 0.14,
+      delayChildren: 0.05,
     },
   },
 };
@@ -29,13 +29,13 @@ const containerVariants: Variants = {
 const itemVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 25,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1], // Custom smooth ease-out
     },
   },
@@ -45,7 +45,7 @@ export function HeroSection() {
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
 
   React.useEffect(() => {
-    // If intro already played during SPA navigation, show immediately
+    // If intro already played during SPA navigation or reduced motion is active, show immediately
     const rafId = requestAnimationFrame(() => {
       if (getHasIntroPlayed()) {
         setShouldAnimate(true);
@@ -66,10 +66,11 @@ export function HeroSection() {
 
     window.addEventListener("rsf_intro_finished", handleIntroFinished);
 
-    // Defensive safety timeout: Never leave Hero invisible even if intro fails/blocks
+    // Defensive safety timeout: Only triggers if GSAP intro fails or never dispatches event.
+    // Safely positioned at 7.5s (intro takes ~4.9s) so it never races or causes a pop.
     const safetyTimeout = setTimeout(() => {
       setShouldAnimate(true);
-    }, 4500);
+    }, 7500);
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -110,29 +111,38 @@ export function HeroSection() {
         />
       </div>
 
-      {/* 2. Main Hero Content (Motion Fade-In) */}
+      {/* 2. Main Hero Content (Motion Fade-In Orchestrated via Variants) */}
       <Container className="relative z-10 flex flex-col items-center text-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={shouldAnimate ? "visible" : "hidden"}
-          className="flex flex-col items-center max-w-4xl"
+          className="flex flex-col items-center max-w-4xl opacity-0"
         >
-          {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-5 sm:mb-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-lg backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <span>Rangunia Upazila • IIUC Student Community</span>
-            </div>
+          {/* Badge: Outer motion.div for entrance stagger, inner motion.div for continuous ambient loop */}
+          <motion.div variants={itemVariants} className="mb-5 sm:mb-6 opacity-0">
+            <motion.div
+              animate={{ y: [-3, 3, -3] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-lg backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span>Rangunia Upazila • IIUC Student Community</span>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
+            className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)] opacity-0"
           >
             Connecting Rangunia&apos;s{" "}
             <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
@@ -144,7 +154,7 @@ export function HeroSection() {
           {/* Subheading */}
           <motion.p
             variants={itemVariants}
-            className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+            className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] opacity-0"
           >
             The dedicated platform uniting students and alumni through lifelong
             brotherhood, academic guidance, career referrals, and an instant{" "}
@@ -157,7 +167,7 @@ export function HeroSection() {
           {/* Primary Action Buttons */}
           <motion.div
             variants={itemVariants}
-            className="mt-8 sm:mt-10 flex w-full flex-col items-stretch sm:flex-row sm:w-auto sm:items-center justify-center gap-3.5 sm:gap-4 px-4"
+            className="mt-8 sm:mt-10 flex w-full flex-col items-stretch sm:flex-row sm:w-auto sm:items-center justify-center gap-3.5 sm:gap-4 px-4 opacity-0"
           >
             {/* CTA 1: Join / Portal */}
             <Link href="/register" className="w-full sm:w-auto">
@@ -186,7 +196,7 @@ export function HeroSection() {
           {/* Mobile-First Feature Highlights Grid */}
           <motion.div
             variants={itemVariants}
-            className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left"
+            className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left opacity-0"
           >
             {/* Feature 1 */}
             <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
