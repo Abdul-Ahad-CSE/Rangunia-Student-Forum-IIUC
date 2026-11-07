@@ -21,12 +21,9 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
   const lineAccentRef = React.useRef<HTMLDivElement>(null);
   const skipBtnRef = React.useRef<HTMLButtonElement>(null);
 
-  const [isVisible, setIsVisible] = React.useState(false);
-
   // Callback to finish intro and mark memory state for SPA routing
   const finishIntro = React.useCallback(() => {
     setHasIntroPlayed(true);
-    setIsVisible(false);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("rsf_intro_finished"));
     }
@@ -34,35 +31,21 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
   }, [onComplete]);
 
   React.useEffect(() => {
-    const rafId = requestAnimationFrame(() => {
-      // 1. Check if intro already played in this in-memory client navigation session
-      if (getHasIntroPlayed()) {
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent("rsf_intro_finished"));
-        }
-        onComplete?.();
-        return;
-      }
+    // 1. Check if intro already played in this in-memory client navigation session
+    if (getHasIntroPlayed()) {
+      finishIntro();
+      return;
+    }
 
-      // 2. Check prefers-reduced-motion media query
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+    // 2. Check prefers-reduced-motion media query
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-      if (prefersReducedMotion) {
-        finishIntro();
-        return;
-      }
-
-      // If hard reload or first visit and reduced motion is false, activate intro
-      setIsVisible(true);
-    });
-
-    return () => cancelAnimationFrame(rafId);
-  }, [finishIntro, onComplete]);
-
-  React.useEffect(() => {
-    if (!isVisible) return;
+    if (prefersReducedMotion) {
+      finishIntro();
+      return;
+    }
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -181,11 +164,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [isVisible, finishIntro]);
-
-  if (!isVisible) {
-    return null;
-  }
+  }, [finishIntro]);
 
   return (
     <div

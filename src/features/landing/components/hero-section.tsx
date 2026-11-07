@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { getHasIntroPlayed } from "@/features/landing/utils/intro-state";
 
 // Performance Rule: Animate strictly transform and opacity (no layout-thrashing properties)
 const containerVariants: Variants = {
@@ -41,44 +40,11 @@ const itemVariants: Variants = {
   },
 };
 
-export function HeroSection() {
-  const [shouldAnimate, setShouldAnimate] = React.useState(false);
+interface HeroSectionProps {
+  introFinished?: boolean;
+}
 
-  React.useEffect(() => {
-    // If intro already played during SPA navigation or reduced motion is active, show immediately
-    const rafId = requestAnimationFrame(() => {
-      if (getHasIntroPlayed()) {
-        setShouldAnimate(true);
-        return;
-      }
-
-      // Check prefers-reduced-motion
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        setShouldAnimate(true);
-        return;
-      }
-    });
-
-    // Event listener for completion of GSAP intro sequence
-    const handleIntroFinished = () => {
-      setShouldAnimate(true);
-    };
-
-    window.addEventListener("rsf_intro_finished", handleIntroFinished);
-
-    // Defensive safety timeout: Only triggers if GSAP intro fails or never dispatches event.
-    // Safely positioned at 7.5s (intro takes ~4.9s) so it never races or causes a pop.
-    const safetyTimeout = setTimeout(() => {
-      setShouldAnimate(true);
-    }, 7500);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("rsf_intro_finished", handleIntroFinished);
-      clearTimeout(safetyTimeout);
-    };
-  }, []);
-
+export function HeroSection({ introFinished = false }: HeroSectionProps) {
   return (
     <section className="relative min-h-[100svh] w-full flex flex-col justify-center overflow-hidden bg-[#040907] pt-24 pb-16 sm:pt-28 sm:pb-24">
       {/* 1. Cinematic Fullscreen Background Image */}
@@ -111,93 +77,94 @@ export function HeroSection() {
         />
       </div>
 
-      {/* 2. Main Hero Content (Motion Fade-In Orchestrated via Variants) */}
+      {/* 2. Main Hero Content (Hard-hidden until intro completes, then orchestrated via Variants) */}
       <Container className="relative z-10 flex flex-col items-center text-center">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={shouldAnimate ? "visible" : "hidden"}
-          className="flex flex-col items-center max-w-4xl opacity-0"
-        >
-          {/* Badge: Outer motion.div for entrance stagger, inner motion.div for continuous ambient loop */}
-          <motion.div variants={itemVariants} className="mb-5 sm:mb-6 opacity-0">
-            <motion.div
-              animate={{ y: [-3, 3, -3] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-lg backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <span>Rangunia Upazila • IIUC Student Community</span>
-              </div>
+        <div className={`flex flex-col items-center w-full ${!introFinished ? "invisible" : "visible"}`}>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={introFinished ? "visible" : "hidden"}
+            className="flex flex-col items-center max-w-4xl"
+          >
+            {/* Badge: Outer motion.div for entrance stagger, inner motion.div for continuous ambient loop */}
+            <motion.div variants={itemVariants} className="mb-5 sm:mb-6">
+              <motion.div
+                animate={{ y: [-3, 3, -3] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-emerald-300 shadow-lg backdrop-blur-md">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  </span>
+                  <span>Rangunia Upazila • IIUC Student Community</span>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
 
-          {/* Main Headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)] opacity-0"
-          >
-            Connecting Rangunia&apos;s{" "}
-            <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
-              Brightest Minds
-            </span>{" "}
-            at IIUC
-          </motion.h1>
+            {/* Main Headline */}
+            <motion.h1
+              variants={itemVariants}
+              className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
+            >
+              Connecting Rangunia&apos;s{" "}
+              <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
+                Brightest Minds
+              </span>{" "}
+              at IIUC
+            </motion.h1>
 
-          {/* Subheading */}
-          <motion.p
-            variants={itemVariants}
-            className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] opacity-0"
-          >
-            The dedicated platform uniting students and alumni through lifelong
-            brotherhood, academic guidance, career referrals, and an instant{" "}
-            <span className="text-rose-400 font-semibold underline decoration-rose-500/40 underline-offset-4">
-              emergency blood donor network
-            </span>
-            .
-          </motion.p>
+            {/* Subheading */}
+            <motion.p
+              variants={itemVariants}
+              className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+            >
+              The dedicated platform uniting students and alumni through lifelong
+              brotherhood, academic guidance, career referrals, and an instant{" "}
+              <span className="text-rose-400 font-semibold underline decoration-rose-500/40 underline-offset-4">
+                emergency blood donor network
+              </span>
+              .
+            </motion.p>
 
-          {/* Primary Action Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-8 sm:mt-10 flex w-full flex-col items-stretch sm:flex-row sm:w-auto sm:items-center justify-center gap-3.5 sm:gap-4 px-4 opacity-0"
-          >
-            {/* CTA 1: Join / Portal */}
-            <Link href="/register" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto h-12 sm:h-14 px-7 text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <span>Join Student Forum</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            {/* Primary Action Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 sm:mt-10 flex w-full flex-col items-stretch sm:flex-row sm:w-auto sm:items-center justify-center gap-3.5 sm:gap-4 px-4"
+            >
+              {/* CTA 1: Join / Portal */}
+              <Link href="/register" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto h-12 sm:h-14 px-7 text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>Join Student Forum</span>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
 
-            {/* CTA 2: Emergency Blood Directory */}
-            <Link href="#blood-network" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto h-12 sm:h-14 px-6 text-base font-semibold border-rose-500/40 bg-rose-950/20 text-rose-200 hover:bg-rose-950/40 hover:text-white hover:border-rose-400 backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <Droplet className="mr-2 h-4 w-4 text-rose-400 fill-rose-400" />
-                <span>Find Blood Donors</span>
-              </Button>
-            </Link>
-          </motion.div>
+              {/* CTA 2: Emergency Blood Directory */}
+              <Link href="#blood-network" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto h-12 sm:h-14 px-6 text-base font-semibold border-rose-500/40 bg-rose-950/20 text-rose-200 hover:bg-rose-950/40 hover:text-white hover:border-rose-400 backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <Droplet className="mr-2 h-4 w-4 text-rose-400 fill-rose-400" />
+                  <span>Find Blood Donors</span>
+                </Button>
+              </Link>
+            </motion.div>
 
-          {/* Mobile-First Feature Highlights Grid */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left opacity-0"
-          >
+            {/* Mobile-First Feature Highlights Grid */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left"
+            >
             {/* Feature 1 */}
             <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-rose-500/30 bg-rose-950/60 text-rose-400 shadow-inner">
@@ -244,6 +211,7 @@ export function HeroSection() {
             </div>
           </motion.div>
         </motion.div>
+      </div>
       </Container>
     </section>
   );
