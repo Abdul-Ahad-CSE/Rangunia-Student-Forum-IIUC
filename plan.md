@@ -35,6 +35,7 @@
     - **Optional Base64 File Upload:** Replaced text URL input in `/admin/register` with an optional native file picker (`FileReader` client-side Base64 conversion, live preview, and clear action), updating Zod schema and Prisma `photoUrl` to `String? @db.Text`.
   - Fixed infinite loading state bug on login page by properly handling Auth.js promise resolution and state resetting.
   - Added cute Framer Motion animation and privacy toast notification for the Female gender option in admin registration.
+  - Reordered Admin Registration form UX to place the Gender selection at the top, preventing time-waste for female applicants restricted by privacy rules.
 - [ ] Phase 4: Authentication and student profiles (Verification, login, privacy settings).
 - [ ] Phase 5: Community features (Events, announcements, blood donor network, job referrals).
 - [ ] Phase 6: Administration dashboard (Role-based access, approval workflows, audit logs).

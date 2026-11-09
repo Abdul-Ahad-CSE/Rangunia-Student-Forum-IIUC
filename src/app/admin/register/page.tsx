@@ -265,6 +265,87 @@ export default function AdminRegisterPage() {
                   </div>
                 </div>
 
+                {/* SPECIAL GENDER PRIVACY GATEKEEPER (TOP OF FORM) */}
+                <div className="space-y-2 p-3.5 rounded-xl border border-white/10 bg-white/[0.02]">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs font-semibold text-zinc-300">
+                      Gender Verification
+                    </Label>
+                    <span className="text-[11px] text-zinc-400 flex items-center gap-1 font-medium">
+                      <Info className="w-3.5 h-3.5 text-emerald-400" />
+                      Privacy Gatekeeper
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Option: Male (Selectable) */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedGender("Male");
+                        setValue("gender", "Male");
+                        setFemalePrivacyNotice(false);
+                      }}
+                      className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${
+                        selectedGender === "Male"
+                          ? "border-emerald-500 bg-emerald-950/60 text-emerald-300 shadow-md shadow-emerald-950"
+                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/20"
+                      }`}
+                    >
+                      <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                        selectedGender === "Male" ? "border-emerald-400 bg-emerald-400" : "border-zinc-500"
+                      }`}>
+                        {selectedGender === "Male" && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-black" />
+                        )}
+                      </span>
+                      <span>Male</span>
+                    </button>
+
+                    {/* Option: Female (Framer Motion Animation / Triggers Toast / Non-selectable) */}
+                    <motion.button
+                      type="button"
+                      onClick={handleGenderFemaleClick}
+                      animate={
+                        isFemaleAnimating
+                          ? {
+                              scale: [1, 0.95, 1.05, 0.98, 1],
+                              rotate: [0, -2, 2, -1, 0],
+                              boxShadow: [
+                                "0 0 0 rgba(244, 63, 94, 0)",
+                                "0 0 25px rgba(244, 63, 94, 0.5)",
+                                "0 0 12px rgba(244, 63, 94, 0.3)",
+                                "0 0 0 rgba(244, 63, 94, 0)",
+                              ],
+                              borderColor: [
+                                "rgba(255, 255, 255, 0.1)",
+                                "rgba(244, 63, 94, 0.8)",
+                                "rgba(251, 113, 133, 0.6)",
+                                "rgba(255, 255, 255, 0.1)",
+                              ],
+                            }
+                          : { scale: 1, rotate: 0 }
+                      }
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.94 }}
+                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
+                      title="Click for privacy protocol"
+                    >
+                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-500" />
+                      <span>Female</span>
+                      <span className="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono flex items-center gap-1 border border-rose-500/20">
+                        <span>🌸</span>
+                        <span>Protected</span>
+                      </span>
+                    </motion.button>
+                  </div>
+
+                  {errors.gender && (
+                    <p className="text-xs text-rose-400">{errors.gender.message}</p>
+                  )}
+                </div>
+
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -496,87 +577,6 @@ export default function AdminRegisterPage() {
                       <p className="text-xs text-rose-400">{errors.permanentAddress.message}</p>
                     )}
                   </div>
-                </div>
-
-                {/* SPECIAL GENDER FEATURE */}
-                <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-xs font-semibold text-zinc-300">
-                      Gender Verification
-                    </Label>
-                    <span className="text-[11px] text-zinc-500 flex items-center gap-1">
-                      <Info className="w-3 h-3 text-emerald-400" />
-                      Privacy Shield Protected
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Option: Male (Selectable) */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedGender("Male");
-                        setValue("gender", "Male");
-                        setFemalePrivacyNotice(false);
-                      }}
-                      className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${
-                        selectedGender === "Male"
-                          ? "border-emerald-500 bg-emerald-950/60 text-emerald-300 shadow-md shadow-emerald-950"
-                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/20"
-                      }`}
-                    >
-                      <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
-                        selectedGender === "Male" ? "border-emerald-400 bg-emerald-400" : "border-zinc-500"
-                      }`}>
-                        {selectedGender === "Male" && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-black" />
-                        )}
-                      </span>
-                      <span>Male</span>
-                    </button>
-
-                    {/* Option: Female (Framer Motion Animation / Triggers Toast / Non-selectable) */}
-                    <motion.button
-                      type="button"
-                      onClick={handleGenderFemaleClick}
-                      animate={
-                        isFemaleAnimating
-                          ? {
-                              scale: [1, 0.95, 1.05, 0.98, 1],
-                              rotate: [0, -2, 2, -1, 0],
-                              boxShadow: [
-                                "0 0 0 rgba(244, 63, 94, 0)",
-                                "0 0 25px rgba(244, 63, 94, 0.5)",
-                                "0 0 12px rgba(244, 63, 94, 0.3)",
-                                "0 0 0 rgba(244, 63, 94, 0)",
-                              ],
-                              borderColor: [
-                                "rgba(255, 255, 255, 0.1)",
-                                "rgba(244, 63, 94, 0.8)",
-                                "rgba(251, 113, 133, 0.6)",
-                                "rgba(255, 255, 255, 0.1)",
-                              ],
-                            }
-                          : { scale: 1, rotate: 0 }
-                      }
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.94 }}
-                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
-                      title="Click for privacy protocol"
-                    >
-                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-500" />
-                      <span>Female</span>
-                      <span className="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono flex items-center gap-1 border border-rose-500/20">
-                        <span>🌸</span>
-                        <span>Protected</span>
-                      </span>
-                    </motion.button>
-                  </div>
-
-                  {errors.gender && (
-                    <p className="text-xs text-rose-400">{errors.gender.message}</p>
-                  )}
                 </div>
 
                 {/* Submit Button */}
