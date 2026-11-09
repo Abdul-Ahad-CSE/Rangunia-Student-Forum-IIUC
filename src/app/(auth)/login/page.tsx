@@ -79,6 +79,13 @@ const ROLE_METADATA: Record<
   },
 };
 
+const ROLE_TO_LOGIN_TYPE: Record<RoleOption, "STUDENT" | "ALUMNI" | "ADMIN" | "SUPER_ADMIN"> = {
+  student: "STUDENT",
+  alumni: "ALUMNI",
+  executive: "ADMIN",
+  super_admin: "SUPER_ADMIN",
+};
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -99,7 +106,8 @@ function LoginForm() {
     setIsLoading(true);
 
     try {
-      const res = await loginWithCredentialsAction(email, password);
+      const loginType = ROLE_TO_LOGIN_TYPE[activeRole];
+      const res = await loginWithCredentialsAction(email, password, loginType);
 
       if (!res?.success) {
         setErrorMessage(
@@ -218,6 +226,11 @@ function LoginForm() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="hidden"
+            name="loginType"
+            value={ROLE_TO_LOGIN_TYPE[activeRole]}
+          />
           <div className="space-y-2">
             <Label htmlFor="email" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-emerald-400" />

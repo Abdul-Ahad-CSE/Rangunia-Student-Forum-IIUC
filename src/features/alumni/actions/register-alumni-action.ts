@@ -98,6 +98,7 @@ export async function registerAlumniAction(
           socialLinks: Object.keys(socialLinks).length > 0 ? socialLinks : undefined,
           bio: data.bio ? data.bio.trim() : null,
           role: "STUDENT",
+          approvalStatus: "PENDING",
           verificationStatus: "PENDING",
           isActive: true,
         },

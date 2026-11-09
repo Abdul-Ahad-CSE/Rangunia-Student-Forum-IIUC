@@ -73,6 +73,7 @@ model User {
 
   // Status & Governance
   role               Role               @default(STUDENT)
+  approvalStatus     ApprovalStatus     @default(PENDING)
   verificationStatus VerificationStatus @default(PENDING)
   isActive           Boolean            @default(true)
   emailVerified      DateTime?
@@ -99,6 +100,7 @@ model User {
   @@index([department])
   @@index([session])
   @@index([role])
+  @@index([approvalStatus])
 }
 
 model StudentProfile {

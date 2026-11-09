@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -20,6 +21,15 @@ import {
 async function AdminDashboardContent() {
   const session = await auth();
   const isSuperAdmin = session?.user?.role === "SUPER_ADMIN";
+
+  let canManageProfiles = isSuperAdmin;
+  if (!isSuperAdmin && session?.user?.id) {
+    const adminUser = await prisma.adminUser.findUnique({
+      where: { id: session.user.id },
+      select: { canManageProfiles: true },
+    });
+    canManageProfiles = Boolean(adminUser?.canManageProfiles);
+  }
 
   return (
     <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] text-white">
@@ -66,6 +76,18 @@ async function AdminDashboardContent() {
                   </Button>
                 </Link>
               </>
+            )}
+
+            {!isSuperAdmin && canManageProfiles && (
+              <Link href="/admin/approvals">
+                <Button
+                  variant="outline"
+                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-9"
+                >
+                  <Users className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Member Approvals</span>
+                </Button>
+              </Link>
             )}
 
             <form
@@ -131,20 +153,32 @@ async function AdminDashboardContent() {
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
                 <Users className="w-5 h-5" />
               </div>
-              <CardTitle className="text-lg">Student Directory</CardTitle>
+              <CardTitle className="text-lg">Member Approvals & Directory</CardTitle>
               <CardDescription className="text-zinc-400 text-xs">
-                Manage registered students, verify forum memberships, and export batches.
+                Review pending registrations, verify forum memberships, and moderate student/alumni records.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
-                disabled
-              >
-                <span>Phase 4 In Development</span>
-              </Button>
+              {canManageProfiles ? (
+                <Link href="/admin/approvals">
+                  <Button
+                    size="sm"
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-950 flex items-center justify-center gap-1.5"
+                  >
+                    <span>Manage Approvals</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full border-white/10 bg-white/5 text-zinc-400 text-xs cursor-not-allowed"
+                  disabled
+                >
+                  <span>Requires &apos;canManageProfiles&apos; Access</span>
+                </Button>
+              )}
             </CardContent>
           </Card>
 

@@ -11,20 +11,24 @@ export type LoginResponse = {
   redirectTo?: string;
 };
 
+export type LoginType = "SUPER_ADMIN" | "ADMIN" | "STUDENT" | "ALUMNI";
+
 export async function loginWithCredentialsAction(
   emailInput: string,
-  passwordInput: string
+  passwordInput: string,
+  loginTypeInput: string = "STUDENT"
 ): Promise<LoginResponse> {
   try {
     const email = emailInput.toLowerCase().trim();
     const password = passwordInput;
+    const loginType = (loginTypeInput || "STUDENT").toUpperCase().trim() as LoginType;
 
-    const superAdminEmail = (process.env.SUPER_ADMIN_EMAIL || "").toLowerCase().trim();
-    const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || "";
+    // 1. Super Admin Strictly Scoped Check
+    if (loginType === "SUPER_ADMIN") {
+      const superAdminEmail = (process.env.SUPER_ADMIN_EMAIL || "").toLowerCase().trim();
+      const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || "";
 
-    // 1. Super Admin Check
-    if (email === superAdminEmail) {
-      if (password !== superAdminPassword) {
+      if (email !== superAdminEmail || password !== superAdminPassword) {
         return { success: false, error: "Invalid credentials for Super Admin." };
       }
 
@@ -32,6 +36,7 @@ export async function loginWithCredentialsAction(
         await signIn("credentials", {
           email,
           password,
+          loginType: "SUPER_ADMIN",
           redirect: false,
         });
         return { success: true, redirectTo: "/admin/super" };
@@ -56,12 +61,16 @@ export async function loginWithCredentialsAction(
       }
     }
 
-    // 2. Database Admin Check
-    const admin = await prisma.adminUser.findUnique({
-      where: { email },
-    });
+    // 2. Executive Admin Strictly Scoped Check
+    if (loginType === "ADMIN") {
+      const admin = await prisma.adminUser.findUnique({
+        where: { email },
+      });
 
-    if (admin) {
+      if (!admin) {
+        return { success: false, error: "No executive administrator account found with this email." };
+      }
+
       // Explicit approvalStatus checks
       if (admin.approvalStatus === "PENDING") {
         return {
@@ -88,6 +97,7 @@ export async function loginWithCredentialsAction(
         await signIn("credentials", {
           email,
           password,
+          loginType: "ADMIN",
           redirect: false,
         });
         return { success: true, redirectTo: "/admin/dashboard" };
@@ -112,16 +122,27 @@ export async function loginWithCredentialsAction(
       }
     }
 
-    // 3. Database User Check (Student / Alumni)
-    const user = await prisma.user.findUnique({
-      where: { email },
-      include: {
-        studentProfile: true,
-        alumniProfile: true,
-      },
-    });
+    // 3. Student Member Strictly Scoped Check
+    if (loginType === "STUDENT") {
+      const user = await prisma.user.findUnique({
+        where: { email },
+        include: {
+          studentProfile: true,
+          alumniProfile: true,
+        },
+      });
 
-    if (user) {
+      if (!user) {
+        return { success: false, error: "No student account found with this email address." };
+      }
+
+      if (user.alumniProfile) {
+        return {
+          success: false,
+          error: "This is an Alumni account. Please switch to the Alumni login portal.",
+        };
+      }
+
       if (!user.isActive) {
         return {
           success: false,
@@ -145,11 +166,12 @@ export async function loginWithCredentialsAction(
         await signIn("credentials", {
           email,
           password,
+          loginType: "STUDENT",
           redirect: false,
         });
         return { success: true, redirectTo: "/profile" };
       } catch (err) {
-        console.error("User signIn error:", err);
+        console.error("Student signIn error:", err);
         if (err instanceof AuthError) {
           return {
             success: false,
@@ -169,7 +191,76 @@ export async function loginWithCredentialsAction(
       }
     }
 
-    return { success: false, error: "No account found with this email address." };
+    // 4. Alumni Member Strictly Scoped Check
+    if (loginType === "ALUMNI") {
+      const user = await prisma.user.findUnique({
+        where: { email },
+        include: {
+          studentProfile: true,
+          alumniProfile: true,
+        },
+      });
+
+      if (!user) {
+        return { success: false, error: "No alumni account found with this email address." };
+      }
+
+      if (!user.alumniProfile) {
+        return {
+          success: false,
+          error: "This is a Student account. Please switch to the Student login portal.",
+        };
+      }
+
+      if (!user.isActive) {
+        return {
+          success: false,
+          error: "Your account is deactivated. Please contact forum administrators.",
+        };
+      }
+
+      if (!user.passwordHash) {
+        return {
+          success: false,
+          error: "No password configured for this account. Please reach out for support.",
+        };
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+      if (!isPasswordValid) {
+        return { success: false, error: "Invalid password provided." };
+      }
+
+      try {
+        await signIn("credentials", {
+          email,
+          password,
+          loginType: "ALUMNI",
+          redirect: false,
+        });
+        return { success: true, redirectTo: "/profile" };
+      } catch (err) {
+        console.error("Alumni signIn error:", err);
+        if (err instanceof AuthError) {
+          return {
+            success: false,
+            error:
+              err.type === "CredentialsSignin"
+                ? "Invalid email or password."
+                : "Authentication session could not be established.",
+          };
+        }
+        return {
+          success: false,
+          error:
+            err instanceof Error
+              ? err.message
+              : "Authentication session could not be established.",
+        };
+      }
+    }
+
+    return { success: false, error: "Invalid login category selected." };
   } catch (globalError) {
     console.error("Unexpected error in loginWithCredentialsAction:", globalError);
     return {

@@ -52,6 +52,9 @@
   - Built dedicated Alumni Registration (`/register/alumni`) capturing employment, industry, work location, and career details with the identical top-level Gender Privacy Gatekeeper.
   - Expanded Auth.js (`src/auth.ts`) and `loginWithCredentialsAction` to authenticate `prisma.user` members (matching bcrypt hash, computing role, verifying active status, and directing to `/profile`).
   - Implemented authenticated `/profile` Server Component wrapped in `<React.Suspense>` rendering role-specific profile overviews and interactive updates (`StudentProfileForm` and `AlumniProfileForm`) wired to transactional Prisma updates.
+  - **Auth Scoping & Admin Approvals Updates:**
+    - Fixed NextAuth cross-portal login bug by enforcing strict loginType scoping.
+    - Added Admin Approval dashboard for Students/Alumni protected by canManageProfiles flag.
 - [ ] Phase 6: Request-Based Data Entry System (Draft submission & Admin approval)
 - [ ] Phase 7: Notice & Event Modules (Role-protected)
 - [ ] Phase 8: Public Directory & Smart Search (Gender-isolation & Privacy masking)

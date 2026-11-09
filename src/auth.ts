@@ -28,6 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        loginType: { label: "Login Type", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -36,27 +37,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const email = String(credentials.email).trim().toLowerCase();
         const password = String(credentials.password);
+        const loginType = credentials?.loginType
+          ? String(credentials.loginType).trim().toUpperCase()
+          : null;
 
-        const superAdminEmail = (process.env.SUPER_ADMIN_EMAIL || "").trim().toLowerCase();
-        const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || "";
-
-        // 1. Super Admin Hardcoded Verification (Bypasses Database)
-        if (email === superAdminEmail && password === superAdminPassword) {
-          return {
-            id: "super-admin",
-            name: "Super Admin",
-            email: superAdminEmail,
-            role: "SUPER_ADMIN",
-            approvalStatus: "APPROVED",
-          };
+        // Strict Scoping Gate: LoginType is strictly required to prevent cross-portal authentication
+        if (!loginType) {
+          return null;
         }
 
-        // 2. Database Admin Verification
-        const admin = await prisma.adminUser.findUnique({
-          where: { email },
-        });
+        // 1. Super Admin Hardcoded Verification (Strictly Scoped)
+        if (loginType === "SUPER_ADMIN") {
+          const superAdminEmail = (process.env.SUPER_ADMIN_EMAIL || "").trim().toLowerCase();
+          const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || "";
 
-        if (admin) {
+          if (email === superAdminEmail && password === superAdminPassword) {
+            return {
+              id: "super-admin",
+              name: "Super Admin",
+              email: superAdminEmail,
+              role: "SUPER_ADMIN",
+              approvalStatus: "APPROVED",
+            };
+          }
+          return null;
+        }
+
+        // 2. Database Admin Verification (Strictly Scoped)
+        if (loginType === "ADMIN" || loginType === "EXECUTIVE") {
+          const admin = await prisma.adminUser.findUnique({
+            where: { email },
+          });
+
+          if (!admin) {
+            return null;
+          }
+
           // Check approval status: Pending admins are explicitly blocked
           if (admin.approvalStatus === "PENDING") {
             throw new Error("Your account is awaiting Super Admin approval.");
@@ -80,16 +96,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           };
         }
 
-        // 3. Database Student / Alumni Member Verification
-        const user = await prisma.user.findUnique({
-          where: { email },
-          include: {
-            studentProfile: true,
-            alumniProfile: true,
-          },
-        });
+        // 3. Database Student Member Verification (Strictly Scoped)
+        if (loginType === "STUDENT") {
+          const user = await prisma.user.findUnique({
+            where: { email },
+            include: {
+              studentProfile: true,
+              alumniProfile: true,
+            },
+          });
 
-        if (user && user.passwordHash) {
+          // Must be a user without an alumni profile
+          if (!user || user.alumniProfile || !user.passwordHash) {
+            return null;
+          }
+
           if (!user.isActive) {
             throw new Error("Your account is currently deactivated. Please contact support.");
           }
@@ -99,14 +120,45 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return null;
           }
 
-          const computedRole = user.alumniProfile ? "ALUMNI" : user.role;
+          return {
+            id: user.id,
+            name: user.fullName || user.name || "Student Member",
+            email: user.email,
+            role: "STUDENT",
+            approvalStatus: user.approvalStatus,
+          };
+        }
+
+        // 4. Database Alumni Member Verification (Strictly Scoped)
+        if (loginType === "ALUMNI") {
+          const user = await prisma.user.findUnique({
+            where: { email },
+            include: {
+              studentProfile: true,
+              alumniProfile: true,
+            },
+          });
+
+          // Must be a user with an alumni profile
+          if (!user || !user.alumniProfile || !user.passwordHash) {
+            return null;
+          }
+
+          if (!user.isActive) {
+            throw new Error("Your account is currently deactivated. Please contact support.");
+          }
+
+          const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+          if (!isPasswordValid) {
+            return null;
+          }
 
           return {
             id: user.id,
-            name: user.fullName || user.name || "Member",
+            name: user.fullName || user.name || "Alumni Member",
             email: user.email,
-            role: computedRole,
-            approvalStatus: user.verificationStatus,
+            role: "ALUMNI",
+            approvalStatus: user.approvalStatus,
           };
         }
 

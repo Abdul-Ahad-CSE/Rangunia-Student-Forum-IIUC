@@ -5,10 +5,9 @@ import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import {
-  AdminApprovalList,
-  type SerializedAdminUser,
-} from "@/features/admin/components/admin-approval-cards";
+import { SuperAdminTabs } from "@/features/admin/components/super-admin-tabs";
+import type { SerializedAdminUser } from "@/features/admin/components/admin-approval-cards";
+import type { SerializedPendingMember } from "@/features/approvals/types/approval.types";
 import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2, Lock } from "lucide-react";
 
 export const metadata = {
@@ -47,8 +46,40 @@ async function SuperAdminDashboardContent() {
     createdAt: admin.createdAt.toISOString(),
   }));
 
-  const pendingCount = serializedAdmins.filter((a) => a.approvalStatus === "PENDING").length;
-  const approvedCount = serializedAdmins.filter((a) => a.approvalStatus === "APPROVED").length;
+  // 3. Fetch all pending forum members (Students & Alumni)
+  const pendingMembersRaw = await prisma.user.findMany({
+    where: { approvalStatus: "PENDING" },
+    include: {
+      studentProfile: true,
+      alumniProfile: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const serializedMembers: SerializedPendingMember[] = pendingMembersRaw.map((u) => ({
+    id: u.id,
+    fullName: u.fullName,
+    studentId: u.studentId,
+    email: u.email,
+    role: u.alumniProfile ? "ALUMNI" : "STUDENT",
+    department: u.department,
+    session: u.session,
+    phone: u.phone,
+    bloodGroup: u.bloodGroup,
+    address: u.address,
+    approvalStatus: u.approvalStatus,
+    verificationStatus: u.verificationStatus,
+    photoUrl: u.photoUrl,
+    createdAt: u.createdAt.toISOString(),
+    isAlumni: Boolean(u.alumniProfile),
+    jobPosition: u.alumniProfile?.jobPosition,
+    company: u.alumniProfile?.company,
+    currentSemester: u.studentProfile?.currentSemester,
+  }));
+
+  const pendingAdminCount = serializedAdmins.filter((a) => a.approvalStatus === "PENDING").length;
+  const approvedAdminCount = serializedAdmins.filter((a) => a.approvalStatus === "APPROVED").length;
+  const pendingMemberCount = serializedMembers.length;
 
   return (
     <div className="min-h-screen bg-[#040907] text-white">
@@ -75,6 +106,17 @@ async function SuperAdminDashboardContent() {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link href="/admin/approvals">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/40 text-xs hidden md:flex"
+              >
+                <Users className="h-3.5 w-3.5 mr-1.5" />
+                <span>Member Approvals ({pendingMemberCount})</span>
+              </Button>
+            </Link>
+
             <Link href="/admin/super/permissions">
               <Button
                 variant="outline"
@@ -124,10 +166,10 @@ async function SuperAdminDashboardContent() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white">
-                Executive Approval Center
+                Forum Authority Center
               </h1>
               <p className="mt-1 text-sm text-zinc-400">
-                Review, verify, and approve assistant administrators requesting executive system privileges.
+                Oversee executive admin appointments, review pending member registrations, and manage system privileges.
               </p>
             </div>
 
@@ -135,31 +177,34 @@ async function SuperAdminDashboardContent() {
               <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2">
                 <Clock className="w-4 h-4 text-amber-400" />
                 <div className="text-left">
-                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Awaiting</p>
-                  <p className="text-sm font-bold text-amber-300">{pendingCount}</p>
+                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Pending Admins</p>
+                  <p className="text-sm font-bold text-amber-300">{pendingAdminCount}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2">
+                <Users className="w-4 h-4 text-teal-400" />
+                <div className="text-left">
+                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Pending Members</p>
+                  <p className="text-sm font-bold text-teal-300">{pendingMemberCount}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 <div className="text-left">
-                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Approved</p>
-                  <p className="text-sm font-bold text-emerald-300">{approvedCount}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-                <Users className="w-4 h-4 text-zinc-400" />
-                <div className="text-left">
-                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Total</p>
-                  <p className="text-sm font-bold text-white">{serializedAdmins.length}</p>
+                  <p className="text-[10px] text-zinc-400 uppercase tracking-wider">Approved Admins</p>
+                  <p className="text-sm font-bold text-emerald-300">{approvedAdminCount}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Interactive Approval Queue */}
-          <AdminApprovalList initialAdmins={serializedAdmins} />
+          {/* Interactive Dual Approval Tabs */}
+          <SuperAdminTabs
+            initialAdmins={serializedAdmins}
+            initialMembers={serializedMembers}
+          />
         </Container>
       </main>
     </div>
