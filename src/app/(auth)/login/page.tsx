@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { loginWithCredentialsAction } from "@/features/auth/actions/login-action";
+import { toast } from "sonner";
 
 type RoleOption = "student" | "alumni" | "executive" | "super_admin";
 
@@ -110,9 +111,31 @@ function LoginForm() {
       const res = await loginWithCredentialsAction(email, password, loginType);
 
       if (!res?.success) {
-        setErrorMessage(
-          res?.error || "Invalid credentials. Please verify your email and password."
-        );
+        const errorText =
+          res?.error || "Invalid credentials. Please verify your email and password.";
+
+        if (
+          errorText.toLowerCase().includes("waiting for approval") ||
+          errorText.toLowerCase().includes("awaiting") ||
+          errorText.toLowerCase().includes("pending")
+        ) {
+          const displayMsg =
+            "Waiting for approval. You cannot log in until an executive verifies your account.";
+          setErrorMessage(displayMsg);
+          toast.error(displayMsg, { duration: 6000 });
+          return;
+        }
+
+        if (errorText.toLowerCase().includes("rejected")) {
+          const rejectMsg =
+            "Registration request rejected. Your account was not approved by forum executives.";
+          setErrorMessage(rejectMsg);
+          toast.error(rejectMsg, { duration: 6000 });
+          return;
+        }
+
+        setErrorMessage(errorText);
+        toast.error(errorText);
         return;
       }
 
@@ -130,7 +153,25 @@ function LoginForm() {
         err instanceof Error
           ? err.message
           : "An unexpected network error occurred. Please try again.";
-      setErrorMessage(message);
+
+      if (
+        message.toLowerCase().includes("waiting for approval") ||
+        message.toLowerCase().includes("awaiting") ||
+        message.toLowerCase().includes("pending")
+      ) {
+        const displayMsg =
+          "Waiting for approval. You cannot log in until an executive verifies your account.";
+        setErrorMessage(displayMsg);
+        toast.error(displayMsg, { duration: 6000 });
+      } else if (message.toLowerCase().includes("rejected")) {
+        const rejectMsg =
+          "Registration request rejected. Your account was not approved by forum executives.";
+        setErrorMessage(rejectMsg);
+        toast.error(rejectMsg, { duration: 6000 });
+      } else {
+        setErrorMessage(message);
+        toast.error(message);
+      }
     } finally {
       // Ensure loading state resets in all failure or completion scenarios
       setIsLoading(false);
@@ -139,7 +180,8 @@ function LoginForm() {
 
   const isPendingApprovalError = Boolean(
     errorMessage &&
-      (errorMessage.toLowerCase().includes("awaiting") ||
+      (errorMessage.toLowerCase().includes("waiting for approval") ||
+        errorMessage.toLowerCase().includes("awaiting") ||
         errorMessage.toLowerCase().includes("pending"))
   );
 

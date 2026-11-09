@@ -117,7 +117,7 @@ export async function registerAlumniAction(
 
     return {
       success: true,
-      message: "Alumni profile created successfully! You can now sign in to your alumni portal.",
+      message: "Registration request submitted. Please wait for executive approval.",
     };
   } catch (error) {
     console.error("registerAlumniAction error:", error);

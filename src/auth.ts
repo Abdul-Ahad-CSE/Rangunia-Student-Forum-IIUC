@@ -73,18 +73,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return null;
           }
 
-          // Check approval status: Pending admins are explicitly blocked
-          if (admin.approvalStatus === "PENDING") {
-            throw new Error("Your account is awaiting Super Admin approval.");
-          }
-
-          if (admin.approvalStatus === "REJECTED") {
-            throw new Error("Your registration has been rejected by Super Admin.");
-          }
-
           const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
           if (!isPasswordValid) {
             return null;
+          }
+
+          // Check approval status: Pending admins are strictly blocked
+          if (admin.approvalStatus === "PENDING") {
+            throw new Error("Waiting for approval");
+          }
+
+          if (admin.approvalStatus === "REJECTED") {
+            throw new Error("Registration request rejected");
           }
 
           return {
@@ -120,6 +120,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return null;
           }
 
+          // Check approval status: Pending students are strictly blocked
+          if (user.approvalStatus === "PENDING") {
+            throw new Error("Waiting for approval");
+          }
+
+          if (user.approvalStatus === "REJECTED") {
+            throw new Error("Registration request rejected");
+          }
+
           return {
             id: user.id,
             name: user.fullName || user.name || "Student Member",
@@ -151,6 +160,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
           if (!isPasswordValid) {
             return null;
+          }
+
+          // Check approval status: Pending alumni are strictly blocked
+          if (user.approvalStatus === "PENDING") {
+            throw new Error("Waiting for approval");
+          }
+
+          if (user.approvalStatus === "REJECTED") {
+            throw new Error("Registration request rejected");
           }
 
           return {

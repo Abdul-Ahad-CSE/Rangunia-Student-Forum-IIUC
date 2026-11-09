@@ -71,26 +71,24 @@ export async function loginWithCredentialsAction(
         return { success: false, error: "No executive administrator account found with this email." };
       }
 
+      const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
+      if (!isPasswordValid) {
+        return { success: false, error: "Invalid password provided." };
+      }
+
       // Explicit approvalStatus checks
       if (admin.approvalStatus === "PENDING") {
         return {
           success: false,
-          error: "Your account is awaiting Super Admin approval.",
+          error: "Waiting for approval",
         };
       }
 
       if (admin.approvalStatus === "REJECTED") {
         return {
           success: false,
-          error:
-            admin.rejectionReason ||
-            "Your registration has been rejected by the Super Admin.",
+          error: "Registration request rejected",
         };
-      }
-
-      const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
-      if (!isPasswordValid) {
-        return { success: false, error: "Invalid password provided." };
       }
 
       try {
@@ -103,21 +101,25 @@ export async function loginWithCredentialsAction(
         return { success: true, redirectTo: "/admin/dashboard" };
       } catch (err) {
         console.error("Admin signIn error:", err);
+        const errMsg = err instanceof Error ? err.message : "";
+        if (errMsg.includes("Waiting for approval")) {
+          return { success: false, error: "Waiting for approval" };
+        }
+        if (errMsg.includes("Registration request rejected")) {
+          return { success: false, error: "Registration request rejected" };
+        }
         if (err instanceof AuthError) {
           return {
             success: false,
             error:
               err.type === "CredentialsSignin"
                 ? "Invalid email or password."
-                : "Authentication session could not be established.",
+                : "Authentication failed. Please verify credentials.",
           };
         }
         return {
           success: false,
-          error:
-            err instanceof Error
-              ? err.message
-              : "Authentication session could not be established.",
+          error: errMsg || "Authentication session could not be established.",
         };
       }
     }
@@ -162,6 +164,21 @@ export async function loginWithCredentialsAction(
         return { success: false, error: "Invalid password provided." };
       }
 
+      // Explicit approvalStatus checks
+      if (user.approvalStatus === "PENDING") {
+        return {
+          success: false,
+          error: "Waiting for approval",
+        };
+      }
+
+      if (user.approvalStatus === "REJECTED") {
+        return {
+          success: false,
+          error: "Registration request rejected",
+        };
+      }
+
       try {
         await signIn("credentials", {
           email,
@@ -172,6 +189,13 @@ export async function loginWithCredentialsAction(
         return { success: true, redirectTo: "/profile" };
       } catch (err) {
         console.error("Student signIn error:", err);
+        const errMsg = err instanceof Error ? err.message : "";
+        if (errMsg.includes("Waiting for approval")) {
+          return { success: false, error: "Waiting for approval" };
+        }
+        if (errMsg.includes("Registration request rejected")) {
+          return { success: false, error: "Registration request rejected" };
+        }
         if (err instanceof AuthError) {
           return {
             success: false,
@@ -183,10 +207,7 @@ export async function loginWithCredentialsAction(
         }
         return {
           success: false,
-          error:
-            err instanceof Error
-              ? err.message
-              : "Authentication session could not be established.",
+          error: errMsg || "Authentication session could not be established.",
         };
       }
     }
@@ -231,6 +252,21 @@ export async function loginWithCredentialsAction(
         return { success: false, error: "Invalid password provided." };
       }
 
+      // Explicit approvalStatus checks
+      if (user.approvalStatus === "PENDING") {
+        return {
+          success: false,
+          error: "Waiting for approval",
+        };
+      }
+
+      if (user.approvalStatus === "REJECTED") {
+        return {
+          success: false,
+          error: "Registration request rejected",
+        };
+      }
+
       try {
         await signIn("credentials", {
           email,
@@ -241,6 +277,13 @@ export async function loginWithCredentialsAction(
         return { success: true, redirectTo: "/profile" };
       } catch (err) {
         console.error("Alumni signIn error:", err);
+        const errMsg = err instanceof Error ? err.message : "";
+        if (errMsg.includes("Waiting for approval")) {
+          return { success: false, error: "Waiting for approval" };
+        }
+        if (errMsg.includes("Registration request rejected")) {
+          return { success: false, error: "Registration request rejected" };
+        }
         if (err instanceof AuthError) {
           return {
             success: false,
@@ -252,10 +295,7 @@ export async function loginWithCredentialsAction(
         }
         return {
           success: false,
-          error:
-            err instanceof Error
-              ? err.message
-              : "Authentication session could not be established.",
+          error: errMsg || "Authentication session could not be established.",
         };
       }
     }

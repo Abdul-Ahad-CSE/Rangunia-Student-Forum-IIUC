@@ -84,8 +84,7 @@ export async function registerAdminAction(
 
     return {
       success: true,
-      message:
-        "Admin registration submitted successfully! Your account is currently PENDING approval by the Super Admin.",
+      message: "Registration request submitted. Please wait for executive approval.",
     };
   } catch (error) {
     console.error("Error during admin registration:", error);

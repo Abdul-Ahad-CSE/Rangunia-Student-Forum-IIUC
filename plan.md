@@ -55,6 +55,9 @@
   - **Auth Scoping & Admin Approvals Updates:**
     - Fixed NextAuth cross-portal login bug by enforcing strict loginType scoping.
     - Added Admin Approval dashboard for Students/Alumni protected by canManageProfiles flag.
+    - Secured Auth.js authorize callback to strictly block logins for PENDING accounts
+    - Updated registration forms to act as requests without auto-login
+    - Added 'Waiting for approval' frontend notification on login attempt
 - [ ] Phase 6: Request-Based Data Entry System (Draft submission & Admin approval)
 - [ ] Phase 7: Notice & Event Modules (Role-protected)
 - [ ] Phase 8: Public Directory & Smart Search (Gender-isolation & Privacy masking)

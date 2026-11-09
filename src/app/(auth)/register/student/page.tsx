@@ -133,7 +133,8 @@ export default function StudentRegisterPage() {
     if (!res.success) {
       setServerError(res.error || "Failed to submit student registration");
     } else {
-      setSuccessMessage(res.message || "Registration submitted successfully!");
+      toast.success("Registration request submitted. Please wait for executive approval.");
+      setSuccessMessage(res.message || "Registration request submitted. Please wait for executive approval.");
     }
   };
 
@@ -167,14 +168,14 @@ export default function StudentRegisterPage() {
               <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl font-bold text-white">Welcome to RSF!</h2>
+              <h2 className="text-2xl font-bold text-white">Registration Request Submitted!</h2>
               <p className="text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
                 {successMessage}
               </p>
               <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
                 <Link href="/login">
                   <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">
-                    <span>Sign In to Profile</span>
+                    <span>Return to Login</span>
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>

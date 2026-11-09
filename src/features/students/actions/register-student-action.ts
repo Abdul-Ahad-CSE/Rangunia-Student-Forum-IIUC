@@ -118,7 +118,7 @@ export async function registerStudentAction(
 
     return {
       success: true,
-      message: "Student registration submitted successfully! You can now sign in to your profile.",
+      message: "Registration request submitted. Please wait for executive approval.",
     };
   } catch (error) {
     console.error("registerStudentAction error:", error);

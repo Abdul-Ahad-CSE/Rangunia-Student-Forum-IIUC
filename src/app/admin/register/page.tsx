@@ -101,7 +101,8 @@ export default function AdminRegisterPage() {
     if (!res.success) {
       setServerError(res.error || "Failed to submit registration");
     } else {
-      setSuccessMessage(res.message || "Registration submitted successfully!");
+      toast.success("Registration request submitted. Please wait for executive approval.");
+      setSuccessMessage(res.message || "Registration request submitted. Please wait for executive approval.");
     }
   };
 
@@ -165,7 +166,7 @@ export default function AdminRegisterPage() {
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold text-white">
-                Application Submitted!
+                Registration Request Submitted!
               </h2>
               <p className="text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
                 {successMessage}
@@ -179,7 +180,7 @@ export default function AdminRegisterPage() {
               <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
                 <Link href="/login">
                   <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">
-                    <span>Go to Admin Login</span>
+                    <span>Return to Login</span>
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>

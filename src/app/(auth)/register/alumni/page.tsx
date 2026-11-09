@@ -131,7 +131,8 @@ export default function AlumniRegisterPage() {
     if (!res.success) {
       setServerError(res.error || "Failed to submit alumni registration");
     } else {
-      setSuccessMessage(res.message || "Alumni registration submitted successfully!");
+      toast.success("Registration request submitted. Please wait for executive approval.");
+      setSuccessMessage(res.message || "Registration request submitted. Please wait for executive approval.");
     }
   };
 
@@ -165,14 +166,14 @@ export default function AlumniRegisterPage() {
               <div className="w-14 h-14 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl font-bold text-white">Alumni Profile Created!</h2>
+              <h2 className="text-2xl font-bold text-white">Registration Request Submitted!</h2>
               <p className="text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
                 {successMessage}
               </p>
               <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
                 <Link href="/login">
                   <Button className="w-full sm:w-auto bg-teal-600 hover:bg-teal-500 text-white font-semibold">
-                    <span>Sign In to Alumni Portal</span>
+                    <span>Return to Login</span>
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
