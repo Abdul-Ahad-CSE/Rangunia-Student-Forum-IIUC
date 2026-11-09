@@ -61,58 +61,115 @@ export async function loginWithCredentialsAction(
       where: { email },
     });
 
-    if (!admin) {
-      return { success: false, error: "No account found with this email address." };
-    }
+    if (admin) {
+      // Explicit approvalStatus checks
+      if (admin.approvalStatus === "PENDING") {
+        return {
+          success: false,
+          error: "Your account is awaiting Super Admin approval.",
+        };
+      }
 
-    // Explicit approvalStatus checks
-    if (admin.approvalStatus === "PENDING") {
-      return {
-        success: false,
-        error: "Your account is awaiting Super Admin approval.",
-      };
-    }
-
-    if (admin.approvalStatus === "REJECTED") {
-      return {
-        success: false,
-        error:
-          admin.rejectionReason ||
-          "Your registration has been rejected by the Super Admin.",
-      };
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
-    if (!isPasswordValid) {
-      return { success: false, error: "Invalid password provided." };
-    }
-
-    try {
-      await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-      return { success: true, redirectTo: "/admin/dashboard" };
-    } catch (err) {
-      console.error("Admin signIn error:", err);
-      if (err instanceof AuthError) {
+      if (admin.approvalStatus === "REJECTED") {
         return {
           success: false,
           error:
-            err.type === "CredentialsSignin"
-              ? "Invalid email or password."
+            admin.rejectionReason ||
+            "Your registration has been rejected by the Super Admin.",
+        };
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
+      if (!isPasswordValid) {
+        return { success: false, error: "Invalid password provided." };
+      }
+
+      try {
+        await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        return { success: true, redirectTo: "/admin/dashboard" };
+      } catch (err) {
+        console.error("Admin signIn error:", err);
+        if (err instanceof AuthError) {
+          return {
+            success: false,
+            error:
+              err.type === "CredentialsSignin"
+                ? "Invalid email or password."
+                : "Authentication session could not be established.",
+          };
+        }
+        return {
+          success: false,
+          error:
+            err instanceof Error
+              ? err.message
               : "Authentication session could not be established.",
         };
       }
-      return {
-        success: false,
-        error:
-          err instanceof Error
-            ? err.message
-            : "Authentication session could not be established.",
-      };
     }
+
+    // 3. Database User Check (Student / Alumni)
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        studentProfile: true,
+        alumniProfile: true,
+      },
+    });
+
+    if (user) {
+      if (!user.isActive) {
+        return {
+          success: false,
+          error: "Your account is deactivated. Please contact forum administrators.",
+        };
+      }
+
+      if (!user.passwordHash) {
+        return {
+          success: false,
+          error: "No password configured for this account. Please reach out for support.",
+        };
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+      if (!isPasswordValid) {
+        return { success: false, error: "Invalid password provided." };
+      }
+
+      try {
+        await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        return { success: true, redirectTo: "/profile" };
+      } catch (err) {
+        console.error("User signIn error:", err);
+        if (err instanceof AuthError) {
+          return {
+            success: false,
+            error:
+              err.type === "CredentialsSignin"
+                ? "Invalid email or password."
+                : "Authentication session could not be established.",
+          };
+        }
+        return {
+          success: false,
+          error:
+            err instanceof Error
+              ? err.message
+              : "Authentication session could not be established.",
+        };
+      }
+    }
+
+    return { success: false, error: "No account found with this email address." };
   } catch (globalError) {
     console.error("Unexpected error in loginWithCredentialsAction:", globalError);
     return {

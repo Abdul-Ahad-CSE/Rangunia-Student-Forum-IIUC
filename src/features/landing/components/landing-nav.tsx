@@ -76,15 +76,15 @@ export function LandingNav() {
             <Button
               variant="outline"
               size="sm"
-              className="border-white/15 bg-white/5 text-zinc-200 hover:bg-white/10 hover:text-white"
+              className="border-white/15 bg-white/5 text-zinc-200 hover:bg-white/10 hover:text-white transition-all"
             >
-              Student Portal
+              Sign In
             </Button>
           </Link>
           <Link href="/register">
             <Button
               size="sm"
-              className="bg-emerald-600 text-white hover:bg-emerald-500 shadow-sm shadow-emerald-950 flex items-center gap-1"
+              className="bg-emerald-600 text-white hover:bg-emerald-500 shadow-sm shadow-emerald-950 flex items-center gap-1.5 font-medium transition-all"
             >
               <span>Join Forum</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -98,9 +98,9 @@ export function LandingNav() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-xs text-zinc-200 h-9 px-3 border border-white/10 bg-white/5"
+              className="text-xs text-zinc-200 h-9 px-3 border border-white/10 bg-white/5 font-medium"
             >
-              Portal
+              Sign In
             </Button>
           </Link>
           <button

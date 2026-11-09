@@ -56,31 +56,61 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: { email },
         });
 
-        if (!admin) {
-          return null;
+        if (admin) {
+          // Check approval status: Pending admins are explicitly blocked
+          if (admin.approvalStatus === "PENDING") {
+            throw new Error("Your account is awaiting Super Admin approval.");
+          }
+
+          if (admin.approvalStatus === "REJECTED") {
+            throw new Error("Your registration has been rejected by Super Admin.");
+          }
+
+          const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
+          if (!isPasswordValid) {
+            return null;
+          }
+
+          return {
+            id: admin.id,
+            name: admin.name,
+            email: admin.email,
+            role: admin.role,
+            approvalStatus: admin.approvalStatus,
+          };
         }
 
-        // Check approval status: Pending admins are explicitly blocked
-        if (admin.approvalStatus === "PENDING") {
-          throw new Error("Your account is awaiting Super Admin approval.");
+        // 3. Database Student / Alumni Member Verification
+        const user = await prisma.user.findUnique({
+          where: { email },
+          include: {
+            studentProfile: true,
+            alumniProfile: true,
+          },
+        });
+
+        if (user && user.passwordHash) {
+          if (!user.isActive) {
+            throw new Error("Your account is currently deactivated. Please contact support.");
+          }
+
+          const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+          if (!isPasswordValid) {
+            return null;
+          }
+
+          const computedRole = user.alumniProfile ? "ALUMNI" : user.role;
+
+          return {
+            id: user.id,
+            name: user.fullName || user.name || "Member",
+            email: user.email,
+            role: computedRole,
+            approvalStatus: user.verificationStatus,
+          };
         }
 
-        if (admin.approvalStatus === "REJECTED") {
-          throw new Error("Your registration has been rejected by Super Admin.");
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: admin.id,
-          name: admin.name,
-          email: admin.email,
-          role: admin.role,
-          approvalStatus: admin.approvalStatus,
-        };
+        return null;
       },
     }),
   ],
