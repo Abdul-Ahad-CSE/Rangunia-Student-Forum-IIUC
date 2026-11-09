@@ -11,6 +11,11 @@ export default auth((req) => {
     nextUrl.pathname.startsWith("/admin") &&
     !nextUrl.pathname.startsWith("/admin/register");
 
+  // 0. Clean alias: /admin/login -> /login
+  if (nextUrl.pathname === "/admin/login") {
+    return NextResponse.redirect(new URL("/login", nextUrl));
+  }
+
   // 1. Strict protection for Super Admin panel: strictly SUPER_ADMIN only
   if (isSuperAdminRoute) {
     if (!isLoggedIn) {

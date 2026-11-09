@@ -28,22 +28,39 @@ function LoginForm() {
     try {
       const res = await loginWithCredentialsAction(email, password);
 
-      if (!res.success) {
-        setErrorMessage(res.error || "Authentication failed.");
-        setIsLoading(false);
-      } else {
-        const destination = callbackUrl || res.redirectTo || "/admin/dashboard";
-        router.push(destination);
-        router.refresh();
+      if (!res?.success) {
+        setErrorMessage(
+          res?.error || "Invalid credentials. Please verify your email and password."
+        );
+        return;
       }
-    } catch {
-      setErrorMessage("An unexpected network error occurred.");
+
+      // Safe destination redirect avoiding login loops
+      const destination =
+        callbackUrl && !callbackUrl.includes("/login")
+          ? callbackUrl
+          : res.redirectTo || "/admin/dashboard";
+
+      router.push(destination);
+      router.refresh();
+    } catch (err) {
+      console.error("Login submission error:", err);
+      const message =
+        err instanceof Error
+          ? err.message
+          : "An unexpected network error occurred. Please try again.";
+      setErrorMessage(message);
+    } finally {
+      // Ensure loading state resets in all failure or completion scenarios
       setIsLoading(false);
     }
   };
 
-  const isPendingApprovalError =
-    errorMessage === "Your account is awaiting Super Admin approval.";
+  const isPendingApprovalError = Boolean(
+    errorMessage &&
+      (errorMessage.toLowerCase().includes("awaiting") ||
+        errorMessage.toLowerCase().includes("pending"))
+  );
 
   return (
     <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-2xl">
