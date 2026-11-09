@@ -36,6 +36,8 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { motion } from "motion/react";
+import { toast } from "sonner";
 
 export default function AdminRegisterPage() {
   const [serverError, setServerError] = React.useState<string | null>(null);
@@ -44,6 +46,7 @@ export default function AdminRegisterPage() {
   const [selectedGender, setSelectedGender] = React.useState<"Male" | "Female">("Male");
   const [photoPreview, setPhotoPreview] = React.useState<string | null>(null);
   const [photoFileName, setPhotoFileName] = React.useState<string | null>(null);
+  const [isFemaleAnimating, setIsFemaleAnimating] = React.useState(false);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,10 +105,31 @@ export default function AdminRegisterPage() {
     }
   };
 
-  const handleGenderFemaleClick = () => {
-    // 1. Immediately trigger the privacy notification
+  const handleGenderFemaleClick = (e: React.MouseEvent) => {
+    // 1. Crucially invoke e.preventDefault() and prevent state change
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 2. Trigger cute bounce, subtle scale and soft glow animation
+    setIsFemaleAnimating(true);
+    setTimeout(() => setIsFemaleAnimating(false), 650);
+
+    // 3. Immediately trigger elegant toast notification
+    toast("🌸 We care about your privacy, please contact with female executives for further information.", {
+      duration: 6000,
+      style: {
+        background: "rgba(12, 26, 20, 0.95)",
+        border: "1px solid rgba(244, 63, 94, 0.4)",
+        color: "#ffffff",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(244, 63, 94, 0.25)",
+        backdropFilter: "blur(12px)",
+      },
+    });
+
+    // 4. Trigger inline contextual alert
     setFemalePrivacyNotice(true);
-    // 2. Female must NOT be selectable: enforce "Male" remains selected
+
+    // 5. Security & Rule Enforcement: Strictly do NOT update react-hook-form to "Female"
     setSelectedGender("Male");
     setValue("gender", "Male");
   };
@@ -511,19 +535,43 @@ export default function AdminRegisterPage() {
                       <span>Male</span>
                     </button>
 
-                    {/* Option: Female (Triggers Toast / Non-selectable) */}
-                    <button
+                    {/* Option: Female (Framer Motion Animation / Triggers Toast / Non-selectable) */}
+                    <motion.button
                       type="button"
                       onClick={handleGenderFemaleClick}
-                      className="flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-all cursor-pointer"
+                      animate={
+                        isFemaleAnimating
+                          ? {
+                              scale: [1, 0.95, 1.05, 0.98, 1],
+                              rotate: [0, -2, 2, -1, 0],
+                              boxShadow: [
+                                "0 0 0 rgba(244, 63, 94, 0)",
+                                "0 0 25px rgba(244, 63, 94, 0.5)",
+                                "0 0 12px rgba(244, 63, 94, 0.3)",
+                                "0 0 0 rgba(244, 63, 94, 0)",
+                              ],
+                              borderColor: [
+                                "rgba(255, 255, 255, 0.1)",
+                                "rgba(244, 63, 94, 0.8)",
+                                "rgba(251, 113, 133, 0.6)",
+                                "rgba(255, 255, 255, 0.1)",
+                              ],
+                            }
+                          : { scale: 1, rotate: 0 }
+                      }
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.94 }}
+                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
                       title="Click for privacy protocol"
                     >
                       <span className="w-3.5 h-3.5 rounded-full border border-zinc-500" />
                       <span>Female</span>
-                      <span className="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono">
-                        Protected
+                      <span className="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono flex items-center gap-1 border border-rose-500/20">
+                        <span>🌸</span>
+                        <span>Protected</span>
                       </span>
-                    </button>
+                    </motion.button>
                   </div>
 
                   {errors.gender && (
