@@ -14,6 +14,12 @@ enum Role {
   STUDENT
 }
 
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum VerificationStatus {
   PENDING
   APPROVED
@@ -188,3 +194,31 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model AdminUser {
+  id               String         @id @default(cuid())
+  name             String
+  email            String         @unique
+  passwordHash     String
+  photoUrl         String         // URL of admin photo
+  studentId        String         @unique // IIUC Student ID
+  department       String         // e.g., CSE, EEE, BBA
+  section          String         // e.g., 5A, 4B
+  phone            String         // Phone Number
+  position         String         // Position in forum (e.g., General Executive)
+  enrollment       String         // Enrollment session (e.g., Spring 24)
+  currentAddress   String
+  permanentAddress String
+  gender           String         @default("Male")
+  role             Role           @default(ADMIN)
+  approvalStatus   ApprovalStatus @default(PENDING)
+  approvedAt       DateTime?
+  rejectionReason  String?        @db.Text
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@index([email])
+  @@index([studentId])
+  @@index([approvalStatus])
+}
+
