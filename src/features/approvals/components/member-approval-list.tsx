@@ -14,6 +14,7 @@ import {
   Building,
   Droplet,
   Sparkles,
+  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ import { toast } from "sonner";
 import {
   approveMemberAction,
   rejectMemberAction,
+  deleteMemberAction,
 } from "../actions/approval-actions";
 import type { SerializedPendingMember } from "../types/approval.types";
 
@@ -66,6 +68,28 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
         if (onActionComplete) onActionComplete();
       } else {
         toast.error(res.error || "Failed to reject member.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("An unexpected error occurred.");
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to permanently delete the registration record for ${name}?`)) {
+      return;
+    }
+    setProcessingId(id);
+    try {
+      const res = await deleteMemberAction(id);
+      if (res.success) {
+        toast.success(res.message || `${name} has been permanently deleted.`);
+        setMembers((prev) => prev.filter((m) => m.id !== id));
+        if (onActionComplete) onActionComplete();
+      } else {
+        toast.error(res.error || "Failed to delete member.");
       }
     } catch (err) {
       console.error(err);
@@ -286,6 +310,18 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
 
                     {/* Action Controls */}
                     <div className="flex items-center gap-2 self-end lg:self-center shrink-0 w-full sm:w-auto pt-2 lg:pt-0 border-t lg:border-t-0 border-white/5">
+                      <Button
+                        type="button"
+                        disabled={isProcessing}
+                        onClick={() => handleDelete(member.id, member.fullName)}
+                        variant="ghost"
+                        size="sm"
+                        className="h-9 px-2 text-zinc-400 hover:text-rose-400 hover:bg-rose-950/30 text-xs shrink-0"
+                        title="Delete record permanently"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </Button>
+
                       <Button
                         type="button"
                         disabled={isProcessing}
