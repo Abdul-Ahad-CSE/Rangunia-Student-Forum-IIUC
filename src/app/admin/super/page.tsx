@@ -9,7 +9,7 @@ import {
   AdminApprovalList,
   type SerializedAdminUser,
 } from "@/features/admin/components/admin-approval-cards";
-import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2 } from "lucide-react";
+import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2, Lock } from "lucide-react";
 
 export const metadata = {
   title: "Super Admin Control Panel | Rangunia Students Forum",
@@ -75,6 +75,17 @@ async function SuperAdminDashboardContent() {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link href="/admin/super/permissions">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs hidden sm:flex"
+              >
+                <Lock className="h-3.5 w-3.5 mr-1.5" />
+                <span>Admin Permissions</span>
+              </Button>
+            </Link>
+
             <Link href="/admin/dashboard">
               <Button
                 variant="outline"

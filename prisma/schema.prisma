@@ -14,7 +14,18 @@ enum Role {
   STUDENT
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum UpdateRequestStatus {
   PENDING
   APPROVED
   REJECTED
@@ -40,79 +51,124 @@ enum BloodGroup {
 
 model User {
   id                 String             @id @default(cuid())
-  name               String?
+  studentId          String             @unique // IIUC Matriculation / Student ID
   email              String             @unique
-  emailVerified      DateTime?
   passwordHash       String?
+  fullName           String
+  name               String?            // Compatibility alias for NextAuth
+  photoUrl           String?            @db.Text
+  gender             Gender
+  department         String             // e.g. CSE, EEE, BBA, Pharmacy
+  session            String             // Academic Session (e.g., Autumn 2021, Spring 2024)
+  bloodGroup         BloodGroup?
+  phone              String?
+  address            String?
+  socialLinks        Json?              // Structured JSON: { linkedin?, github?, facebook?, portfolio? }
+  bio                String?            @db.Text
+
+  // Privacy by Default Controls
+  isPhoneVisible     Boolean            @default(false)
+  isEmailVisible     Boolean            @default(false)
+  isSocialVisible    Boolean            @default(false)
+
+  // Status & Governance
   role               Role               @default(STUDENT)
   verificationStatus VerificationStatus @default(PENDING)
   isActive           Boolean            @default(true)
+  emailVerified      DateTime?
   lastLoginAt        DateTime?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
 
-  // Relationships
-  profile            StudentProfile?
+  // Profile Splitting (1:1 Relationships)
+  studentProfile     StudentProfile?
+  alumniProfile      AlumniProfile?
+
+  // Request-Based Update Submissions
+  updateRequests     ProfileUpdateRequest[]
+
+  // Platform Modules & Relations
   verification       StudentVerification?
   bloodDonor         BloodDonor?
   auditLogs          AuditLog[]
   accounts           Account[]
   sessions           Session[]
 
+  @@index([studentId])
   @@index([email])
+  @@index([department])
+  @@index([session])
   @@index([role])
-  @@index([verificationStatus])
 }
 
 model StudentProfile {
-  id               String      @id @default(cuid())
-  userId           String      @unique
-  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fullName         String
-  studentId        String      @unique // IIUC Matriculation / Student ID
-  department       String      // e.g. CSE, EEE, BBA, Pharmacy
-  academicSession  String      // e.g. Autumn 2021, Spring 2022
-  batch            String?     // e.g. 54th, 55th
-  phone            String?
-  whatsapp         String?
-  avatarUrl        String?
-  bio              String?     @db.Text
-  presentAddress   String?
-  permanentAddress String?
-  upazila          String      @default("Rangunia")
-  unionWard        String?     // Union/Ward within Rangunia
-  bloodGroup       BloodGroup?
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currentSemester  String   // e.g. 1st, 4th, 8th
+  cgpa             String?  // Optional / privacy protected
+  skills           String[] @default([]) // Technical / soft skills
+  interestedSector String?  // e.g. Web Development, AI/ML, Data Science, Telecom
+  clubRole         String?  // e.g. Member, Executive, Coordinator, Volunteer
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  // Privacy by Default Controls
-  // Student data is strictly private until explicitly set to true by the owner
-  isProfilePublic  Boolean     @default(false)
-  isPhonePublic    Boolean     @default(false)
-  isEmailPublic    Boolean     @default(false)
-  isAddressPublic  Boolean     @default(false)
-  showInDirectory  Boolean     @default(false)
+  @@index([userId])
+}
 
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+model AlumniProfile {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company               String?  // Current employer / Organization
+  jobPosition           String?  // Professional title
+  industry              String?  // e.g. Software, Banking, Telecommunications
+  workLocation          String?  // e.g. Dhaka, Chittagong, Remote, Abroad
+  experienceYears       Int?     // Total career experience in years
+  passingYear           String?  // Passing year
+  graduationYear        String?  // Degree conferral year
+  higherStudyUniversity String?  // University for postgraduate studies
+  higherStudyCountry    String?  // Country of higher study
+  higherStudyDegree     String?  // e.g. MSc, PhD, MBA
 
-  @@index([studentId])
-  @@index([department])
-  @@index([academicSession])
-  @@index([bloodGroup])
-  @@index([upazila])
+  // Mentorship and Assistance Offering
+  mentorshipAvailable   Boolean  @default(false)
+  internshipHelp        Boolean  @default(false)
+  cvReview              Boolean  @default(false)
+  higherStudyGuidance   Boolean  @default(false)
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model ProfileUpdateRequest {
+  id            String              @id @default(cuid())
+  userId        String
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  requestedData Json                // Holds draft payload for proposed changes
+  status        UpdateRequestStatus @default(PENDING)
+  adminNote     String?             @db.Text
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@index([userId])
+  @@index([status])
 }
 
 model StudentVerification {
-  id              String             @id @default(cuid())
-  userId          String             @unique
-  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  idCardImageUrl  String             // Secure cloud URL of student ID card
+  id               String             @id @default(cuid())
+  userId           String             @unique
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idCardImageUrl   String             // Secure cloud URL of student ID card
   supportingDocUrl String?
-  status          VerificationStatus @default(PENDING)
-  reviewerNotes   String?            @db.Text
-  verifiedAt      DateTime?
+  status           VerificationStatus @default(PENDING)
+  reviewerNotes    String?            @db.Text
+  verifiedAt       DateTime?
   verifiedByAdminId String?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 
   @@index([status])
   @@index([verifiedByAdminId])
@@ -144,7 +200,7 @@ model AuditLog {
   actorId     String?
   actor       User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
   action      String   // e.g. "USER_LOGIN", "PROFILE_UPDATED", "VERIFICATION_APPROVED", "DONOR_OPT_IN"
-  entityType  String   // e.g. "User", "StudentProfile", "BloodDonor", "Verification"
+  entityType  String   // e.g. "User", "StudentProfile", "AlumniProfile", "BloodDonor", "Verification"
   entityId    String?
   ipAddress   String?
   userAgent   String?  @db.Text
@@ -196,29 +252,35 @@ model VerificationToken {
 }
 
 model AdminUser {
-  id               String         @id @default(cuid())
-  name             String
-  email            String         @unique
-  passwordHash     String
-  photoUrl         String?        @db.Text // Optional profile photo (Base64 data or URL)
-  studentId        String         @unique // IIUC Student ID
-  department       String         // e.g., CSE, EEE, BBA
-  section          String         // e.g., 5A, 4B
-  phone            String         // Phone Number
-  position         String         // Position in forum (e.g., General Executive)
-  enrollment       String         // Enrollment session (e.g., Spring 24)
-  currentAddress   String
-  permanentAddress String
-  gender           String         @default("Male")
-  role             Role           @default(ADMIN)
-  approvalStatus   ApprovalStatus @default(PENDING)
-  approvedAt       DateTime?
-  rejectionReason  String?        @db.Text
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  id                 String         @id @default(cuid())
+  name               String
+  email              String         @unique
+  passwordHash       String
+  photoUrl           String?        @db.Text // Optional profile photo (Base64 data or URL)
+  studentId          String         @unique // IIUC Student ID
+  department         String         // e.g., CSE, EEE, BBA
+  section            String         // e.g., 5A, 4B
+  phone              String         // Phone Number
+  position           String         // Position in forum (e.g., General Executive)
+  enrollment         String         // Enrollment session (e.g., Spring 24)
+  currentAddress     String
+  permanentAddress   String
+  gender             String         @default("Male")
+  role               Role           @default(ADMIN)
+  approvalStatus     ApprovalStatus @default(PENDING)
+  approvedAt         DateTime?
+  rejectionReason    String?        @db.Text
+
+  // Granular capability flags (all default to false)
+  canManageProfiles  Boolean        @default(false)
+  canPostNotices     Boolean        @default(false)
+  canManageEvents    Boolean        @default(false)
+  canManageEmergency Boolean        @default(false)
+
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
 
   @@index([email])
   @@index([studentId])
   @@index([approvalStatus])
 }
-

@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Droplet,
   Loader2,
+  Lock,
 } from "lucide-react";
 
 async function AdminDashboardContent() {
@@ -47,12 +48,24 @@ async function AdminDashboardContent() {
 
           <div className="flex items-center gap-3">
             {isSuperAdmin && (
-              <Link href="/admin/super">
-                <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 shadow-md shadow-emerald-950">
-                  <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
-                  <span>Super Admin Approval Center</span>
-                </Button>
-              </Link>
+              <>
+                <Link href="/admin/super/permissions">
+                  <Button
+                    variant="outline"
+                    className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-9 hidden md:flex"
+                  >
+                    <Lock className="w-3.5 h-3.5 mr-1.5" />
+                    <span>Capability Controls</span>
+                  </Button>
+                </Link>
+
+                <Link href="/admin/super">
+                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 shadow-md shadow-emerald-950">
+                    <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
+                    <span>Approval Center</span>
+                  </Button>
+                </Link>
+              </>
             )}
 
             <form
@@ -89,12 +102,24 @@ async function AdminDashboardContent() {
               </div>
             </div>
 
-            <Link href="/admin/super" className="shrink-0">
-              <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">
-                <span>Manage Approvals</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
+              <Link href="/admin/super/permissions" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  className="w-full sm:w-auto border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs font-semibold"
+                >
+                  <Lock className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Permissions</span>
+                </Button>
+              </Link>
+
+              <Link href="/admin/super" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">
+                  <span>Manage Approvals</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         )}
 

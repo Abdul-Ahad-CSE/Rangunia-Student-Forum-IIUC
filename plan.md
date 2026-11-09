@@ -36,7 +36,14 @@
   - Fixed infinite loading state bug on login page by properly handling Auth.js promise resolution and state resetting.
   - Added cute Framer Motion animation and privacy toast notification for the Female gender option in admin registration.
   - Reordered Admin Registration form UX to place the Gender selection at the top, preventing time-waste for female applicants restricted by privacy rules.
-- [ ] Phase 4: Authentication and student profiles (Verification, login, privacy settings).
-- [ ] Phase 5: Community features (Events, announcements, blood donor network, job referrals).
-- [ ] Phase 6: Administration dashboard (Role-based access, approval workflows, audit logs).
-- [ ] Phase 7: Security and performance audit.
+- [x] Phase 4: Core Profile Schema & Granular Admin Roles
+  - Normalized database schema by expanding `User` model for common forum attributes (`studentId`, `email`, `passwordHash`, `fullName`, `photoUrl`, `gender` enum, `department`, `session`, `bloodGroup`, `phone`, `address`, `socialLinks` JSON, `bio`, and visibility toggles).
+  - Established 1:1 split profile architecture with `StudentProfile` (semester, cgpa, skills array, interested sector, club role) and `AlumniProfile` (company, position, industry, location, experience, graduation year, higher study details, and mentorship availability toggles).
+  - Implemented `ProfileUpdateRequest` model with draft payload (`requestedData` JSON), status enum (`PENDING`, `APPROVED`, `REJECTED`), and reviewer admin notes for request-based moderation.
+  - Enhanced `AdminUser` model with 4 granular capability flags (`canManageProfiles`, `canPostNotices`, `canManageEvents`, `canManageEmergency`).
+  - Synchronized updated schema directly with Neon PostgreSQL (`prisma db push`) and generated Prisma Client.
+  - Developed Super Admin Capability Management Center (`/admin/super/permissions`) protected by root middleware and server-side session authentication.
+  - Implemented interactive capability toggle matrix with optimistic state updates, batch granting/revoking, and server actions (`updateAdminPermissionsAction`).
+- [ ] Phase 5: Request-Based Data Entry System (Draft submission & Admin approval)
+- [ ] Phase 6: Notice & Event Modules (Role-protected)
+- [ ] Phase 7: Public Directory & Smart Search (Gender-isolation & Privacy masking)
