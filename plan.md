@@ -1,5 +1,8 @@
 # Project Plan: Rangunia Students Forum (IIUC) Platform
 
+## Development Rules
+*Every completed phase must include detailed bullet points of the technical implementation before being marked complete.*
+
 ## Finalized Technology Stack
 - **Frontend Framework:** Next.js (App Router)
 - **Language:** TypeScript
@@ -9,9 +12,17 @@
 - **Deployment Platform:** Vercel
 
 ## Roadmap
-- [x] Phase 1: Foundation and architecture (Folder structure, design system, DB schema, auth architecture conventions).
-- [x] Phase 2: Cinematic landing page (GSAP opening title animation, hero section, responsive navigation).
-  - *Bug Fix (SSR FOUC & Lifecycle Orchestration):* Rendered full-screen intro overlay on the server to prevent FOUC from millisecond zero; coordinated entrance lifecycle from a single source of truth in `page.tsx` (`introFinished`); hard-hid Hero content using Tailwind `invisible` until intro completion.
+- [x] Phase 1: Foundation and architecture
+  - Initialized Next.js 15 (App Router) with strict TypeScript and Tailwind CSS.
+  - Configured `shadcn/ui` for accessible primitive components.
+  - Scaffolded strict feature-based directory structure (`src/features`, `src/components`, `src/lib`).
+  - Integrated Prisma ORM and successfully connected to Neon DB (PostgreSQL).
+  - Drafted initial `schema.prisma` establishing Role-Based Access Control (Super Admin, Admin, Verified Students) and privacy-first profile fields.
+- [x] Phase 2: Cinematic landing page
+  - Built a mobile-first, performance-optimized Hero section using `iiuc.jpg` as an optimized Next.js background with a dark overlay.
+  - Implemented a GSAP-driven cinematic title sequence ("Rangunia Students Forum IIUC") synchronized with the `rsf_logo.png`.
+  - Resolved Next.js SSR Hydration FOUC (Flash of Unstyled Content) by forcing the GSAP dark overlay to render on the server (`page.tsx` state coordination).
+  - Ensured Framer Motion entrance animations strictly wait for the GSAP intro to signal completion before hydrating and playing.
 - [ ] Phase 3: Authentication and student profiles (Verification, login, privacy settings).
 - [ ] Phase 4: Community features (Events, announcements, blood donor network, job referrals).
 - [ ] Phase 5: Administration dashboard (Role-based access, approval workflows, audit logs).
