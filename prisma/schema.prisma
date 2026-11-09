@@ -200,7 +200,7 @@ model AdminUser {
   name             String
   email            String         @unique
   passwordHash     String
-  photoUrl         String         // URL of admin photo
+  photoUrl         String?        @db.Text // Optional profile photo (Base64 data or URL)
   studentId        String         @unique // IIUC Student ID
   department       String         // e.g., CSE, EEE, BBA
   section          String         // e.g., 5A, 4B

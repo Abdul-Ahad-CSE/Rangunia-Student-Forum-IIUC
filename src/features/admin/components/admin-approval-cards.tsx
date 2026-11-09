@@ -26,7 +26,7 @@ export interface SerializedAdminUser {
   id: string;
   name: string;
   email: string;
-  photoUrl: string;
+  photoUrl: string | null;
   studentId: string;
   department: string;
   section: string;
@@ -133,15 +133,19 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
               >
                 {/* Header Profile Info */}
                 <div className="flex items-start gap-4">
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-white/15 bg-zinc-900 shrink-0">
-                    <Image
-                      src={admin.photoUrl}
-                      alt={admin.name}
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                      unoptimized
-                    />
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-white/15 bg-zinc-900 shrink-0 flex items-center justify-center">
+                    {admin.photoUrl ? (
+                      <Image
+                        src={admin.photoUrl}
+                        alt={admin.name}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                        unoptimized
+                      />
+                    ) : (
+                      <User className="w-8 h-8 text-zinc-500" />
+                    )}
                   </div>
 
                   <div className="space-y-1 min-w-0 flex-1">
@@ -239,15 +243,19 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                 key={admin.id}
                 className="rounded-xl border border-white/10 bg-white/[0.02] p-4 flex items-center gap-3"
               >
-                <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0">
-                  <Image
-                    src={admin.photoUrl}
-                    alt={admin.name}
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                    unoptimized
-                  />
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center">
+                  {admin.photoUrl ? (
+                    <Image
+                      src={admin.photoUrl}
+                      alt={admin.name}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  ) : (
+                    <User className="w-6 h-6 text-zinc-500" />
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">

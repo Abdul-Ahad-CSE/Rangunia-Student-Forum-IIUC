@@ -27,7 +27,7 @@ async function AdminDashboardContent() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-3xl font-serif font-extrabold tracking-tight text-white">
+              <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white">
                 Admin Console
               </h1>
               <Badge

@@ -11,8 +11,8 @@ export const adminRegisterSchema = z.object({
     .min(8, "Password must be at least 8 characters long"),
   photoUrl: z
     .string()
-    .min(1, "Profile photo URL is required")
-    .url("Please provide a valid photo URL (e.g. https://...)"),
+    .optional()
+    .or(z.literal("")),
   studentId: z
     .string()
     .min(3, "IIUC Student ID is required")

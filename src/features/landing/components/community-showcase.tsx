@@ -42,7 +42,7 @@ export function CommunityShowcase() {
               <Award className="h-3.5 w-3.5" />
               <span>Living the Brotherhood</span>
             </div>
-            <h2 className="mt-3 text-2xl sm:text-4xl font-serif font-bold tracking-tight text-white">
+            <h2 className="mt-3 text-2xl sm:text-4xl font-sans font-bold tracking-tight text-white">
               Rooted in Rangunia, Thriving at IIUC
             </h2>
             <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
@@ -103,7 +103,7 @@ export function CommunityShowcase() {
                 <Heart className="h-3.5 w-3.5 fill-rose-500 text-rose-500 animate-pulse" />
                 <span>24/7 Lifeline Network</span>
               </div>
-              <h3 className="mt-3 text-xl sm:text-3xl font-serif font-bold text-white">
+              <h3 className="mt-3 text-xl sm:text-3xl font-sans font-bold text-white">
                 Emergency Blood Donor Network
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">

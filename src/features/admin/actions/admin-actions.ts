@@ -68,7 +68,7 @@ export async function registerAdminAction(
         name: data.name.trim(),
         email: data.email.toLowerCase().trim(),
         passwordHash,
-        photoUrl: data.photoUrl.trim(),
+        photoUrl: data.photoUrl ? data.photoUrl.trim() : null,
         studentId: data.studentId.trim(),
         department: data.department.trim(),
         section: data.section.trim(),

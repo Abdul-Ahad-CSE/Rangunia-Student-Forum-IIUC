@@ -109,7 +109,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-serif text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
+              className="font-sans text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
             >
               Connecting Rangunia&apos;s{" "}
               <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">

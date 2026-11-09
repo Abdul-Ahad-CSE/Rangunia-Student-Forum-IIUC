@@ -218,7 +218,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
         {/* Cinematic Staggered Title Words */}
         <div
           ref={textWordsRef}
-          className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-serif text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl"
+          className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-sans text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl"
         >
           <span className="intro-word opacity-0 inline-block bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
             Rangunia

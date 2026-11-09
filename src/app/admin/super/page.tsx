@@ -112,7 +112,7 @@ async function SuperAdminDashboardContent() {
           {/* Header Summary Cards */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-serif font-extrabold tracking-tight text-white">
+              <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white">
                 Executive Approval Center
               </h1>
               <p className="mt-1 text-sm text-zinc-400">

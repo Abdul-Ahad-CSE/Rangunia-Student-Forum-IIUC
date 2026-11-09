@@ -153,20 +153,21 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#040907] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-white">
       <div className="max-w-md w-full space-y-6">
         {/* Header Branding */}
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-3 transition-colors"
+            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/20 hover:bg-emerald-950/40 transition-all group"
           >
-            ← Back to Home
+            <span className="transition-transform group-hover:-translate-x-1">←</span>
+            <span>Back to Home</span>
           </Link>
-          <div className="inline-flex items-center justify-center p-3 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-3 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
             <ShieldCheck className="w-8 h-8 text-emerald-400" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-extrabold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
             Administration Portal
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-zinc-400">
+          <p className="mt-2 text-xs sm:text-sm text-zinc-400 max-w-sm">
             Sign in with Super Admin credentials or an approved Executive account.
           </p>
         </div>

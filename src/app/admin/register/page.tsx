@@ -18,6 +18,8 @@ import {
   Image as ImageIcon,
   ArrowRight,
   Info,
+  Upload,
+  X,
 } from "lucide-react";
 import {
   adminRegisterSchema,
@@ -40,6 +42,37 @@ export default function AdminRegisterPage() {
   const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
   const [femalePrivacyNotice, setFemalePrivacyNotice] = React.useState(false);
   const [selectedGender, setSelectedGender] = React.useState<"Male" | "Female">("Male");
+  const [photoPreview, setPhotoPreview] = React.useState<string | null>(null);
+  const [photoFileName, setPhotoFileName] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 3 * 1024 * 1024) {
+      setServerError("Please select an image smaller than 3MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      setValue("photoUrl", base64);
+      setPhotoPreview(base64);
+      setPhotoFileName(file.name);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemovePhoto = () => {
+    setValue("photoUrl", "");
+    setPhotoPreview(null);
+    setPhotoFileName(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const {
     register,
@@ -81,20 +114,21 @@ export default function AdminRegisterPage() {
     <div className="min-h-screen bg-[#040907] py-12 px-4 sm:px-6 lg:px-8 text-white">
       <div className="max-w-2xl mx-auto">
         {/* Header Branding */}
-        <div className="text-center mb-8">
+        <div className="flex flex-col items-center text-center mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-sm font-semibold tracking-wider uppercase mb-3 transition-colors"
+            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/20 hover:bg-emerald-950/40 transition-all group"
           >
-            ← Back to Home
+            <span className="transition-transform group-hover:-translate-x-1">←</span>
+            <span>Back to Home</span>
           </Link>
-          <div className="inline-flex items-center justify-center p-3 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-3 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
             <Lock className="w-8 h-8 text-emerald-400" />
           </div>
-          <h1 className="text-3xl font-serif font-extrabold tracking-tight text-white sm:text-4xl">
+          <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white sm:text-4xl">
             Executive Admin Registration
           </h1>
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-zinc-400 max-w-lg">
             Apply for forum executive administration access. All registrations are subject to strict Super Admin verification.
           </p>
         </div>
@@ -327,16 +361,78 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="photoUrl" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                      <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Photo URL</span>
-                    </Label>
-                    <Input
-                      id="photoUrl"
-                      placeholder="https://example.com/photo.jpg"
-                      {...register("photoUrl")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="photo-file" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Executive Profile Photo</span>
+                      </Label>
+                      <span className="text-[10px] text-zinc-400 font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
+                        Optional
+                      </span>
+                    </div>
+
+                    <input
+                      ref={fileInputRef}
+                      id="photo-file"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handlePhotoChange}
                     />
+
+                    {photoPreview ? (
+                      <div className="flex items-center gap-3 p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/20">
+                        <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-emerald-500/40 bg-zinc-900 shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={photoPreview}
+                            alt="Photo Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-medium text-white truncate">
+                            {photoFileName || "Photo selected"}
+                          </p>
+                          <p className="text-[10px] text-emerald-400">Ready to upload</p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleRemovePhoto}
+                          className="h-8 px-2.5 text-xs text-rose-300 hover:text-white hover:bg-rose-950/50"
+                        >
+                          <X className="w-3.5 h-3.5 mr-1" />
+                          <span>Remove</span>
+                        </Button>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex items-center justify-between p-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                            <Upload className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
+                              Choose Photo from Device
+                            </p>
+                            <p className="text-[10px] text-zinc-500">PNG, JPG, WebP up to 3MB</p>
+                          </div>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none"
+                        >
+                          Browse
+                        </Button>
+                      </div>
+                    )}
                     {errors.photoUrl && (
                       <p className="text-xs text-rose-400">{errors.photoUrl.message}</p>
                     )}

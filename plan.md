@@ -29,6 +29,10 @@
   - Built mobile-responsive `/admin/register` with shadcn/ui and react-hook-form, enforcing gender privacy restriction (female selection disabled with toast notice; male strictly validated).
   - Added `/admin/super` Server Component dashboard protected by role-checking middleware with approval and rejection actions.
   - Enforced login gating preventing `PENDING` administrators from accessing the system until Super Admin approval.
+  - **Phase 3 Design & Functional Updates:**
+    - **Global Sans-Serif Typography:** Configured `Plus_Jakarta_Sans` globally in `src/app/layout.tsx` and mapped `--font-serif: var(--font-sans)` in Tailwind `@theme inline`, eliminating serif fonts across all headings.
+    - **Login Page UI Spacing Fix:** Corrected flexbox layout and vertical breathing room on `/login`, preventing visual overlap between "← Back to Home" link and the shield icon.
+    - **Optional Base64 File Upload:** Replaced text URL input in `/admin/register` with an optional native file picker (`FileReader` client-side Base64 conversion, live preview, and clear action), updating Zod schema and Prisma `photoUrl` to `String? @db.Text`.
 - [ ] Phase 4: Authentication and student profiles (Verification, login, privacy settings).
 - [ ] Phase 5: Community features (Events, announcements, blood donor network, job referrals).
 - [ ] Phase 6: Administration dashboard (Role-based access, approval workflows, audit logs).
