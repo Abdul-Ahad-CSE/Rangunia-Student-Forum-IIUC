@@ -21,7 +21,6 @@ import {
   X,
   Droplet,
   BookOpen,
-  Building,
   Calendar,
   Globe,
   ShieldAlert,
@@ -64,12 +63,13 @@ export default function StudentRegisterPage() {
     resolver: zodResolver(studentRegisterSchema),
     defaultValues: {
       gender: "Male",
-      university: "International Islamic University Chittagong (IIUC)",
       department: "CSE",
       batch: "48th",
       session: "Autumn 2021",
       currentSemester: "6th",
       bloodGroup: "",
+      permanentAddress: "",
+      presentAddress: "",
     },
   });
 
@@ -425,36 +425,21 @@ export default function StudentRegisterPage() {
                   )}
                 </div>
 
-                {/* 4. University & Department */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="university" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                      <Building className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>University</span>
-                    </Label>
-                    <Input
-                      id="university"
-                      readOnly
-                      defaultValue="International Islamic University Chittagong (IIUC)"
-                      className="border-white/10 bg-white/5 text-zinc-300 cursor-not-allowed"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="department" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                      <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Department</span>
-                    </Label>
-                    <Input
-                      id="department"
-                      placeholder="e.g. CSE, EEE, BBA, Pharmacy"
-                      {...register("department")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
-                    />
-                    {errors.department && (
-                      <p className="text-xs text-rose-400">{errors.department.message}</p>
-                    )}
-                  </div>
+                {/* 4. Department */}
+                <div className="space-y-2">
+                  <Label htmlFor="department" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Department</span>
+                  </Label>
+                  <Input
+                    id="department"
+                    placeholder="e.g. CSE, EEE, BBA, Pharmacy"
+                    {...register("department")}
+                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                  />
+                  {errors.department && (
+                    <p className="text-xs text-rose-400">{errors.department.message}</p>
+                  )}
                 </div>
 
                 {/* 5. Batch, Session, Current Semester */}
@@ -587,21 +572,39 @@ export default function StudentRegisterPage() {
                   </div>
                 </div>
 
-                {/* 8. Address in Rangunia */}
-                <div className="space-y-2">
-                  <Label htmlFor="address" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Permanent Address (Union / Village in Rangunia)</span>
-                  </Label>
-                  <Input
-                    id="address"
-                    placeholder="e.g. Betagi, Rangunia, Chittagong"
-                    {...register("address")}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
-                  />
-                  {errors.address && (
-                    <p className="text-xs text-rose-400">{errors.address.message}</p>
-                  )}
+                {/* 8. Permanent & Present Address */}
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Permanent Address (Rangunia union/ward)</span>
+                    </Label>
+                    <Input
+                      id="permanentAddress"
+                      placeholder="e.g. Betagi, Rangunia, Chittagong"
+                      {...register("permanentAddress")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                    />
+                    {errors.permanentAddress && (
+                      <p className="text-xs text-rose-400">{errors.permanentAddress.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Present Address (Campus / Hall / Mess)</span>
+                    </Label>
+                    <Input
+                      id="presentAddress"
+                      placeholder="e.g. Kumira Campus Area, Halishahar, Chittagong"
+                      {...register("presentAddress")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                    />
+                    {errors.presentAddress && (
+                      <p className="text-xs text-rose-400">{errors.presentAddress.message}</p>
+                    )}
+                  </div>
                 </div>
 
                 {/* 9. Social Links (Facebook & LinkedIn) */}

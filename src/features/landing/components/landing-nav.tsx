@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Droplet, ArrowRight, ShieldCheck } from "lucide-react";
+import { Menu, X, Droplet, ArrowRight, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 
@@ -42,28 +42,35 @@ export function LandingNav() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-7">
           <Link
-            href="#about"
+            href="/directory"
+            className="text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 shadow-sm"
+          >
+            <Users className="h-3.5 w-3.5" />
+            <span>Directory</span>
+          </Link>
+          <Link
+            href="/#about"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             About
           </Link>
           <Link
-            href="#blood-network"
+            href="/#blood-network"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1"
           >
             <Droplet className="h-3.5 w-3.5 text-rose-400 fill-rose-400/20" />
             Blood Network
           </Link>
           <Link
-            href="#events"
+            href="/#events"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Events
           </Link>
           <Link
-            href="#community"
+            href="/#community"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Community
@@ -119,7 +126,20 @@ export function LandingNav() {
         <div className="border-b border-white/10 bg-[#06100c]/95 backdrop-blur-2xl px-6 py-6 md:hidden">
           <div className="flex flex-col space-y-4">
             <Link
-              href="#about"
+              href="/directory"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between text-base font-semibold text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-3.5 py-2.5 rounded-xl"
+            >
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-emerald-400" />
+                <span>Members Directory</span>
+              </div>
+              <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono">
+                Explore
+              </span>
+            </Link>
+            <Link
+              href="/#about"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
@@ -127,7 +147,7 @@ export function LandingNav() {
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="#blood-network"
+              href="/#blood-network"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-rose-300 hover:text-rose-200 py-2 border-b border-white/5"
             >
@@ -140,7 +160,7 @@ export function LandingNav() {
               </span>
             </Link>
             <Link
-              href="#events"
+              href="/#events"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
@@ -148,11 +168,11 @@ export function LandingNav() {
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="#community"
+              href="/#community"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
-              <span>Student Community Directory</span>
+              <span>Community Highlights</span>
               <span className="text-zinc-500">→</span>
             </Link>
 

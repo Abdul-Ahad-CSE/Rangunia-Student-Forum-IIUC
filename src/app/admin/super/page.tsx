@@ -66,7 +66,7 @@ async function SuperAdminDashboardContent() {
     session: u.session,
     phone: u.phone,
     bloodGroup: u.bloodGroup,
-    address: u.address,
+    address: u.permanentAddress || u.presentAddress || null,
     approvalStatus: u.approvalStatus,
     verificationStatus: u.verificationStatus,
     photoUrl: u.photoUrl,

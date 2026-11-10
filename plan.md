@@ -58,6 +58,7 @@
     - Secured Auth.js authorize callback to strictly block logins for PENDING accounts
     - Updated registration forms to act as requests without auto-login
     - Added 'Waiting for approval' frontend notification on login attempt
+    - Refined student registration fields (removed university, added present/permanent address), split profile into unchangeable identity header and editable academic section, and implemented direct-save PDF CV upload.
 - [ ] Phase 6: Request-Based Data Entry System (Draft submission & Admin approval)
 - [ ] Phase 7: Notice & Event Modules (Role-protected)
 - [ ] Phase 8: Public Directory & Smart Search (Gender-isolation & Privacy masking)

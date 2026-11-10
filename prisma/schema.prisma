@@ -62,14 +62,18 @@ model User {
   session            String             // Academic Session (e.g., Autumn 2021, Spring 2024)
   bloodGroup         BloodGroup?
   phone              String?
-  address            String?
+  permanentAddress   String?            // Permanent / Hometown origin (Rangunia union/ward)
+  presentAddress     String?            // Present residence / Campus area / Hall / Mess
+  batch              String?            // Batch identifier (e.g., 48th, 49th, 54th)
   socialLinks        Json?              // Structured JSON: { linkedin?, github?, facebook?, portfolio? }
   bio                String?            @db.Text
 
   // Privacy by Default Controls
+  isPhotoVisible     Boolean            @default(false)
   isPhoneVisible     Boolean            @default(false)
   isEmailVisible     Boolean            @default(false)
   isSocialVisible    Boolean            @default(false)
+  isAddressVisible   Boolean            @default(false)
 
   // Status & Governance
   role               Role               @default(STUDENT)
@@ -99,6 +103,7 @@ model User {
   @@index([email])
   @@index([department])
   @@index([session])
+  @@index([batch])
   @@index([role])
   @@index([approvalStatus])
 }
@@ -112,6 +117,7 @@ model StudentProfile {
   skills           String[] @default([]) // Technical / soft skills
   interestedSector String?  // e.g. Web Development, AI/ML, Data Science, Telecom
   clubRole         String?  // e.g. Member, Executive, Coordinator, Volunteer
+  cvUrl            String?  @db.Text // Uploaded PDF CV document
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

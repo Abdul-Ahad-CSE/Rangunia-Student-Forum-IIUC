@@ -12,12 +12,13 @@ export type ProfileUpdateResponse = {
 };
 
 export type StudentProfileUpdateInput = {
-  bloodGroup?: string;
+  presentAddress?: string;
   cgpa?: string;
   skills?: string; // Comma-separated or tag list
   interestedSector?: string;
   clubRole?: string;
   details?: string;
+  cvUrl?: string | null;
 };
 
 export async function updateStudentProfileAction(
@@ -39,12 +40,6 @@ export async function updateStudentProfileAction(
       return { success: false, error: "User account not found." };
     }
 
-    // Parse blood group
-    let bloodGroupValue: BloodGroup | null = null;
-    if (data.bloodGroup && data.bloodGroup !== "") {
-      bloodGroupValue = data.bloodGroup as BloodGroup;
-    }
-
     // Parse skills array
     const skillsArray = data.skills
       ? data.skills
@@ -54,16 +49,19 @@ export async function updateStudentProfileAction(
       : [];
 
     await prisma.$transaction(async (tx) => {
-      // 1. Update User basic info
+      // 1. Directly update User present address & bio without admin approval
       await tx.user.update({
         where: { id: userId },
         data: {
-          bloodGroup: bloodGroupValue,
+          presentAddress:
+            data.presentAddress !== undefined
+              ? data.presentAddress.trim()
+              : user.presentAddress,
           bio: data.details !== undefined ? data.details.trim() : user.bio,
         },
       });
 
-      // 2. Upsert StudentProfile
+      // 2. Directly upsert StudentProfile without admin approval
       await tx.studentProfile.upsert({
         where: { userId },
         update: {
@@ -71,6 +69,7 @@ export async function updateStudentProfileAction(
           skills: skillsArray,
           interestedSector: data.interestedSector ? data.interestedSector.trim() : null,
           clubRole: data.clubRole ? data.clubRole.trim() : null,
+          cvUrl: data.cvUrl !== undefined ? data.cvUrl : undefined,
         },
         create: {
           userId,
@@ -79,12 +78,14 @@ export async function updateStudentProfileAction(
           skills: skillsArray,
           interestedSector: data.interestedSector ? data.interestedSector.trim() : null,
           clubRole: data.clubRole ? data.clubRole.trim() : null,
+          cvUrl: data.cvUrl || null,
         },
       });
     });
 
     revalidatePath("/profile");
-    return { success: true, message: "Student profile updated successfully!" };
+    revalidatePath("/directory");
+    return { success: true, message: "Academic profile updated successfully!" };
   } catch (error) {
     console.error("updateStudentProfileAction error:", error);
     return {

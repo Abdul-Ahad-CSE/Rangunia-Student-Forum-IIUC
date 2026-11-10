@@ -23,9 +23,6 @@ export const studentRegisterSchema = z.object({
   department: z
     .string()
     .min(2, "Department is required (e.g. CSE, EEE, BBA, Pharmacy)"),
-  university: z
-    .string()
-    .min(2, "University is required"),
   batch: z
     .string()
     .min(1, "Batch is required (e.g. 48th, 49th, 50th)"),
@@ -39,9 +36,12 @@ export const studentRegisterSchema = z.object({
   phone: z
     .string()
     .min(6, "Phone number is required for emergency and contact purposes"),
-  address: z
+  permanentAddress: z
     .string()
-    .min(3, "Address / Union in Rangunia is required (e.g. Betagi, Rangunia)"),
+    .min(2, "Permanent Address (Rangunia union/ward) is required"),
+  presentAddress: z
+    .string()
+    .min(2, "Present Address (Campus area / Hall / Mess) is required"),
   facebook: z.string().optional().or(z.literal("")),
   linkedin: z.string().optional().or(z.literal("")),
   bio: z.string().max(1000, "Bio cannot exceed 1000 characters").optional().or(z.literal("")),

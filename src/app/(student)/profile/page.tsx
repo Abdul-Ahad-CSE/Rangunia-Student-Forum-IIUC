@@ -5,40 +5,11 @@ import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  GraduationCap,
-  Briefcase,
-  Mail,
-  Phone,
-  MapPin,
-  Droplet,
-  LogOut,
-  Calendar,
-  Building,
-  Loader2,
-  ShieldAlert,
-  Clock,
-  Sparkles,
-} from "lucide-react";
+import { Loader2, ShieldAlert } from "lucide-react";
+import { IdentityHeader } from "@/features/profile/components/identity-header";
 import { StudentProfileForm } from "@/features/profile/components/student-profile-form";
 import { AlumniProfileForm } from "@/features/profile/components/alumni-profile-form";
-
-function formatBloodGroup(bg: string | null) {
-  if (!bg) return null;
-  const map: Record<string, string> = {
-    A_POSITIVE: "A+",
-    A_NEGATIVE: "A-",
-    B_POSITIVE: "B+",
-    B_NEGATIVE: "B-",
-    AB_POSITIVE: "AB+",
-    AB_NEGATIVE: "AB-",
-    O_POSITIVE: "O+",
-    O_NEGATIVE: "O-",
-  };
-  return map[bg] || bg;
-}
+import { PrivacySettingsCard } from "@/features/profile/components/privacy-settings-card";
 
 async function ProfileContent() {
   const session = await auth();
@@ -80,153 +51,40 @@ async function ProfileContent() {
   }
 
   const isAlumni = Boolean(user.alumniProfile);
-  const formattedBlood = formatBloodGroup(user.bloodGroup);
 
   return (
     <div className="space-y-8">
-      {/* Profile Overview Card */}
-      <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-2xl overflow-hidden">
-        <div className="h-28 bg-gradient-to-r from-emerald-950/80 via-emerald-900/40 to-teal-950/80 border-b border-white/5 relative">
-          <div className="absolute top-4 right-4 flex items-center gap-2">
-            <Badge
-              className={
-                user.verificationStatus === "APPROVED"
-                  ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                  : "bg-amber-500/20 text-amber-300 border-amber-500/40"
-              }
-            >
-              {user.verificationStatus === "APPROVED" ? (
-                <span className="flex items-center gap-1 font-mono text-[11px]">
-                  <Sparkles className="w-3 h-3" />
-                  Verified Member
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 font-mono text-[11px]">
-                  <Clock className="w-3 h-3" />
-                  Verification Pending
-                </span>
-              )}
-            </Badge>
+      {/* 1. Unchangeable Identity Header with Interactive Photo Click-to-Upload */}
+      <IdentityHeader
+        name={user.fullName}
+        initialPhotoUrl={user.photoUrl}
+        studentId={user.studentId}
+        department={user.department}
+        batch={user.batch}
+        session={user.session}
+        bloodGroup={user.bloodGroup}
+        gender={user.gender}
+        permanentAddress={user.permanentAddress}
+        verificationStatus={user.verificationStatus}
+        isAlumni={isAlumni}
+        onSignOut={async () => {
+          "use server";
+          await signOut({ redirectTo: "/login" });
+        }}
+      />
 
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <Button
-                type="submit"
-                variant="ghost"
-                size="sm"
-                className="h-8 px-2.5 text-xs text-zinc-300 hover:text-white hover:bg-white/10"
-              >
-                <LogOut className="w-3.5 h-3.5 mr-1" />
-                <span>Sign Out</span>
-              </Button>
-            </form>
-          </div>
-        </div>
+      {/* 2. Smart Privacy Settings Section */}
+      <PrivacySettingsCard
+        initialSettings={{
+          isPhotoVisible: user.isPhotoVisible,
+          isPhoneVisible: user.isPhoneVisible,
+          isEmailVisible: user.isEmailVisible,
+          isSocialVisible: user.isSocialVisible,
+          isAddressVisible: user.isAddressVisible,
+        }}
+      />
 
-        <CardContent className="pt-0 pb-6 px-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end gap-5 -mt-12 mb-6">
-            {/* User Avatar / Photo */}
-            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-500/40 bg-zinc-900 shadow-xl shrink-0">
-              {user.photoUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.photoUrl}
-                  alt={user.fullName}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-emerald-950 text-emerald-300 text-2xl font-bold font-mono">
-                  {user.fullName.charAt(0).toUpperCase()}
-                </div>
-              )}
-            </div>
-
-            {/* Member Details */}
-            <div className="space-y-1.5 flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-bold text-white tracking-tight">
-                  {user.fullName}
-                </h1>
-                <Badge
-                  variant="outline"
-                  className={
-                    isAlumni
-                      ? "border-teal-500/30 bg-teal-950/40 text-teal-300 text-[10px]"
-                      : "border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-[10px]"
-                  }
-                >
-                  {isAlumni ? (
-                    <span className="flex items-center gap-1">
-                      <Briefcase className="w-3 h-3" />
-                      IIUC Alumni
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1">
-                      <GraduationCap className="w-3 h-3" />
-                      IIUC Student
-                    </span>
-                  )}
-                </Badge>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-zinc-400">
-                <span className="flex items-center gap-1 font-mono text-zinc-300">
-                  <span className="text-emerald-400">ID:</span> {user.studentId}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Building className="w-3.5 h-3.5 text-zinc-500" />
-                  {user.department}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                  {user.session}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Info Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-white/5 text-xs">
-            <div className="p-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
-              <span className="text-[10px] text-zinc-500 block mb-0.5">Email</span>
-              <span className="text-zinc-200 truncate flex items-center gap-1">
-                <Mail className="w-3 h-3 text-emerald-400 shrink-0" />
-                <span className="truncate">{user.email}</span>
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
-              <span className="text-[10px] text-zinc-500 block mb-0.5">Contact</span>
-              <span className="text-zinc-200 truncate flex items-center gap-1">
-                <Phone className="w-3 h-3 text-emerald-400 shrink-0" />
-                <span className="truncate">{user.phone || "Not set"}</span>
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
-              <span className="text-[10px] text-zinc-500 block mb-0.5">Blood Group</span>
-              <span className="text-zinc-200 flex items-center gap-1 font-semibold">
-                <Droplet className="w-3 h-3 text-rose-400 shrink-0" />
-                <span>{formattedBlood || "Unspecified"}</span>
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
-              <span className="text-[10px] text-zinc-500 block mb-0.5">Rangunia Origin</span>
-              <span className="text-zinc-200 truncate flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
-                <span className="truncate">{user.address || "Rangunia"}</span>
-              </span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Role-Specific Update Section */}
+      {/* 3. Academic & Personal Information (Directly Editable without admin approval) */}
       {isAlumni ? (
         <AlumniProfileForm
           initialData={{
@@ -241,12 +99,13 @@ async function ProfileContent() {
       ) : (
         <StudentProfileForm
           initialData={{
-            bloodGroup: user.bloodGroup,
+            presentAddress: user.presentAddress,
             cgpa: user.studentProfile?.cgpa,
             skills: user.studentProfile?.skills,
             interestedSector: user.studentProfile?.interestedSector,
             clubRole: user.studentProfile?.clubRole,
             details: user.bio,
+            cvUrl: user.studentProfile?.cvUrl,
           }}
         />
       )}
