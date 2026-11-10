@@ -5,11 +5,11 @@ import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { Loader2, ShieldAlert } from "lucide-react";
+import { Loader2, ShieldAlert, ShieldCheck } from "lucide-react";
 import { IdentityHeader } from "@/features/profile/components/identity-header";
 import { StudentProfileForm } from "@/features/profile/components/student-profile-form";
 import { AlumniProfileForm } from "@/features/profile/components/alumni-profile-form";
-import { PrivacySettingsCard } from "@/features/profile/components/privacy-settings-card";
+import { PrivacySettingsDialog } from "@/features/profile/components/privacy-settings-dialog";
 
 async function ProfileContent() {
   const session = await auth();
@@ -53,7 +53,7 @@ async function ProfileContent() {
   const isAlumni = Boolean(user.alumniProfile);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* 1. Unchangeable Identity Header with Interactive Photo Click-to-Upload */}
       <IdentityHeader
         name={user.fullName}
@@ -73,16 +73,28 @@ async function ProfileContent() {
         }}
       />
 
-      {/* 2. Smart Privacy Settings Section */}
-      <PrivacySettingsCard
-        initialSettings={{
-          isPhotoVisible: user.isPhotoVisible,
-          isPhoneVisible: user.isPhoneVisible,
-          isEmailVisible: user.isEmailVisible,
-          isSocialVisible: user.isSocialVisible,
-          isAddressVisible: user.isAddressVisible,
-        }}
-      />
+      {/* 2. Sleek Privacy Management Bar (Encapsulated into Modal Dialog) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+            <ShieldCheck className="w-4 h-4" />
+          </div>
+          <div>
+            <p className="text-xs sm:text-sm font-semibold text-white">Public Directory Privacy Controls</p>
+            <p className="text-[11px] text-zinc-400">Control what contact information and photos are visible to peers in the public directory.</p>
+          </div>
+        </div>
+
+        <PrivacySettingsDialog
+          initialSettings={{
+            isPhotoVisible: user.isPhotoVisible,
+            isPhoneVisible: user.isPhoneVisible,
+            isEmailVisible: user.isEmailVisible,
+            isSocialVisible: user.isSocialVisible,
+            isAddressVisible: user.isAddressVisible,
+          }}
+        />
+      </div>
 
       {/* 3. Academic & Personal Information (Directly Editable without admin approval) */}
       {isAlumni ? (
