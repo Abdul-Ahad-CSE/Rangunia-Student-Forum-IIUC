@@ -110,6 +110,7 @@ async function ProfileContent() {
         />
       ) : (
         <StudentProfileForm
+          userId={user.id}
           initialData={{
             presentAddress: user.presentAddress,
             cgpa: user.studentProfile?.cgpa,

@@ -32,6 +32,7 @@ import {
 } from "../actions/update-profile-action";
 
 type Props = {
+  userId?: string;
   initialData: {
     presentAddress?: string | null;
     cgpa?: string | null;
@@ -43,7 +44,7 @@ type Props = {
   };
 };
 
-export function StudentProfileForm({ initialData }: Props) {
+export function StudentProfileForm({ userId, initialData }: Props) {
   const [presentAddress, setPresentAddress] = React.useState(initialData.presentAddress || "");
   const [cgpa, setCgpa] = React.useState(initialData.cgpa || "");
   const [skills, setSkills] = React.useState((initialData.skills || []).join(", "));
@@ -51,6 +52,7 @@ export function StudentProfileForm({ initialData }: Props) {
   const [clubRole, setClubRole] = React.useState(initialData.clubRole || "");
   const [details, setDetails] = React.useState(initialData.details || "");
   const [cvUrl, setCvUrl] = React.useState<string | null>(initialData.cvUrl || null);
+  const [localPreviewUrl, setLocalPreviewUrl] = React.useState<string | null>(null);
   const [cvFileName, setCvFileName] = React.useState<string | null>(
     initialData.cvUrl ? "Current_CV.pdf" : null
   );
@@ -71,6 +73,13 @@ export function StudentProfileForm({ initialData }: Props) {
       return;
     }
 
+    // Create client blob URL for safe preview (bypasses browser data URI navigation block)
+    if (localPreviewUrl) {
+      URL.revokeObjectURL(localPreviewUrl);
+    }
+    const blobUrl = URL.createObjectURL(file);
+    setLocalPreviewUrl(blobUrl);
+
     const reader = new FileReader();
     reader.onload = () => {
       const base64 = reader.result as string;
@@ -87,6 +96,10 @@ export function StudentProfileForm({ initialData }: Props) {
   };
 
   const handleRemoveCv = () => {
+    if (localPreviewUrl) {
+      URL.revokeObjectURL(localPreviewUrl);
+      setLocalPreviewUrl(null);
+    }
     setCvUrl(null);
     setCvFileName(null);
     if (pdfInputRef.current) {
@@ -255,7 +268,7 @@ export function StudentProfileForm({ initialData }: Props) {
 
                 <div className="flex items-center gap-2 shrink-0">
                   <a
-                    href={cvUrl}
+                    href={localPreviewUrl || (userId ? `/api/students/${userId}/cv` : cvUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 h-8 px-3 rounded-md text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition-colors"
