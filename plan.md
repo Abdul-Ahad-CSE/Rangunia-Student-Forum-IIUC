@@ -76,6 +76,7 @@
   - **Global Navigation & Auth State Refinements:** Implemented global session state in Navbar, added Home navigation to all dashboards, and integrated callbackUrl redirects for seamless mentorship requests.
   - **Public Mentorship History & Bidirectional Testimonials:** Expanded mentorship module to include bidirectional comments and exposed the mentorship history with testimonials to the public directory.
 - [x] Phase 8: Core Module Synchronization & Granular Authorization
+  - **Admin Avatar Runtime Fix:** Replaced `next/image` in `AdminPermissionsManager` with a native `<img>` tag to bypass the Next.js optimization pipeline for arbitrary external avatar URLs and prevent unconfigured hostname crashes.
   - **Public Navbar Reordering:** Standardized navigation styling by removing pill/button aesthetics from the Directory link and reordering links to match the core modules: Directory, Events, Notices, Activities, Committee, About across both desktop and mobile menus.
   - **Prisma Schema & Neon DB Capabilities:** Updated `AdminUser` model to replace deprecated flags with 6 granular capability booleans: `canManageProfiles`, `canManageEvents`, `canManageNotices`, `canManageActivities`, `canManageCommittee`, and `canManageAbout`.
   - **Role-Restricted Admin Dashboard:** Refactored the main Admin Console (`/admin/dashboard`) to display the 6 synchronized module cards, automatically granting full access to `SUPER_ADMIN` while strictly enforcing boolean capability gates (unlocked vs. locked state with required access messaging) for standard `ADMIN` users.

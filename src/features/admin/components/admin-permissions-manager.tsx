@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import {
   Search,
   UserCheck,
@@ -276,11 +275,10 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                     {/* Admin Avatar */}
                     <div className="w-12 h-12 rounded-xl overflow-hidden border border-emerald-500/30 bg-zinc-900 shrink-0 flex items-center justify-center text-emerald-400 font-bold font-mono text-base">
                       {admin.photoUrl ? (
-                        <Image
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
                           src={admin.photoUrl}
                           alt={admin.name}
-                          width={48}
-                          height={48}
                           className="w-full h-full object-cover"
                         />
                       ) : (
