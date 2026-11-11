@@ -7,9 +7,11 @@ import { auth } from "@/auth";
 export interface UpdatePermissionsInput {
   adminId: string;
   canManageProfiles: boolean;
-  canPostNotices: boolean;
   canManageEvents: boolean;
-  canManageEmergency: boolean;
+  canManageNotices: boolean;
+  canManageActivities: boolean;
+  canManageCommittee: boolean;
+  canManageAbout: boolean;
 }
 
 export type PermissionActionResponse = {
@@ -56,9 +58,11 @@ export async function updateAdminPermissionsAction(
       where: { id: input.adminId },
       data: {
         canManageProfiles: input.canManageProfiles,
-        canPostNotices: input.canPostNotices,
         canManageEvents: input.canManageEvents,
-        canManageEmergency: input.canManageEmergency,
+        canManageNotices: input.canManageNotices,
+        canManageActivities: input.canManageActivities,
+        canManageCommittee: input.canManageCommittee,
+        canManageAbout: input.canManageAbout,
       },
     });
 

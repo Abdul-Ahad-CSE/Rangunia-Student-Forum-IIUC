@@ -321,10 +321,12 @@ model AdminUser {
   rejectionReason    String?        @db.Text
 
   // Granular capability flags (all default to false)
-  canManageProfiles  Boolean        @default(false)
-  canPostNotices     Boolean        @default(false)
-  canManageEvents    Boolean        @default(false)
-  canManageEmergency Boolean        @default(false)
+  canManageProfiles   Boolean        @default(false)
+  canManageEvents     Boolean        @default(false)
+  canManageNotices    Boolean        @default(false)
+  canManageActivities Boolean        @default(false)
+  canManageCommittee  Boolean        @default(false)
+  canManageAbout      Boolean        @default(false)
 
   createdAt          DateTime       @default(now())
   updatedAt          DateTime       @updatedAt

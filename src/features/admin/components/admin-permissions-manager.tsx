@@ -7,7 +7,9 @@ import {
   UserCheck,
   FileText,
   Calendar,
-  Droplet,
+  Activity,
+  Users,
+  Info,
   Loader2,
   ShieldAlert,
   Sparkles,
@@ -31,11 +33,21 @@ export interface SerializedAdminPermissionUser {
   position: string;
   enrollment: string;
   canManageProfiles: boolean;
-  canPostNotices: boolean;
   canManageEvents: boolean;
-  canManageEmergency: boolean;
+  canManageNotices: boolean;
+  canManageActivities: boolean;
+  canManageCommittee: boolean;
+  canManageAbout: boolean;
   createdAt: string;
 }
+
+export type AdminPermissionField =
+  | "canManageProfiles"
+  | "canManageEvents"
+  | "canManageNotices"
+  | "canManageActivities"
+  | "canManageCommittee"
+  | "canManageAbout";
 
 interface AdminPermissionsManagerProps {
   initialAdmins: SerializedAdminPermissionUser[];
@@ -59,9 +71,11 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
 
       const hasAnyPerm =
         admin.canManageProfiles ||
-        admin.canPostNotices ||
         admin.canManageEvents ||
-        admin.canManageEmergency;
+        admin.canManageNotices ||
+        admin.canManageActivities ||
+        admin.canManageCommittee ||
+        admin.canManageAbout;
 
       if (!matchesSearch) return false;
       if (filterType === "WITH_PERMS") return hasAnyPerm;
@@ -72,7 +86,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
 
   const handleToggle = async (
     adminId: string,
-    field: "canManageProfiles" | "canPostNotices" | "canManageEvents" | "canManageEmergency",
+    field: AdminPermissionField,
     newValue: boolean
   ) => {
     const admin = admins.find((a) => a.id === adminId);
@@ -88,9 +102,11 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
 
     const updatedPermissions = {
       canManageProfiles: field === "canManageProfiles" ? newValue : admin.canManageProfiles,
-      canPostNotices: field === "canPostNotices" ? newValue : admin.canPostNotices,
       canManageEvents: field === "canManageEvents" ? newValue : admin.canManageEvents,
-      canManageEmergency: field === "canManageEmergency" ? newValue : admin.canManageEmergency,
+      canManageNotices: field === "canManageNotices" ? newValue : admin.canManageNotices,
+      canManageActivities: field === "canManageActivities" ? newValue : admin.canManageActivities,
+      canManageCommittee: field === "canManageCommittee" ? newValue : admin.canManageCommittee,
+      canManageAbout: field === "canManageAbout" ? newValue : admin.canManageAbout,
     };
 
     const res = await updateAdminPermissionsAction({
@@ -123,9 +139,11 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
           ? {
               ...a,
               canManageProfiles: grantAll,
-              canPostNotices: grantAll,
               canManageEvents: grantAll,
-              canManageEmergency: grantAll,
+              canManageNotices: grantAll,
+              canManageActivities: grantAll,
+              canManageCommittee: grantAll,
+              canManageAbout: grantAll,
             }
           : a
       )
@@ -135,9 +153,11 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
     const res = await updateAdminPermissionsAction({
       adminId,
       canManageProfiles: grantAll,
-      canPostNotices: grantAll,
       canManageEvents: grantAll,
-      canManageEmergency: grantAll,
+      canManageNotices: grantAll,
+      canManageActivities: grantAll,
+      canManageCommittee: grantAll,
+      canManageAbout: grantAll,
     });
 
     setUpdatingAdminId(null);
@@ -145,7 +165,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
     if (res.success) {
       toast.success(
         grantAll
-          ? `All capabilities granted to ${admin.name}.`
+          ? `All 6 capabilities granted to ${admin.name}.`
           : `All capabilities revoked from ${admin.name}.`
       );
     } else {
@@ -196,7 +216,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                 : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
             }`}
           >
-            Authorized ({admins.filter((a) => a.canManageProfiles || a.canPostNotices || a.canManageEvents || a.canManageEmergency).length})
+            Authorized ({admins.filter((a) => a.canManageProfiles || a.canManageEvents || a.canManageNotices || a.canManageActivities || a.canManageCommittee || a.canManageAbout).length})
           </Button>
 
           <Button
@@ -210,7 +230,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                 : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
             }`}
           >
-            No Access ({admins.filter((a) => !a.canManageProfiles && !a.canPostNotices && !a.canManageEvents && !a.canManageEmergency).length})
+            No Access ({admins.filter((a) => !a.canManageProfiles && !a.canManageEvents && !a.canManageNotices && !a.canManageActivities && !a.canManageCommittee && !a.canManageAbout).length})
           </Button>
         </div>
       </div>
@@ -229,76 +249,86 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
           {filteredAdmins.map((admin) => {
             const hasAllPerms =
               admin.canManageProfiles &&
-              admin.canPostNotices &&
               admin.canManageEvents &&
-              admin.canManageEmergency;
+              admin.canManageNotices &&
+              admin.canManageActivities &&
+              admin.canManageCommittee &&
+              admin.canManageAbout;
+
             const hasNoPerms =
               !admin.canManageProfiles &&
-              !admin.canPostNotices &&
               !admin.canManageEvents &&
-              !admin.canManageEmergency;
+              !admin.canManageNotices &&
+              !admin.canManageActivities &&
+              !admin.canManageCommittee &&
+              !admin.canManageAbout;
+
             const isUpdating = updatingAdminId === admin.id;
 
             return (
               <div
                 key={admin.id}
-                className="p-5 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl shadow-xl transition-all hover:border-emerald-500/30"
+                className="p-5 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl transition-all space-y-4"
               >
-                {/* Header Row: Admin Info + Quick Batch Buttons */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                {/* Admin Card Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
                   <div className="flex items-center gap-3.5">
-                    <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-white/15 bg-zinc-900 shrink-0 flex items-center justify-center">
+                    {/* Admin Avatar */}
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-emerald-500/30 bg-zinc-900 shrink-0 flex items-center justify-center text-emerald-400 font-bold font-mono text-base">
                       {admin.photoUrl ? (
                         <Image
                           src={admin.photoUrl}
                           alt={admin.name}
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                          unoptimized
+                          width={48}
+                          height={48}
+                          className="w-full h-full object-cover"
                         />
                       ) : (
-                        <User className="w-6 h-6 text-zinc-500" />
+                        <User className="w-6 h-6 text-emerald-400" />
                       )}
                     </div>
 
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-base font-bold text-white leading-tight">
+                    {/* Admin Meta */}
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-bold text-white text-base leading-tight">
                           {admin.name}
-                        </h3>
+                        </h4>
                         <Badge
-                          className={
-                            hasAllPerms
-                              ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px]"
-                              : hasNoPerms
-                              ? "bg-zinc-800 text-zinc-400 border-white/10 text-[10px]"
-                              : "bg-blue-500/20 text-blue-300 border-blue-500/40 text-[10px]"
-                          }
+                          variant="outline"
+                          className="border-emerald-500/30 bg-emerald-950/30 text-emerald-300 text-[10px]"
                         >
-                          {hasAllPerms
-                            ? "Full Authority"
-                            : hasNoPerms
-                            ? "Restricted / View Only"
-                            : "Partial Authority"}
+                          {admin.position}
                         </Badge>
+                        {hasAllPerms && (
+                          <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px] font-mono">
+                            <Sparkles className="w-2.5 h-2.5 mr-1 text-emerald-400" />
+                            Full Authority
+                          </Badge>
+                        )}
+                        {hasNoPerms && (
+                          <Badge className="bg-zinc-800 text-zinc-400 border-white/10 text-[10px] font-mono">
+                            No Permissions
+                          </Badge>
+                        )}
                       </div>
 
-                      <p className="text-xs text-zinc-400 mt-0.5">
-                        <strong className="text-emerald-400 font-medium">{admin.position}</strong>
-                        {" • "}
+                      <div className="flex items-center gap-2 text-xs text-zinc-400 flex-wrap">
                         <span className="font-mono text-zinc-300">{admin.studentId}</span>
-                        {" • "}
+                        <span>•</span>
                         <span>{admin.department}</span>
-                        {" • "}
+                        <span>•</span>
+                        <span>Sec: {admin.section}</span>
+                        <span>•</span>
                         <span className="text-zinc-500">{admin.email}</span>
-                      </p>
+                      </div>
                     </div>
                   </div>
 
+                  {/* Bulk Actions */}
                   <div className="flex items-center gap-2 shrink-0">
                     {isUpdating && (
-                      <span className="flex items-center gap-1.5 text-xs text-emerald-400 mr-2">
+                      <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono pr-2">
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         <span>Saving...</span>
                       </span>
@@ -310,10 +340,9 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                       size="sm"
                       onClick={() => handleSetAll(admin.id, true)}
                       disabled={isUpdating || hasAllPerms}
-                      className="border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-emerald-950/40 text-xs h-7.5 px-2.5"
+                      className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-7.5 px-2.5"
                     >
-                      <Sparkles className="w-3 h-3 mr-1 text-emerald-400" />
-                      <span>Grant All</span>
+                      <span>Grant All 6</span>
                     </Button>
 
                     <Button
@@ -329,9 +358,9 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   </div>
                 </div>
 
-                {/* 4 Granular Capability Toggles Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-4">
-                  {/* Flag 1: Profiles */}
+                {/* 6 Granular Capability Toggles Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+                  {/* Flag 1: Member Profiles */}
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageProfiles
@@ -345,7 +374,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                         <span>Member Profiles</span>
                       </div>
                       <p className="text-[11px] text-zinc-400 leading-tight">
-                        Verify student & alumni profiles and approve update requests.
+                        Verify student &amp; alumni profiles and moderate directory records.
                       </p>
                     </div>
 
@@ -357,33 +386,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                     />
                   </div>
 
-                  {/* Flag 2: Notices */}
-                  <div
-                    className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
-                      admin.canPostNotices
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
-                    }`}
-                  >
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <FileText className={`w-3.5 h-3.5 ${admin.canPostNotices ? "text-emerald-400" : "text-zinc-500"}`} />
-                        <span>Publish Notices</span>
-                      </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
-                        Draft, edit, and broadcast official announcements to the forum.
-                      </p>
-                    </div>
-
-                    <Switch
-                      checked={admin.canPostNotices}
-                      onCheckedChange={(val) => handleToggle(admin.id, "canPostNotices", val)}
-                      disabled={isUpdating}
-                      aria-label={`Toggle notice posting for ${admin.name}`}
-                    />
-                  </div>
-
-                  {/* Flag 3: Events */}
+                  {/* Flag 2: Events */}
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageEvents
@@ -394,10 +397,10 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
                         <Calendar className={`w-3.5 h-3.5 ${admin.canManageEvents ? "text-emerald-400" : "text-zinc-500"}`} />
-                        <span>Event Programs</span>
+                        <span>Event Management</span>
                       </div>
                       <p className="text-[11px] text-zinc-400 leading-tight">
-                        Organize annual iftar, orientation, seminars, and sports meetups.
+                        Organize forums, seminars, iftar gatherings, and sports meetups.
                       </p>
                     </div>
 
@@ -409,29 +412,107 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                     />
                   </div>
 
-                  {/* Flag 4: Emergency */}
+                  {/* Flag 3: Notices */}
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
-                      admin.canManageEmergency
+                      admin.canManageNotices
                         ? "border-emerald-500/40 bg-emerald-950/20"
                         : "border-white/5 bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <Droplet className={`w-3.5 h-3.5 ${admin.canManageEmergency ? "text-emerald-400" : "text-zinc-500"}`} />
-                        <span>Emergency Network</span>
+                        <FileText className={`w-3.5 h-3.5 ${admin.canManageNotices ? "text-emerald-400" : "text-zinc-500"}`} />
+                        <span>Notice Management</span>
                       </div>
                       <p className="text-[11px] text-zinc-400 leading-tight">
-                        Coordinate emergency blood donor requests and volunteer responses.
+                        Publish and broadcast official forum announcements and notices.
                       </p>
                     </div>
 
                     <Switch
-                      checked={admin.canManageEmergency}
-                      onCheckedChange={(val) => handleToggle(admin.id, "canManageEmergency", val)}
+                      checked={admin.canManageNotices}
+                      onCheckedChange={(val) => handleToggle(admin.id, "canManageNotices", val)}
                       disabled={isUpdating}
-                      aria-label={`Toggle emergency management for ${admin.name}`}
+                      aria-label={`Toggle notice management for ${admin.name}`}
+                    />
+                  </div>
+
+                  {/* Flag 4: Activities */}
+                  <div
+                    className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
+                      admin.canManageActivities
+                        ? "border-emerald-500/40 bg-emerald-950/20"
+                        : "border-white/5 bg-white/[0.02]"
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
+                        <Activity className={`w-3.5 h-3.5 ${admin.canManageActivities ? "text-emerald-400" : "text-zinc-500"}`} />
+                        <span>Activity Management</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 leading-tight">
+                        Coordinate ongoing projects, skill workshops, and community initiatives.
+                      </p>
+                    </div>
+
+                    <Switch
+                      checked={admin.canManageActivities}
+                      onCheckedChange={(val) => handleToggle(admin.id, "canManageActivities", val)}
+                      disabled={isUpdating}
+                      aria-label={`Toggle activity management for ${admin.name}`}
+                    />
+                  </div>
+
+                  {/* Flag 5: Committee */}
+                  <div
+                    className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
+                      admin.canManageCommittee
+                        ? "border-emerald-500/40 bg-emerald-950/20"
+                        : "border-white/5 bg-white/[0.02]"
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
+                        <Users className={`w-3.5 h-3.5 ${admin.canManageCommittee ? "text-emerald-400" : "text-zinc-500"}`} />
+                        <span>Committee Management</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 leading-tight">
+                        Manage executive committee, advisory panels, and leadership portfolios.
+                      </p>
+                    </div>
+
+                    <Switch
+                      checked={admin.canManageCommittee}
+                      onCheckedChange={(val) => handleToggle(admin.id, "canManageCommittee", val)}
+                      disabled={isUpdating}
+                      aria-label={`Toggle committee management for ${admin.name}`}
+                    />
+                  </div>
+
+                  {/* Flag 6: About */}
+                  <div
+                    className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
+                      admin.canManageAbout
+                        ? "border-emerald-500/40 bg-emerald-950/20"
+                        : "border-white/5 bg-white/[0.02]"
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
+                        <Info className={`w-3.5 h-3.5 ${admin.canManageAbout ? "text-emerald-400" : "text-zinc-500"}`} />
+                        <span>About Management</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 leading-tight">
+                        Update forum history, constitution, mission statement, and about pages.
+                      </p>
+                    </div>
+
+                    <Switch
+                      checked={admin.canManageAbout}
+                      onCheckedChange={(val) => handleToggle(admin.id, "canManageAbout", val)}
+                      disabled={isUpdating}
+                      aria-label={`Toggle about management for ${admin.name}`}
                     />
                   </div>
                 </div>

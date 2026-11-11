@@ -75,5 +75,9 @@
   - **Natural Duration History Logging:** Built `MentorshipHistoryCard` listing all completed engagements with exact natural-language duration calculations (e.g., "Mentored for 3 months, 14 days").
   - **Global Navigation & Auth State Refinements:** Implemented global session state in Navbar, added Home navigation to all dashboards, and integrated callbackUrl redirects for seamless mentorship requests.
   - **Public Mentorship History & Bidirectional Testimonials:** Expanded mentorship module to include bidirectional comments and exposed the mentorship history with testimonials to the public directory.
-- [ ] Phase 8: Notice & Event Modules (Role-protected)
+- [x] Phase 8: Core Module Synchronization & Granular Authorization
+  - **Public Navbar Reordering:** Standardized navigation styling by removing pill/button aesthetics from the Directory link and reordering links to match the core modules: Directory, Events, Notices, Activities, Committee, About across both desktop and mobile menus.
+  - **Prisma Schema & Neon DB Capabilities:** Updated `AdminUser` model to replace deprecated flags with 6 granular capability booleans: `canManageProfiles`, `canManageEvents`, `canManageNotices`, `canManageActivities`, `canManageCommittee`, and `canManageAbout`.
+  - **Role-Restricted Admin Dashboard:** Refactored the main Admin Console (`/admin/dashboard`) to display the 6 synchronized module cards, automatically granting full access to `SUPER_ADMIN` while strictly enforcing boolean capability gates (unlocked vs. locked state with required access messaging) for standard `ADMIN` users.
+  - **Synchronized Super Admin Control Center:** Revamped the Granular Admin Capabilities console (`/admin/super/permissions`) with 6-module toggle switches, real-time metrics, and Server Actions for individual or bulk permission governance.
 - [ ] Phase 9: Emergency Blood Donation Network & Direct Connect

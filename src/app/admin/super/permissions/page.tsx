@@ -18,7 +18,8 @@ import {
   UserCheck,
   FileText,
   Calendar,
-  Droplet,
+  Activity,
+  Info,
   Loader2,
   Home,
 } from "lucide-react";
@@ -53,17 +54,21 @@ async function SuperAdminPermissionsContent() {
     position: a.position,
     enrollment: a.enrollment,
     canManageProfiles: a.canManageProfiles,
-    canPostNotices: a.canPostNotices,
     canManageEvents: a.canManageEvents,
-    canManageEmergency: a.canManageEmergency,
+    canManageNotices: a.canManageNotices,
+    canManageActivities: a.canManageActivities,
+    canManageCommittee: a.canManageCommittee,
+    canManageAbout: a.canManageAbout,
     createdAt: a.createdAt.toISOString(),
   }));
 
   const totalAdmins = serializedAdmins.length;
   const profileManagers = serializedAdmins.filter((a) => a.canManageProfiles).length;
-  const noticePublishers = serializedAdmins.filter((a) => a.canPostNotices).length;
-  const eventOrganizers = serializedAdmins.filter((a) => a.canManageEvents).length;
-  const emergencyCoordinators = serializedAdmins.filter((a) => a.canManageEmergency).length;
+  const eventManagers = serializedAdmins.filter((a) => a.canManageEvents).length;
+  const noticeManagers = serializedAdmins.filter((a) => a.canManageNotices).length;
+  const activityManagers = serializedAdmins.filter((a) => a.canManageActivities).length;
+  const committeeManagers = serializedAdmins.filter((a) => a.canManageCommittee).length;
+  const aboutManagers = serializedAdmins.filter((a) => a.canManageAbout).length;
 
   return (
     <div className="min-h-screen bg-[#040907] text-white">
@@ -163,45 +168,61 @@ async function SuperAdminPermissionsContent() {
             </div>
 
             {/* Quick Metrics Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 shrink-0">
-              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
-                <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-xs mb-0.5">
-                  <Users className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 shrink-0">
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <Users className="w-3 h-3 text-emerald-400" />
                   <span>Approved</span>
                 </div>
-                <p className="text-base font-bold text-white">{totalAdmins}</p>
+                <p className="text-sm sm:text-base font-bold text-white">{totalAdmins}</p>
               </div>
 
-              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
-                <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-xs mb-0.5">
-                  <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <UserCheck className="w-3 h-3 text-emerald-400" />
                   <span>Profiles</span>
                 </div>
-                <p className="text-base font-bold text-white">{profileManagers}</p>
+                <p className="text-sm sm:text-base font-bold text-white">{profileManagers}</p>
               </div>
 
-              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
-                <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-xs mb-0.5">
-                  <FileText className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Notices</span>
-                </div>
-                <p className="text-base font-bold text-white">{noticePublishers}</p>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
-                <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-xs mb-0.5">
-                  <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <Calendar className="w-3 h-3 text-emerald-400" />
                   <span>Events</span>
                 </div>
-                <p className="text-base font-bold text-white">{eventOrganizers}</p>
+                <p className="text-sm sm:text-base font-bold text-white">{eventManagers}</p>
               </div>
 
-              <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
-                <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-xs mb-0.5">
-                  <Droplet className="w-3.5 h-3.5 text-rose-400" />
-                  <span>Emergency</span>
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <FileText className="w-3 h-3 text-emerald-400" />
+                  <span>Notices</span>
                 </div>
-                <p className="text-base font-bold text-white">{emergencyCoordinators}</p>
+                <p className="text-sm sm:text-base font-bold text-white">{noticeManagers}</p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <Activity className="w-3 h-3 text-emerald-400" />
+                  <span>Activities</span>
+                </div>
+                <p className="text-sm sm:text-base font-bold text-white">{activityManagers}</p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <Users className="w-3 h-3 text-emerald-400" />
+                  <span>Committee</span>
+                </div>
+                <p className="text-sm sm:text-base font-bold text-white">{committeeManagers}</p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-center">
+                <div className="flex items-center justify-center gap-1 text-zinc-400 text-[11px] mb-0.5">
+                  <Info className="w-3 h-3 text-emerald-400" />
+                  <span>About</span>
+                </div>
+                <p className="text-sm sm:text-base font-bold text-white">{aboutManagers}</p>
               </div>
             </div>
           </div>

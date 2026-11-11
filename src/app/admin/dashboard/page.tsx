@@ -11,9 +11,12 @@ import {
   ShieldCheck,
   Users,
   Calendar,
+  FileText,
+  Activity,
+  Award,
+  Info,
   LogOut,
   ArrowRight,
-  Droplet,
   Loader2,
   Lock,
   Home,
@@ -23,14 +26,103 @@ async function AdminDashboardContent() {
   const session = await auth();
   const isSuperAdmin = session?.user?.role === "SUPER_ADMIN";
 
-  let canManageProfiles = isSuperAdmin;
+  let adminCapabilities = {
+    canManageProfiles: isSuperAdmin,
+    canManageEvents: isSuperAdmin,
+    canManageNotices: isSuperAdmin,
+    canManageActivities: isSuperAdmin,
+    canManageCommittee: isSuperAdmin,
+    canManageAbout: isSuperAdmin,
+  };
+
   if (!isSuperAdmin && session?.user?.id) {
     const adminUser = await prisma.adminUser.findUnique({
       where: { id: session.user.id },
-      select: { canManageProfiles: true },
+      select: {
+        canManageProfiles: true,
+        canManageEvents: true,
+        canManageNotices: true,
+        canManageActivities: true,
+        canManageCommittee: true,
+        canManageAbout: true,
+      },
     });
-    canManageProfiles = Boolean(adminUser?.canManageProfiles);
+
+    if (adminUser) {
+      adminCapabilities = {
+        canManageProfiles: Boolean(adminUser.canManageProfiles),
+        canManageEvents: Boolean(adminUser.canManageEvents),
+        canManageNotices: Boolean(adminUser.canManageNotices),
+        canManageActivities: Boolean(adminUser.canManageActivities),
+        canManageCommittee: Boolean(adminUser.canManageCommittee),
+        canManageAbout: Boolean(adminUser.canManageAbout),
+      };
+    }
   }
+
+  // 6 Core Platform Modules
+  const modules = [
+    {
+      id: "profiles",
+      title: "Member Approvals & Directory",
+      description: "Review pending registrations, verify student/alumni memberships, and moderate records.",
+      icon: Users,
+      href: "/admin/approvals",
+      actionLabel: "Manage Approvals",
+      flagName: "canManageProfiles",
+      isAuthorized: adminCapabilities.canManageProfiles,
+    },
+    {
+      id: "events",
+      title: "Event Management",
+      description: "Publish upcoming forum meetups, annual iftar, orientation, and manage participant registrations.",
+      icon: Calendar,
+      href: "/#events",
+      actionLabel: "Manage Events",
+      flagName: "canManageEvents",
+      isAuthorized: adminCapabilities.canManageEvents,
+    },
+    {
+      id: "notices",
+      title: "Notice Management",
+      description: "Broadcast important forum announcements, academic circulars, and official member notices.",
+      icon: FileText,
+      href: "/#notices",
+      actionLabel: "Manage Notices",
+      flagName: "canManageNotices",
+      isAuthorized: adminCapabilities.canManageNotices,
+    },
+    {
+      id: "activities",
+      title: "Activity Management",
+      description: "Coordinate ongoing projects, skill workshops, social initiatives, and community engagement.",
+      icon: Activity,
+      href: "/#activities",
+      actionLabel: "Manage Activities",
+      flagName: "canManageActivities",
+      isAuthorized: adminCapabilities.canManageActivities,
+    },
+    {
+      id: "committee",
+      title: "Committee Management",
+      description: "Manage executive committee appointments, advisory board rosters, and term records.",
+      icon: Award,
+      href: "/#committee",
+      actionLabel: "Manage Committee",
+      flagName: "canManageCommittee",
+      isAuthorized: adminCapabilities.canManageCommittee,
+    },
+    {
+      id: "about",
+      title: "About Management",
+      description: "Update forum history, constitution, mission vision, and general forum information pages.",
+      icon: Info,
+      href: "/#about",
+      actionLabel: "Manage About",
+      flagName: "canManageAbout",
+      isAuthorized: adminCapabilities.canManageAbout,
+    },
+  ];
 
   return (
     <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] text-white">
@@ -79,7 +171,7 @@ async function AdminDashboardContent() {
               </>
             )}
 
-            {!isSuperAdmin && canManageProfiles && (
+            {!isSuperAdmin && adminCapabilities.canManageProfiles && (
               <Link href="/admin/approvals">
                 <Button
                   variant="outline"
@@ -129,9 +221,9 @@ async function AdminDashboardContent() {
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-base font-bold text-white">Super Admin Approvals Required</h2>
+                <h2 className="text-base font-bold text-white">Super Admin Approvals &amp; Permissions</h2>
                 <p className="text-xs text-zinc-300 mt-0.5">
-                  Assistant administrators who applied via the registration portal require root approval before accessing the console.
+                  Assistant administrators who applied via registration require root approval and capability configuration before accessing modules.
                 </p>
               </div>
             </div>
@@ -157,88 +249,80 @@ async function AdminDashboardContent() {
           </div>
         )}
 
-        {/* Management Module Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {/* Members Module */}
-          <Card className="border-white/10 bg-[#07130f]/60 backdrop-blur-md text-white hover:border-emerald-500/30 transition-all">
-            <CardHeader>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
-                <Users className="w-5 h-5" />
-              </div>
-              <CardTitle className="text-lg">Member Approvals & Directory</CardTitle>
-              <CardDescription className="text-zinc-400 text-xs">
-                Review pending registrations, verify forum memberships, and moderate student/alumni records.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {canManageProfiles ? (
-                <Link href="/admin/approvals">
-                  <Button
-                    size="sm"
-                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-950 flex items-center justify-center gap-1.5"
+        {/* 6 Core Management Module Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {modules.map((m) => (
+            <Card
+              key={m.id}
+              className={`border transition-all flex flex-col justify-between ${
+                m.isAuthorized
+                  ? "border-white/10 bg-[#07130f]/70 hover:border-emerald-500/40 shadow-lg"
+                  : "border-white/5 bg-white/[0.01] opacity-75"
+              }`}
+            >
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <div
+                    className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
+                      m.isAuthorized
+                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                        : "bg-white/5 border-white/10 text-zinc-500"
+                    }`}
                   >
-                    <span>Manage Approvals</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <m.icon className="w-5 h-5" />
+                  </div>
+
+                  {isSuperAdmin ? (
+                    <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
+                      Root Authority
+                    </Badge>
+                  ) : m.isAuthorized ? (
+                    <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
+                      Authorized
+                    </Badge>
+                  ) : (
+                    <Badge
+                      variant="outline"
+                      className="border-white/10 bg-white/5 text-zinc-500 text-[10px] font-mono flex items-center gap-1"
+                    >
+                      <Lock className="w-2.5 h-2.5" /> Locked
+                    </Badge>
+                  )}
+                </div>
+
+                <CardTitle className="text-base sm:text-lg font-bold text-white">
+                  {m.title}
+                </CardTitle>
+                <CardDescription className="text-zinc-400 text-xs leading-relaxed">
+                  {m.description}
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="pt-0">
+                {m.isAuthorized ? (
+                  <Link href={m.href} className="block w-full">
+                    <Button
+                      size="sm"
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-950 flex items-center justify-center gap-1.5 transition-all hover:scale-[1.01]"
+                    >
+                      <span>{m.actionLabel}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-white/10 bg-white/5 text-zinc-500 text-xs cursor-not-allowed flex items-center justify-center gap-1.5"
+                    disabled
+                  >
+                    <Lock className="w-3.5 h-3.5" />
+                    <span>Requires &apos;{m.flagName}&apos; Access</span>
                   </Button>
-                </Link>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full border-white/10 bg-white/5 text-zinc-400 text-xs cursor-not-allowed"
-                  disabled
-                >
-                  <span>Requires &apos;canManageProfiles&apos; Access</span>
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Events Module */}
-          <Card className="border-white/10 bg-[#07130f]/60 backdrop-blur-md text-white hover:border-emerald-500/30 transition-all">
-            <CardHeader>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
-                <Calendar className="w-5 h-5" />
-              </div>
-              <CardTitle className="text-lg">Events & Noticeboard</CardTitle>
-              <CardDescription className="text-zinc-400 text-xs">
-                Publish upcoming forum meetups, annual iftar, orientation, and announcements.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
-                disabled
-              >
-                <span>Phase 4 In Development</span>
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Blood Donors Module */}
-          <Card className="border-white/10 bg-[#07130f]/60 backdrop-blur-md text-white hover:border-emerald-500/30 transition-all">
-            <CardHeader>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
-                <Droplet className="w-5 h-5" />
-              </div>
-              <CardTitle className="text-lg">Blood Network</CardTitle>
-              <CardDescription className="text-zinc-400 text-xs">
-                Urgent blood donation requests, donor index, and volunteer emergency coordination.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
-                disabled
-              >
-                <span>Phase 4 In Development</span>
-              </Button>
-            </CardContent>
-          </Card>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </Container>
     </div>

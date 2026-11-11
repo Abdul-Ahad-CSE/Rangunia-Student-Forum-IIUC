@@ -6,10 +6,8 @@ import Link from "next/link";
 import {
   Menu,
   X,
-  Droplet,
   ArrowRight,
   ShieldCheck,
-  Users,
   User,
   KeyRound,
   GraduationCap,
@@ -92,23 +90,9 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
         <div className="hidden md:flex items-center gap-7">
           <Link
             href="/directory"
-            className="text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 shadow-sm"
-          >
-            <Users className="h-3.5 w-3.5" />
-            <span>Directory</span>
-          </Link>
-          <Link
-            href="/#about"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
-            About
-          </Link>
-          <Link
-            href="/#blood-network"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1"
-          >
-            <Droplet className="h-3.5 w-3.5 text-rose-400 fill-rose-400/20" />
-            Blood Network
+            Directory
           </Link>
           <Link
             href="/#events"
@@ -117,10 +101,28 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
             Events
           </Link>
           <Link
-            href="/#community"
+            href="/#notices"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
-            Community
+            Notices
+          </Link>
+          <Link
+            href="/#activities"
+            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+          >
+            Activities
+          </Link>
+          <Link
+            href="/#committee"
+            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+          >
+            Committee
+          </Link>
+          <Link
+            href="/#about"
+            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+          >
+            About
           </Link>
         </div>
 
@@ -203,51 +205,49 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
             <Link
               href="/directory"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-semibold text-emerald-400 bg-emerald-950/30 border border-emerald-500/20 px-3.5 py-2.5 rounded-xl"
-            >
-              <div className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-emerald-400" />
-                <span>Members Directory</span>
-              </div>
-              <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono">
-                Explore
-              </span>
-            </Link>
-            <Link
-              href="/#about"
-              onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
-              <span>About the Forum</span>
+              <span>Directory</span>
               <span className="text-zinc-500">→</span>
-            </Link>
-            <Link
-              href="/#blood-network"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-rose-300 hover:text-rose-200 py-2 border-b border-white/5"
-            >
-              <div className="flex items-center gap-2">
-                <Droplet className="h-4 w-4 fill-rose-500 text-rose-500" />
-                <span>Emergency Blood Donors</span>
-              </div>
-              <span className="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full font-semibold">
-                Live
-              </span>
             </Link>
             <Link
               href="/#events"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
-              <span>Events &amp; Gatherings</span>
+              <span>Events</span>
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="/#community"
+              href="/#notices"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
-              <span>Community Highlights</span>
+              <span>Notices</span>
+              <span className="text-zinc-500">→</span>
+            </Link>
+            <Link
+              href="/#activities"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+            >
+              <span>Activities</span>
+              <span className="text-zinc-500">→</span>
+            </Link>
+            <Link
+              href="/#committee"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+            >
+              <span>Committee</span>
+              <span className="text-zinc-500">→</span>
+            </Link>
+            <Link
+              href="/#about"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+            >
+              <span>About</span>
               <span className="text-zinc-500">→</span>
             </Link>
 
