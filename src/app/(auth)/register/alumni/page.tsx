@@ -21,11 +21,11 @@ import {
   X,
   Droplet,
   BookOpen,
-  Building2,
   Calendar,
   Globe,
   ShieldAlert,
   GraduationCap,
+  Hash,
 } from "lucide-react";
 import {
   alumniRegisterSchema,
@@ -67,7 +67,13 @@ export default function AlumniRegisterPage() {
       gender: "Male",
       department: "CSE",
       session: "Autumn 2016",
+      batch: "40th",
       bloodGroup: "",
+      permanentAddress: "",
+      presentAddress: "",
+      facebook: "",
+      linkedin: "",
+      bio: "",
     },
   });
 
@@ -423,24 +429,25 @@ export default function AlumniRegisterPage() {
                   )}
                 </div>
 
-                {/* 4. Department & Session */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="department" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                      <BookOpen className="w-3.5 h-3.5 text-teal-400" />
-                      <span>Graduated Department</span>
-                    </Label>
-                    <Input
-                      id="department"
-                      placeholder="e.g. CSE, EEE, BBA, Pharmacy"
-                      {...register("department")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
-                    />
-                    {errors.department && (
-                      <p className="text-xs text-rose-400">{errors.department.message}</p>
-                    )}
-                  </div>
+                {/* 4. Graduated Department */}
+                <div className="space-y-2">
+                  <Label htmlFor="department" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+                    <span>Graduated Department</span>
+                  </Label>
+                  <Input
+                    id="department"
+                    placeholder="e.g. CSE, EEE, BBA, Pharmacy"
+                    {...register("department")}
+                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                  />
+                  {errors.department && (
+                    <p className="text-xs text-rose-400">{errors.department.message}</p>
+                  )}
+                </div>
 
+                {/* Grid Layout: Enrollment Session & Batch on the same row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="session" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
                       <Calendar className="w-3 h-3 text-teal-400" />
@@ -456,65 +463,21 @@ export default function AlumniRegisterPage() {
                       <p className="text-xs text-rose-400">{errors.session.message}</p>
                     )}
                   </div>
-                </div>
 
-                {/* 5. Professional Details (Job Position, Company, Industry, Work Location) */}
-                <div className="p-3.5 rounded-xl border border-white/10 bg-white/[0.02] space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-teal-400" />
-                    <span className="text-xs font-semibold text-zinc-200">
-                      Current Professional Information
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="jobPosition" className="text-xs font-semibold text-zinc-300">
-                        Current Job Position / Title
-                      </Label>
-                      <Input
-                        id="jobPosition"
-                        placeholder="e.g. Software Engineer, Officer"
-                        {...register("jobPosition")}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="company" className="text-xs font-semibold text-zinc-300">
-                        Company / Organization
-                      </Label>
-                      <Input
-                        id="company"
-                        placeholder="e.g. Brain Station 23, Islami Bank"
-                        {...register("company")}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="industry" className="text-xs font-semibold text-zinc-300">
-                        Industry / Sector
-                      </Label>
-                      <Input
-                        id="industry"
-                        placeholder="e.g. Information Technology, Banking"
-                        {...register("industry")}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="workLocation" className="text-xs font-semibold text-zinc-300">
-                        Work Location / City
-                      </Label>
-                      <Input
-                        id="workLocation"
-                        placeholder="e.g. Dhaka, Chittagong, Remote"
-                        {...register("workLocation")}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="batch" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <Hash className="w-3.5 h-3.5 text-teal-400" />
+                      <span>Batch</span>
+                    </Label>
+                    <Input
+                      id="batch"
+                      placeholder="e.g. 40th, 57"
+                      {...register("batch")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                    />
+                    {errors.batch && (
+                      <p className="text-xs text-rose-400">{errors.batch.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -599,38 +562,43 @@ export default function AlumniRegisterPage() {
                   </div>
                 </div>
 
-                {/* 8. Address in Rangunia */}
-                <div className="space-y-2">
-                  <Label htmlFor="address" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-teal-400" />
-                    <span>Permanent Address (Union / Village in Rangunia)</span>
-                  </Label>
-                  <Input
-                    id="address"
-                    placeholder="e.g. Mariumnagar, Rangunia, Chittagong"
-                    {...register("address")}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
-                  />
-                  {errors.address && (
-                    <p className="text-xs text-rose-400">{errors.address.message}</p>
-                  )}
-                </div>
-
-                {/* 9. Social Links */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* 7. Permanent & Present Address */}
+                <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="linkedin" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                      <Globe className="w-3.5 h-3.5 text-teal-400" />
-                      <span>LinkedIn Profile Link</span>
+                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                      <span>Permanent Address (Union / Village in Rangunia)</span>
                     </Label>
                     <Input
-                      id="linkedin"
-                      placeholder="https://linkedin.com/in/username"
-                      {...register("linkedin")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
+                      id="permanentAddress"
+                      placeholder="e.g. Mariumnagar, Rangunia, Chittagong"
+                      {...register("permanentAddress")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
+                    {errors.permanentAddress && (
+                      <p className="text-xs text-rose-400">{errors.permanentAddress.message}</p>
+                    )}
                   </div>
 
+                  <div className="space-y-2">
+                    <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                      <span>Present Address (Current City / Residence)</span>
+                    </Label>
+                    <Input
+                      id="presentAddress"
+                      placeholder="e.g. Nasirabad, Chittagong / Dhanmondi, Dhaka"
+                      {...register("presentAddress")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                    />
+                    {errors.presentAddress && (
+                      <p className="text-xs text-rose-400">{errors.presentAddress.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* 8. Social Links (Facebook first, then LinkedIn) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="facebook" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
                       <Globe className="w-3.5 h-3.5 text-teal-400" />
@@ -640,6 +608,19 @@ export default function AlumniRegisterPage() {
                       id="facebook"
                       placeholder="https://facebook.com/username"
                       {...register("facebook")}
+                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="linkedin" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <Globe className="w-3.5 h-3.5 text-teal-400" />
+                      <span>LinkedIn Profile Link (Optional)</span>
+                    </Label>
+                    <Input
+                      id="linkedin"
+                      placeholder="https://linkedin.com/in/username"
+                      {...register("linkedin")}
                       className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
                     />
                   </div>

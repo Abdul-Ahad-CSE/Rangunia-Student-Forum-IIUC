@@ -1,7 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Save, Droplet, Briefcase, Building2, MapPin, Clock, FileText } from "lucide-react";
+import {
+  Loader2,
+  Save,
+  Briefcase,
+  GraduationCap,
+  Building2,
+  MapPin,
+  Clock,
+  Sparkles,
+  Award,
+  BookOpen,
+  FileText,
+  Compass,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,24 +34,56 @@ import {
 
 type Props = {
   initialData: {
-    bloodGroup?: string | null;
+    presentAddress?: string | null;
+    forumRole?: string | null;
+    skills?: string[];
+    cgpa?: string | null;
     jobPosition?: string | null;
     industry?: string | null;
     workLocation?: string | null;
     experienceYears?: number | null;
-    details?: string | null;
+    personalDetails?: string | null;
+    higherStudyUniversity?: string | null;
+    higherStudyCountry?: string | null;
+    higherStudyDegree?: string | null;
+    scholarshipInfo?: string | null;
+    researchThesisTitle?: string | null;
+    higherEducationDetails?: string | null;
   };
 };
 
 export function AlumniProfileForm({ initialData }: Props) {
-  const [bloodGroup, setBloodGroup] = React.useState(initialData.bloodGroup || "");
+  // 1. Academic & Personal Form State
+  const [presentAddress, setPresentAddress] = React.useState(initialData.presentAddress || "");
+  const [forumRole, setForumRole] = React.useState(initialData.forumRole || "");
+  const [skills, setSkills] = React.useState((initialData.skills || []).join(", "));
+  const [cgpa, setCgpa] = React.useState(initialData.cgpa || "");
   const [jobPosition, setJobPosition] = React.useState(initialData.jobPosition || "");
   const [industry, setIndustry] = React.useState(initialData.industry || "");
   const [workLocation, setWorkLocation] = React.useState(initialData.workLocation || "");
   const [experience, setExperience] = React.useState(
     initialData.experienceYears ? `${initialData.experienceYears} years` : ""
   );
-  const [details, setDetails] = React.useState(initialData.details || "");
+  const [personalDetails, setPersonalDetails] = React.useState(initialData.personalDetails || "");
+
+  // 2. Higher Education Form State
+  const [higherStudyUniversity, setHigherStudyUniversity] = React.useState(
+    initialData.higherStudyUniversity || ""
+  );
+  const [higherStudyCountry, setHigherStudyCountry] = React.useState(
+    initialData.higherStudyCountry || ""
+  );
+  const [higherStudyDegree, setHigherStudyDegree] = React.useState(
+    initialData.higherStudyDegree || ""
+  );
+  const [scholarshipInfo, setScholarshipInfo] = React.useState(initialData.scholarshipInfo || "");
+  const [researchThesisTitle, setResearchThesisTitle] = React.useState(
+    initialData.researchThesisTitle || ""
+  );
+  const [higherEducationDetails, setHigherEducationDetails] = React.useState(
+    initialData.higherEducationDetails || ""
+  );
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,12 +92,21 @@ export function AlumniProfileForm({ initialData }: Props) {
 
     try {
       const payload: AlumniProfileUpdateInput = {
-        bloodGroup,
+        presentAddress,
+        forumRole,
+        skills,
+        cgpa,
         jobPosition,
         industry,
         workLocation,
         experienceYears: experience,
-        details,
+        personalDetails,
+        higherStudyUniversity,
+        higherStudyCountry,
+        higherStudyDegree,
+        scholarshipInfo,
+        researchThesisTitle,
+        higherEducationDetails,
       };
 
       const res = await updateAlumniProfileAction(payload);
@@ -70,44 +124,83 @@ export function AlumniProfileForm({ initialData }: Props) {
   };
 
   return (
-    <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl">
-      <CardHeader className="border-b border-white/5 pb-4">
-        <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
-          <Briefcase className="w-5 h-5 text-teal-400" />
-          <span>Professional Background & Alumni Credentials</span>
-        </CardTitle>
-        <CardDescription className="text-xs text-zinc-400">
-          Update your employment, career progression, and availability to support current students.
-        </CardDescription>
-      </CardHeader>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* SECTION 1: Academic & Personal Information */}
+      <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
+        <CardHeader className="border-b border-white/5 pb-4">
+          <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+            <Briefcase className="w-5 h-5 text-teal-400" />
+            <span>Academic &amp; Personal Information</span>
+          </CardTitle>
+          <CardDescription className="text-xs text-zinc-400">
+            Update your present residence, forum contributions, professional employment, and career trajectory.
+          </CardDescription>
+        </CardHeader>
 
-      <CardContent className="pt-6">
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <CardContent className="pt-6 space-y-4">
+          {/* Present Address */}
+          <div className="space-y-2">
+            <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-teal-400" />
+              <span>Present Address</span>
+            </Label>
+            <Input
+              id="presentAddress"
+              placeholder="e.g. Nasirabad, Chittagong / Dhanmondi, Dhaka / London, UK"
+              value={presentAddress}
+              onChange={(e) => setPresentAddress(e.target.value)}
+              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Blood Group */}
+            {/* Forum Role */}
             <div className="space-y-2">
-              <Label htmlFor="bloodGroup" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                <Droplet className="w-3.5 h-3.5 text-rose-400" />
-                <span>Blood Group</span>
+              <Label htmlFor="forumRole" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-teal-400" />
+                <span>Forum Role</span>
               </Label>
-              <select
-                id="bloodGroup"
-                value={bloodGroup}
-                onChange={(e) => setBloodGroup(e.target.value)}
-                className="w-full h-10 rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs text-white focus:outline-none focus:ring-1 focus:ring-teal-500"
-              >
-                <option value="" className="bg-[#07130f]">Select Blood Group</option>
-                <option value="A_POSITIVE" className="bg-[#07130f]">A+ (A Positive)</option>
-                <option value="A_NEGATIVE" className="bg-[#07130f]">A- (A Negative)</option>
-                <option value="B_POSITIVE" className="bg-[#07130f]">B+ (B Positive)</option>
-                <option value="B_NEGATIVE" className="bg-[#07130f]">B- (B Negative)</option>
-                <option value="AB_POSITIVE" className="bg-[#07130f]">AB+ (AB Positive)</option>
-                <option value="AB_NEGATIVE" className="bg-[#07130f]">AB- (AB Negative)</option>
-                <option value="O_POSITIVE" className="bg-[#07130f]">O+ (O Positive)</option>
-                <option value="O_NEGATIVE" className="bg-[#07130f]">O- (O Negative)</option>
-              </select>
+              <Input
+                id="forumRole"
+                placeholder="e.g. Former President, Senior Advisor, General Member"
+                value={forumRole}
+                onChange={(e) => setForumRole(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
             </div>
 
+            {/* Academic CGPA */}
+            <div className="space-y-2">
+              <Label htmlFor="cgpa" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+                <span>Academic CGPA</span>
+              </Label>
+              <Input
+                id="cgpa"
+                placeholder="e.g. 3.82"
+                value={cgpa}
+                onChange={(e) => setCgpa(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
+            </div>
+          </div>
+
+          {/* Skills */}
+          <div className="space-y-2">
+            <Label htmlFor="skills" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+              <span>Skills</span>
+            </Label>
+            <Input
+              id="skills"
+              placeholder="e.g. Cloud Architecture, Machine Learning, Leadership, FinTech"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Job Position / Business */}
             <div className="space-y-2">
               <Label htmlFor="jobPosition" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
@@ -116,15 +209,13 @@ export function AlumniProfileForm({ initialData }: Props) {
               </Label>
               <Input
                 id="jobPosition"
-                placeholder="e.g. Senior Software Engineer / Founder"
+                placeholder="e.g. Principal Software Engineer, Founder &amp; CEO"
                 value={jobPosition}
                 onChange={(e) => setJobPosition(e.target.value)}
                 className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Industry */}
             <div className="space-y-2">
               <Label htmlFor="industry" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
@@ -133,13 +224,15 @@ export function AlumniProfileForm({ initialData }: Props) {
               </Label>
               <Input
                 id="industry"
-                placeholder="e.g. Fintech, Healthcare, Telecom"
+                placeholder="e.g. Information Technology, Banking, Telecommunications"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
                 className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
+          </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Work Location */}
             <div className="space-y-2">
               <Label htmlFor="workLocation" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
@@ -148,7 +241,7 @@ export function AlumniProfileForm({ initialData }: Props) {
               </Label>
               <Input
                 id="workLocation"
-                placeholder="e.g. Dhaka, Chittagong, Remote, Abroad"
+                placeholder="e.g. Dhaka, Chittagong, Remote, Dubai"
                 value={workLocation}
                 onChange={(e) => setWorkLocation(e.target.value)}
                 className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
@@ -163,7 +256,7 @@ export function AlumniProfileForm({ initialData }: Props) {
               </Label>
               <Input
                 id="experience"
-                placeholder="e.g. 3 years"
+                placeholder="e.g. 5 years, 8 years"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
                 className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
@@ -171,43 +264,154 @@ export function AlumniProfileForm({ initialData }: Props) {
             </div>
           </div>
 
-          {/* Details / Summary */}
+          {/* Personal & Professional Details */}
           <div className="space-y-2">
-            <Label htmlFor="details" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="personalDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-teal-400" />
-              <span>Professional Details & Mentorship Focus</span>
+              <span>Personal &amp; Professional Details</span>
             </Label>
             <Textarea
-              id="details"
-              rows={4}
-              placeholder="Tell Rangunia juniors about your career trajectory, industry insights, or how you can assist..."
-              value={details}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
+              id="personalDetails"
+              rows={3}
+              placeholder="Share career milestones, areas of mentorship expertise, or advice for junior Rangunia students..."
+              value={personalDetails}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPersonalDetails(e.target.value)}
               className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
           </div>
+        </CardContent>
+      </Card>
 
-          <div className="pt-2">
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full sm:w-auto min-w-[160px] bg-teal-600 hover:bg-teal-500 text-white font-semibold flex items-center justify-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Saving Changes...</span>
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4" />
-                  <span>Save Alumni Profile</span>
-                </>
-              )}
-            </Button>
+      {/* SECTION 2: Higher Education Section */}
+      <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
+        <CardHeader className="border-b border-white/5 pb-4">
+          <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-teal-400" />
+            <span>Higher Education</span>
+          </CardTitle>
+          <CardDescription className="text-xs text-zinc-400">
+            Share postgraduate studies, overseas academic accomplishments, research publications, and scholarships.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="pt-6 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Current University */}
+            <div className="space-y-2">
+              <Label htmlFor="higherStudyUniversity" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+                <span>Current University</span>
+              </Label>
+              <Input
+                id="higherStudyUniversity"
+                placeholder="e.g. Sapienza University of Rome, Technical University of Munich"
+                value={higherStudyUniversity}
+                onChange={(e) => setHigherStudyUniversity(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
+            </div>
+
+            {/* Country */}
+            <div className="space-y-2">
+              <Label htmlFor="higherStudyCountry" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Compass className="w-3.5 h-3.5 text-teal-400" />
+                <span>Country</span>
+              </Label>
+              <Input
+                id="higherStudyCountry"
+                placeholder="e.g. Italy, United States, Germany, Japan"
+                value={higherStudyCountry}
+                onChange={(e) => setHigherStudyCountry(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
+            </div>
           </div>
-        </form>
-      </CardContent>
-    </Card>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Degree */}
+            <div className="space-y-2">
+              <Label htmlFor="higherStudyDegree" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-teal-400" />
+                <span>Degree</span>
+              </Label>
+              <Input
+                id="higherStudyDegree"
+                placeholder="e.g. MSc in Computer Science, PhD, MBA"
+                value={higherStudyDegree}
+                onChange={(e) => setHigherStudyDegree(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
+            </div>
+
+            {/* Scholarship */}
+            <div className="space-y-2">
+              <Label htmlFor="scholarshipInfo" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+                <span>Scholarship</span>
+              </Label>
+              <Input
+                id="scholarshipInfo"
+                placeholder="e.g. Erasmus Mundus, Fulbright, DAAD, Government Grant"
+                value={scholarshipInfo}
+                onChange={(e) => setScholarshipInfo(e.target.value)}
+                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              />
+            </div>
+          </div>
+
+          {/* Research / Thesis Title */}
+          <div className="space-y-2">
+            <Label htmlFor="researchThesisTitle" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+              <span>Research / Thesis Title</span>
+            </Label>
+            <Input
+              id="researchThesisTitle"
+              placeholder="e.g. Optimizing Distributed Machine Learning Pipelines in Heterogeneous Clouds"
+              value={researchThesisTitle}
+              onChange={(e) => setResearchThesisTitle(e.target.value)}
+              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+            />
+          </div>
+
+          {/* Higher Education Details */}
+          <div className="space-y-2">
+            <Label htmlFor="higherEducationDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-teal-400" />
+              <span>Higher Education Details</span>
+            </Label>
+            <Textarea
+              id="higherEducationDetails"
+              rows={3}
+              placeholder="Describe your research focus, lab affiliation, supervisor, publications, or postgrad highlights..."
+              value={higherEducationDetails}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHigherEducationDetails(e.target.value)}
+              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Save Button */}
+      <div className="pt-2">
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="w-full sm:w-auto min-w-[180px] bg-teal-600 hover:bg-teal-500 text-white font-semibold flex items-center justify-center gap-2 shadow-lg shadow-teal-950/40"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Saving Changes...</span>
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4" />
+              <span>Save Alumni Profile</span>
+            </>
+          )}
+        </Button>
+      </div>
+    </form>
   );
 }

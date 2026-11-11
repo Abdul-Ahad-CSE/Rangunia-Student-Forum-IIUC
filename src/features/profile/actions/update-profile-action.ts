@@ -2,7 +2,6 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { BloodGroup } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export type ProfileUpdateResponse = {
@@ -96,12 +95,24 @@ export async function updateStudentProfileAction(
 }
 
 export type AlumniProfileUpdateInput = {
-  bloodGroup?: string;
+  // Academic & Personal
+  presentAddress?: string;
+  forumRole?: string;
+  skills?: string;
+  cgpa?: string;
   jobPosition?: string;
   industry?: string;
   workLocation?: string;
   experienceYears?: string | number;
-  details?: string;
+  personalDetails?: string;
+
+  // Higher Education
+  higherStudyUniversity?: string;
+  higherStudyCountry?: string;
+  higherStudyDegree?: string;
+  scholarshipInfo?: string;
+  researchThesisTitle?: string;
+  higherEducationDetails?: string;
 };
 
 export async function updateAlumniProfileAction(
@@ -123,11 +134,13 @@ export async function updateAlumniProfileAction(
       return { success: false, error: "User account not found." };
     }
 
-    // Parse blood group
-    let bloodGroupValue: BloodGroup | null = null;
-    if (data.bloodGroup && data.bloodGroup !== "") {
-      bloodGroupValue = data.bloodGroup as BloodGroup;
-    }
+    // Parse skills array
+    const skillsArray = data.skills
+      ? data.skills
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
 
     // Parse experience years
     let expNumber: number | null = null;
@@ -139,12 +152,18 @@ export async function updateAlumniProfileAction(
     }
 
     await prisma.$transaction(async (tx) => {
-      // 1. Update User basic info
+      // 1. Update User basic info (presentAddress, bio)
       await tx.user.update({
         where: { id: userId },
         data: {
-          bloodGroup: bloodGroupValue,
-          bio: data.details !== undefined ? data.details.trim() : user.bio,
+          presentAddress:
+            data.presentAddress !== undefined
+              ? (data.presentAddress ? data.presentAddress.trim() : null)
+              : user.presentAddress,
+          bio:
+            data.personalDetails !== undefined
+              ? (data.personalDetails ? data.personalDetails.trim() : null)
+              : user.bio,
         },
       });
 
@@ -152,22 +171,43 @@ export async function updateAlumniProfileAction(
       await tx.alumniProfile.upsert({
         where: { userId },
         update: {
-          jobPosition: data.jobPosition ? data.jobPosition.trim() : null,
-          industry: data.industry ? data.industry.trim() : null,
-          workLocation: data.workLocation ? data.workLocation.trim() : null,
+          forumRole: data.forumRole !== undefined ? (data.forumRole ? data.forumRole.trim() : null) : undefined,
+          skills: skillsArray,
+          cgpa: data.cgpa !== undefined ? (data.cgpa ? data.cgpa.trim() : null) : undefined,
+          jobPosition: data.jobPosition !== undefined ? (data.jobPosition ? data.jobPosition.trim() : null) : undefined,
+          industry: data.industry !== undefined ? (data.industry ? data.industry.trim() : null) : undefined,
+          workLocation: data.workLocation !== undefined ? (data.workLocation ? data.workLocation.trim() : null) : undefined,
           experienceYears: expNumber,
+          personalDetails: data.personalDetails !== undefined ? (data.personalDetails ? data.personalDetails.trim() : null) : undefined,
+          higherStudyUniversity: data.higherStudyUniversity !== undefined ? (data.higherStudyUniversity ? data.higherStudyUniversity.trim() : null) : undefined,
+          higherStudyCountry: data.higherStudyCountry !== undefined ? (data.higherStudyCountry ? data.higherStudyCountry.trim() : null) : undefined,
+          higherStudyDegree: data.higherStudyDegree !== undefined ? (data.higherStudyDegree ? data.higherStudyDegree.trim() : null) : undefined,
+          scholarshipInfo: data.scholarshipInfo !== undefined ? (data.scholarshipInfo ? data.scholarshipInfo.trim() : null) : undefined,
+          researchThesisTitle: data.researchThesisTitle !== undefined ? (data.researchThesisTitle ? data.researchThesisTitle.trim() : null) : undefined,
+          higherEducationDetails: data.higherEducationDetails !== undefined ? (data.higherEducationDetails ? data.higherEducationDetails.trim() : null) : undefined,
         },
         create: {
           userId,
+          forumRole: data.forumRole ? data.forumRole.trim() : null,
+          skills: skillsArray,
+          cgpa: data.cgpa ? data.cgpa.trim() : null,
           jobPosition: data.jobPosition ? data.jobPosition.trim() : null,
           industry: data.industry ? data.industry.trim() : null,
           workLocation: data.workLocation ? data.workLocation.trim() : null,
           experienceYears: expNumber,
+          personalDetails: data.personalDetails ? data.personalDetails.trim() : null,
+          higherStudyUniversity: data.higherStudyUniversity ? data.higherStudyUniversity.trim() : null,
+          higherStudyCountry: data.higherStudyCountry ? data.higherStudyCountry.trim() : null,
+          higherStudyDegree: data.higherStudyDegree ? data.higherStudyDegree.trim() : null,
+          scholarshipInfo: data.scholarshipInfo ? data.scholarshipInfo.trim() : null,
+          researchThesisTitle: data.researchThesisTitle ? data.researchThesisTitle.trim() : null,
+          higherEducationDetails: data.higherEducationDetails ? data.higherEducationDetails.trim() : null,
         },
       });
     });
 
     revalidatePath("/profile");
+    revalidatePath("/directory");
     return { success: true, message: "Alumni profile updated successfully!" };
   } catch (error) {
     console.error("updateAlumniProfileAction error:", error);

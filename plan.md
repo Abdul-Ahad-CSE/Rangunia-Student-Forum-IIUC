@@ -61,6 +61,7 @@
     - Refined student registration fields (removed university, added present/permanent address), split profile into unchangeable identity header and editable academic section, and implemented direct-save PDF CV upload.
     - Refactored public directory to use minimal cards linking to dynamic detailed profile pages with strict server-side masking. Moved student portal privacy controls into a dismissible Dialog/Sheet for cleaner UX.
     - Resolved browser security block on PDF viewing by implementing a Next.js API route that decodes and streams Base64 CVs as binary application/pdf responses.
+    - Refactored Alumni registration layout, implemented Alumni Profile dashboard with Academic and Higher Education sections, and enforced hidden-optional UI rules.
 - [ ] Phase 6: Request-Based Data Entry System (Draft submission & Admin approval)
 - [ ] Phase 7: Notice & Event Modules (Role-protected)
 - [ ] Phase 8: Public Directory & Smart Search (Gender-isolation & Privacy masking)

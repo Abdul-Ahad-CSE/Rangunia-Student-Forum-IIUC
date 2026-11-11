@@ -128,18 +128,29 @@ model AlumniProfile {
   id                    String   @id @default(cuid())
   userId                String   @unique
   user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company               String?  // Current employer / Organization
-  jobPosition           String?  // Professional title
+  
+  // Academic & Professional Attributes
+  forumRole             String?  // e.g. Executive Member, Senior Advisor, General Member
+  skills                String[] @default([]) // Technical / professional skills
+  cgpa                  String?  // Academic CGPA at IIUC
+  company               String?  // Current employer / Organization / Business
+  jobPosition           String?  // Professional title / Business role
   industry              String?  // e.g. Software, Banking, Telecommunications
   workLocation          String?  // e.g. Dhaka, Chittagong, Remote, Abroad
   experienceYears       Int?     // Total career experience in years
-  passingYear           String?  // Passing year
-  graduationYear        String?  // Degree conferral year
-  higherStudyUniversity String?  // University for postgraduate studies
-  higherStudyCountry    String?  // Country of higher study
-  higherStudyDegree     String?  // e.g. MSc, PhD, MBA
+  personalDetails       String?  @db.Text // Personal & Professional Details
+
+  // Higher Education & Research
+  higherStudyUniversity String?  // University for postgraduate studies (e.g., Sapienza University)
+  higherStudyCountry    String?  // Country of higher study (e.g., Italy, USA)
+  higherStudyDegree     String?  // Degree (e.g., MSc, PhD)
+  scholarshipInfo       String?  // Scholarship (e.g., Erasmus)
+  researchThesisTitle   String?  // Research / Thesis Title
+  higherEducationDetails String? @db.Text // Higher Education Details
 
   // Mentorship and Assistance Offering
+  passingYear           String?  // Passing year
+  graduationYear        String?  // Degree conferral year
   mentorshipAvailable   Boolean  @default(false)
   internshipHelp        Boolean  @default(false)
   cvReview              Boolean  @default(false)

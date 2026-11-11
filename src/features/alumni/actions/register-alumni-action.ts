@@ -92,10 +92,11 @@ export async function registerAlumniAction(
           gender: "MALE",
           department: data.department.trim(),
           session: data.session.trim(),
+          batch: data.batch ? data.batch.trim() : null,
           bloodGroup: bloodGroupValue,
           phone: data.phone.trim(),
-          permanentAddress: data.address.trim(),
-          presentAddress: data.workLocation ? data.workLocation.trim() : null,
+          permanentAddress: data.permanentAddress.trim(),
+          presentAddress: data.presentAddress ? data.presentAddress.trim() : null,
           socialLinks: Object.keys(socialLinks).length > 0 ? socialLinks : undefined,
           bio: data.bio ? data.bio.trim() : null,
           role: "STUDENT",
@@ -108,10 +109,6 @@ export async function registerAlumniAction(
       await tx.alumniProfile.create({
         data: {
           userId: newUser.id,
-          company: data.company ? data.company.trim() : null,
-          jobPosition: data.jobPosition ? data.jobPosition.trim() : null,
-          industry: data.industry ? data.industry.trim() : null,
-          workLocation: data.workLocation ? data.workLocation.trim() : null,
         },
       });
     });

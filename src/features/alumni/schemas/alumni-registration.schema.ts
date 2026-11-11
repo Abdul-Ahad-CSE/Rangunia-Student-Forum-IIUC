@@ -26,17 +26,15 @@ export const alumniRegisterSchema = z.object({
   session: z
     .string()
     .min(2, "Enrollment Session is required (e.g. Autumn 2016, Spring 2018)"),
+  batch: z.string().optional().or(z.literal("")),
   bloodGroup: z.string().optional().or(z.literal("")),
   phone: z
     .string()
     .min(6, "Phone number is required"),
-  address: z
+  permanentAddress: z
     .string()
     .min(3, "Permanent address in Rangunia is required"),
-  company: z.string().optional().or(z.literal("")),
-  jobPosition: z.string().optional().or(z.literal("")),
-  industry: z.string().optional().or(z.literal("")),
-  workLocation: z.string().optional().or(z.literal("")),
+  presentAddress: z.string().optional().or(z.literal("")),
   facebook: z.string().optional().or(z.literal("")),
   linkedin: z.string().optional().or(z.literal("")),
   bio: z.string().max(1000, "Bio cannot exceed 1000 characters").optional().or(z.literal("")),

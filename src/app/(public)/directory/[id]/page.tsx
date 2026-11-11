@@ -26,6 +26,8 @@ import {
   ShieldCheck,
   ExternalLink,
   Loader2,
+  Award,
+  BookOpen,
 } from "lucide-react";
 
 interface PublicProfilePageProps {
@@ -165,11 +167,18 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           industry: rawUser.alumniProfile.industry,
           workLocation: rawUser.alumniProfile.workLocation,
           experienceYears: rawUser.alumniProfile.experienceYears,
+          forumRole: rawUser.alumniProfile.forumRole,
+          skills: rawUser.alumniProfile.skills,
+          cgpa: rawUser.alumniProfile.cgpa,
+          personalDetails: rawUser.alumniProfile.personalDetails,
           passingYear: rawUser.alumniProfile.passingYear,
           graduationYear: rawUser.alumniProfile.graduationYear,
           higherStudyUniversity: rawUser.alumniProfile.higherStudyUniversity,
           higherStudyCountry: rawUser.alumniProfile.higherStudyCountry,
           higherStudyDegree: rawUser.alumniProfile.higherStudyDegree,
+          scholarshipInfo: rawUser.alumniProfile.scholarshipInfo,
+          researchThesisTitle: rawUser.alumniProfile.researchThesisTitle,
+          higherEducationDetails: rawUser.alumniProfile.higherEducationDetails,
           mentorshipAvailable: rawUser.alumniProfile.mentorshipAvailable,
         }
       : null,
@@ -249,6 +258,14 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                     </span>
                   )}
                 </Badge>
+                {isAlumni && member.alumniProfile?.forumRole && (
+                  <Badge
+                    variant="outline"
+                    className="border-amber-500/30 bg-amber-950/30 text-amber-300 text-[10px]"
+                  >
+                    {member.alumniProfile.forumRole}
+                  </Badge>
+                )}
               </div>
 
               <p className="text-xs text-zinc-400 flex items-center gap-1.5 flex-wrap">
@@ -343,6 +360,18 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       <span className="text-white font-medium">{member.alumniProfile.workLocation}</span>
                     </div>
                   )}
+                  {member.alumniProfile.experienceYears != null && member.alumniProfile.experienceYears > 0 && (
+                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                      <span className="text-[10px] text-zinc-500 block">Experience</span>
+                      <span className="text-white font-medium">{member.alumniProfile.experienceYears} Years</span>
+                    </div>
+                  )}
+                  {member.alumniProfile.cgpa && (
+                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                      <span className="text-[10px] text-zinc-500 block">Academic CGPA</span>
+                      <span className="text-teal-400 font-mono font-semibold">{member.alumniProfile.cgpa}</span>
+                    </div>
+                  )}
                   {member.alumniProfile.graduationYear && (
                     <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Graduation Year</span>
@@ -350,6 +379,29 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                     </div>
                   )}
                 </div>
+
+                {member.alumniProfile.skills && member.alumniProfile.skills.length > 0 && (
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-[10px] text-zinc-500 block font-medium">Technical &amp; Professional Competencies</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {member.alumniProfile.skills.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-white/10 bg-white/[0.03] text-zinc-200"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {member.alumniProfile.personalDetails && (
+                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02] space-y-1">
+                    <span className="text-[10px] text-zinc-500 block">Personal &amp; Professional Summary</span>
+                    <p className="text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.personalDetails}</p>
+                  </div>
+                )}
 
                 {member.alumniProfile.mentorshipAvailable && (
                   <div className="p-3 rounded-xl border border-teal-500/30 bg-teal-950/20 text-teal-200 flex items-center gap-2">
@@ -574,6 +626,79 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           </CardContent>
         </Card>
       </div>
+
+      {/* Higher Education & Research Section (If Alumni has postgraduate/study details) */}
+      {isAlumni &&
+        member.alumniProfile &&
+        (member.alumniProfile.higherStudyUniversity ||
+          member.alumniProfile.higherStudyDegree ||
+          member.alumniProfile.higherStudyCountry ||
+          member.alumniProfile.scholarshipInfo ||
+          member.alumniProfile.researchThesisTitle ||
+          member.alumniProfile.higherEducationDetails) && (
+          <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
+            <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
+              <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-teal-400" />
+                <span>Higher Education &amp; Research</span>
+              </CardTitle>
+              <Badge variant="outline" className="border-teal-500/30 bg-teal-950/20 text-teal-300 text-[10px]">
+                Postgraduate / Global Academia
+              </Badge>
+            </CardHeader>
+            <CardContent className="pt-4 space-y-3.5 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {member.alumniProfile.higherStudyDegree && (
+                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <span className="text-[10px] text-zinc-500 block">Degree / Program</span>
+                    <span className="text-white font-medium">{member.alumniProfile.higherStudyDegree}</span>
+                  </div>
+                )}
+                {member.alumniProfile.higherStudyUniversity && (
+                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <span className="text-[10px] text-zinc-500 block">University / Institution</span>
+                    <span className="text-white font-medium">{member.alumniProfile.higherStudyUniversity}</span>
+                  </div>
+                )}
+                {member.alumniProfile.higherStudyCountry && (
+                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
+                      <Globe className="w-3 h-3 text-teal-400" />
+                      <span>Country</span>
+                    </span>
+                    <span className="text-white font-medium">{member.alumniProfile.higherStudyCountry}</span>
+                  </div>
+                )}
+                {member.alumniProfile.scholarshipInfo && (
+                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
+                      <Award className="w-3 h-3 text-amber-400" />
+                      <span>Scholarship / Fellowship</span>
+                    </span>
+                    <span className="text-white font-medium">{member.alumniProfile.scholarshipInfo}</span>
+                  </div>
+                )}
+              </div>
+
+              {member.alumniProfile.researchThesisTitle && (
+                <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02] space-y-1">
+                  <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
+                    <BookOpen className="w-3 h-3 text-teal-400" />
+                    <span>Research / Thesis Title</span>
+                  </span>
+                  <p className="text-zinc-200 font-medium text-xs sm:text-sm">{member.alumniProfile.researchThesisTitle}</p>
+                </div>
+              )}
+
+              {member.alumniProfile.higherEducationDetails && (
+                <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02] space-y-1">
+                  <span className="text-[10px] text-zinc-500 block">Higher Education Notes &amp; Insights</span>
+                  <p className="text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.higherEducationDetails}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
       {/* Member Bio / Forum Statement */}
       {member.bio && (

@@ -31,6 +31,17 @@ export interface MaskedDirectoryMember {
     jobPosition: string | null;
     industry: string | null;
     workLocation: string | null;
+    experienceYears: number | null;
+    forumRole: string | null;
+    skills: string[];
+    cgpa: string | null;
+    personalDetails: string | null;
+    higherStudyUniversity: string | null;
+    higherStudyCountry: string | null;
+    higherStudyDegree: string | null;
+    scholarshipInfo: string | null;
+    researchThesisTitle: string | null;
+    higherEducationDetails: string | null;
     passingYear: string | null;
     graduationYear: string | null;
     mentorshipAvailable: boolean;

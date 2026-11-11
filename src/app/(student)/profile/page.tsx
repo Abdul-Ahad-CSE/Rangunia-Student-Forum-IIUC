@@ -100,12 +100,21 @@ async function ProfileContent() {
       {isAlumni ? (
         <AlumniProfileForm
           initialData={{
-            bloodGroup: user.bloodGroup,
+            presentAddress: user.presentAddress,
+            forumRole: user.alumniProfile?.forumRole,
+            skills: user.alumniProfile?.skills,
+            cgpa: user.alumniProfile?.cgpa,
             jobPosition: user.alumniProfile?.jobPosition,
             industry: user.alumniProfile?.industry,
             workLocation: user.alumniProfile?.workLocation,
             experienceYears: user.alumniProfile?.experienceYears,
-            details: user.bio,
+            personalDetails: user.alumniProfile?.personalDetails || user.bio,
+            higherStudyUniversity: user.alumniProfile?.higherStudyUniversity,
+            higherStudyCountry: user.alumniProfile?.higherStudyCountry,
+            higherStudyDegree: user.alumniProfile?.higherStudyDegree,
+            scholarshipInfo: user.alumniProfile?.scholarshipInfo,
+            researchThesisTitle: user.alumniProfile?.researchThesisTitle,
+            higherEducationDetails: user.alumniProfile?.higherEducationDetails,
           }}
         />
       ) : (
