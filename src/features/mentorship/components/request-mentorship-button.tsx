@@ -55,7 +55,7 @@ export function RequestMentorshipButton({
           className="border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/50 hover:text-white text-xs font-medium gap-1.5 shadow-sm"
         >
           <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-          <span>Sign In to Request Mentorship</span>
+          <span>Log in to Request Mentorship</span>
         </Button>
       </Link>
     );

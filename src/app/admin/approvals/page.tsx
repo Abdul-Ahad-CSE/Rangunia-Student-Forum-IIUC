@@ -13,6 +13,7 @@ import {
   Clock,
   CheckCircle2,
   Loader2,
+  Home,
 } from "lucide-react";
 import { MemberApprovalList } from "@/features/approvals/components/member-approval-list";
 import type { SerializedPendingMember } from "@/features/approvals/types/approval.types";
@@ -149,6 +150,17 @@ async function ApprovalsDashboardContent() {
                 </Button>
               </Link>
             )}
+
+            <Link href="/">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1.5"
+              >
+                <Home className="h-3.5 w-3.5 text-emerald-400" />
+                <span>← Home</span>
+              </Button>
+            </Link>
 
             <form
               action={async () => {

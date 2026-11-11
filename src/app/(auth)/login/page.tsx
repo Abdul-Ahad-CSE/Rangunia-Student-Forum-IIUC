@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   Lock,
   Mail,
@@ -88,7 +88,6 @@ const ROLE_TO_LOGIN_TYPE: Record<RoleOption, "STUDENT" | "ALUMNI" | "ADMIN" | "S
 };
 
 function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
@@ -139,14 +138,13 @@ function LoginForm() {
         return;
       }
 
-      // Safe destination redirect avoiding login loops
+      // Safe destination redirect respecting callbackUrl
       const destination =
         callbackUrl && !callbackUrl.includes("/login")
           ? callbackUrl
           : res.redirectTo || "/profile";
 
-      router.push(destination);
-      router.refresh();
+      window.location.href = destination;
     } catch (err) {
       console.error("Login submission error:", err);
       const message =

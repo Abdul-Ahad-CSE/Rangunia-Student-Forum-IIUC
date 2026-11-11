@@ -16,6 +16,7 @@ import {
   Droplet,
   Loader2,
   Lock,
+  Home,
 } from "lucide-react";
 
 async function AdminDashboardContent() {
@@ -89,6 +90,17 @@ async function AdminDashboardContent() {
                 </Button>
               </Link>
             )}
+
+            <Link href="/">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9 flex items-center gap-1.5"
+              >
+                <Home className="w-3.5 h-3.5 text-emerald-400" />
+                <span>← Home</span>
+              </Button>
+            </Link>
 
             <form
               action={async () => {

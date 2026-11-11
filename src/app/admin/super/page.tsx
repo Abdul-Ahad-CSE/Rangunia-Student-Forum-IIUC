@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { SuperAdminTabs } from "@/features/admin/components/super-admin-tabs";
 import type { SerializedAdminUser } from "@/features/admin/components/admin-approval-cards";
 import type { SerializedPendingMember } from "@/features/approvals/types/approval.types";
-import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2, Lock } from "lucide-react";
+import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2, Lock, Home } from "lucide-react";
 
 export const metadata = {
   title: "Super Admin Control Panel | Rangunia Students Forum",
@@ -136,6 +136,17 @@ async function SuperAdminDashboardContent() {
               >
                 <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
                 <span>Admin Dashboard</span>
+              </Button>
+            </Link>
+
+            <Link href="/">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1.5"
+              >
+                <Home className="h-3.5 w-3.5 text-emerald-400" />
+                <span>← Home</span>
               </Button>
             </Link>
 

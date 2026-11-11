@@ -73,5 +73,6 @@
   - **Alumni Request Management:** Implemented `MentorshipRequestsManager` in the Alumni dashboard with real-time pending request count, requesting student directory links, and Server Actions to Accept (`ACTIVE`, `startedAt = now()`) or Decline (`REJECTED`).
   - **Active Status & Polite Ending:** Created `ActiveMentorshipCard` in both Student and Alumni dashboards (and public directory) displaying active mentor-mentee partnerships, paired with a politely worded "End Mentorship Session" confirmation flow that marks sessions `COMPLETED` and records `endedAt = now()`.
   - **Natural Duration History Logging:** Built `MentorshipHistoryCard` listing all completed engagements with exact natural-language duration calculations (e.g., "Mentored for 3 months, 14 days").
+  - **Global Navigation & Auth State Refinements:** Implemented global session state in Navbar, added Home navigation to all dashboards, and integrated callbackUrl redirects for seamless mentorship requests.
 - [ ] Phase 8: Notice & Event Modules (Role-protected)
 - [ ] Phase 9: Emergency Blood Donation Network & Direct Connect

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   Camera,
   Loader2,
@@ -15,6 +16,7 @@ import {
   User as UserIcon,
   CheckCircle2,
   Lock,
+  Home,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -145,6 +147,18 @@ export function IdentityHeader({
               </span>
             )}
           </Badge>
+
+          <Link href="/">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="h-8 px-2.5 text-xs text-zinc-300 hover:text-white hover:bg-white/10 flex items-center gap-1.5"
+            >
+              <Home className="w-3.5 h-3.5 text-emerald-400" />
+              <span>← Home</span>
+            </Button>
+          </Link>
 
           <Button
             type="button"
