@@ -81,4 +81,9 @@
   - **Prisma Schema & Neon DB Capabilities:** Updated `AdminUser` model to replace deprecated flags with 6 granular capability booleans: `canManageProfiles`, `canManageEvents`, `canManageNotices`, `canManageActivities`, `canManageCommittee`, and `canManageAbout`.
   - **Role-Restricted Admin Dashboard:** Refactored the main Admin Console (`/admin/dashboard`) to display the 6 synchronized module cards, automatically granting full access to `SUPER_ADMIN` while strictly enforcing boolean capability gates (unlocked vs. locked state with required access messaging) for standard `ADMIN` users.
   - **Synchronized Super Admin Control Center:** Revamped the Granular Admin Capabilities console (`/admin/super/permissions`) with 6-module toggle switches, real-time metrics, and Server Actions for individual or bulk permission governance.
-- [ ] Phase 9: Emergency Blood Donation Network & Direct Connect
+- [x] Phase 9: Comprehensive Event Management Module
+  - **Prisma Schema & Neon DB Models:** Created `Event` and `EventRegistration` models supporting banners, schedules, deadlines, descriptions, attendee relations, and post-event recap galleries.
+  - **Role-Gated Admin Event Management:** Implemented `/admin/events` and `/admin/events/[id]` with capability validation (`canManageEvents`), full CRUD dialogs, and attendee roster tracking data tables.
+  - **Public Discovery & Detail Pages:** Built `/events` separating upcoming and past events without exposing attendee counts, and `/events/[id]` with dynamic countdown and post-event recap galleries.
+  - **Secure Registration Flow:** Integrated `EventRegisterButton` with callback auth redirect (`/login?callbackUrl=/events/${id}`), duplicate prevention, and deadline enforcement.
+- [ ] Phase 10: Emergency Blood Donation Network & Direct Connect

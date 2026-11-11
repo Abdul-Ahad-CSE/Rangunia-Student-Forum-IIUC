@@ -77,7 +77,7 @@ async function AdminDashboardContent() {
       title: "Event Management",
       description: "Publish upcoming forum meetups, annual iftar, orientation, and manage participant registrations.",
       icon: Calendar,
-      href: "/#events",
+      href: "/admin/events",
       actionLabel: "Manage Events",
       flagName: "canManageEvents",
       isAuthorized: adminCapabilities.canManageEvents,
