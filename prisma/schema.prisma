@@ -178,9 +178,11 @@ model MentorshipSession {
   student   User             @relation("StudentMentorshipSessions", fields: [studentId], references: [id], onDelete: Cascade)
   alumniId  String
   alumni    User             @relation("AlumniMentorshipSessions", fields: [alumniId], references: [id], onDelete: Cascade)
-  status    MentorshipStatus @default(PENDING)
-  notes     String?          @db.Text
-  startedAt DateTime?
+  status         MentorshipStatus @default(PENDING)
+  notes          String?          @db.Text
+  studentComment String?          @db.Text
+  alumniComment  String?          @db.Text
+  startedAt      DateTime?
   endedAt   DateTime?
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt

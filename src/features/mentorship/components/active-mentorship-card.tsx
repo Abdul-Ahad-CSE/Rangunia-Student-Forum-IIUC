@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sparkles, Calendar, ExternalLink, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Sparkles, Calendar, ExternalLink, Loader2, CheckCircle2, AlertCircle, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,10 +17,13 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { endMentorshipSessionAction } from "../actions/mentorship-actions";
+import { MentorshipCommentDialog } from "./mentorship-comment-dialog";
 
 export interface ActiveSessionItem {
   id: string;
   startedAt: Date | string | null;
+  studentComment?: string | null;
+  alumniComment?: string | null;
   student: {
     id: string;
     fullName: string;
@@ -117,9 +120,10 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
             return (
               <div
                 key={sess.id}
-                className="p-4 rounded-xl border border-teal-500/20 bg-teal-950/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                className="p-4 rounded-xl border border-teal-500/20 bg-teal-950/20 flex flex-col gap-3"
               >
-                <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5 min-w-0 flex-1">
                   {/* Partner Avatar */}
                   <div className="w-11 h-11 rounded-xl overflow-hidden border border-teal-500/30 bg-zinc-900 shrink-0 flex items-center justify-center text-teal-300 font-bold font-mono text-base">
                     {partnerPhoto ? (
@@ -167,8 +171,15 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
                   </div>
                 </div>
 
-                {/* Politely Worded End Session Button */}
-                <div className="w-full sm:w-auto shrink-0 flex justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5">
+                {/* Action Buttons: Leave/Edit Comment & End Session */}
+                <div className="w-full sm:w-auto shrink-0 flex items-center justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5 flex-wrap">
+                  <MentorshipCommentDialog
+                    sessionId={sess.id}
+                    partnerName={partnerName}
+                    isAlumni={isAlumni}
+                    currentComment={isAlumni ? sess.alumniComment : sess.studentComment}
+                  />
+
                   <Button
                     type="button"
                     variant="outline"
@@ -183,6 +194,36 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
                   </Button>
                 </div>
               </div>
+
+              {/* Render Existing Testimonials / Comments */}
+              {(sess.alumniComment || sess.studentComment) && (
+                <div className="mt-3 pt-3 border-t border-teal-500/15 space-y-2 text-xs">
+                  {sess.alumniComment && (
+                    <div className="p-3 rounded-lg border border-teal-500/20 bg-teal-950/30 space-y-1">
+                      <span className="text-[10px] text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                        <Quote className="w-3 h-3 text-teal-400" />
+                        <span>Alumni Mentorship Note ({sess.alumni.fullName})</span>
+                      </span>
+                      <p className="text-zinc-200 text-xs italic leading-relaxed">
+                        &ldquo;{sess.alumniComment}&rdquo;
+                      </p>
+                    </div>
+                  )}
+
+                  {sess.studentComment && (
+                    <div className="p-3 rounded-lg border border-teal-500/20 bg-teal-950/30 space-y-1">
+                      <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                        <Quote className="w-3 h-3 text-emerald-400" />
+                        <span>Student Experience Note ({sess.student.fullName})</span>
+                      </span>
+                      <p className="text-zinc-200 text-xs italic leading-relaxed">
+                        &ldquo;{sess.studentComment}&rdquo;
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
             );
           })}
         </CardContent>

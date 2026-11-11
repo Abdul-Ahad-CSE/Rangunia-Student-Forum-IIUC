@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RequestMentorshipButton } from "@/features/mentorship/components/request-mentorship-button";
+import { formatMentorshipDuration } from "@/features/mentorship/lib/format-duration";
 import {
   GraduationCap,
   Briefcase,
@@ -31,6 +32,10 @@ import {
   Award,
   BookOpen,
   UserCheck,
+  History,
+  Calendar,
+  CheckCircle2,
+  Quote,
 } from "lucide-react";
 
 interface PublicProfilePageProps {
@@ -188,8 +193,8 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
       : null,
   };
 
-  // 3. Fetch active mentorship relationships and viewer mentorship status
-  const [session, activeMentorships] = await Promise.all([
+  // 3. Fetch active mentorship relationships, public mentorship history, and viewer mentorship status
+  const [session, activeMentorships, publicMentorshipHistory] = await Promise.all([
     auth(),
     prisma.mentorshipSession.findMany({
       where: {
@@ -202,6 +207,42 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
         student: { select: { id: true, fullName: true, department: true } },
         alumni: { select: { id: true, fullName: true, department: true } },
       },
+    }),
+    prisma.mentorshipSession.findMany({
+      where: {
+        OR: [
+          { studentId: rawUser.id },
+          { alumniId: rawUser.id },
+        ],
+        status: { in: ["COMPLETED", "ACTIVE"] },
+      },
+      include: {
+        student: {
+          select: {
+            id: true,
+            fullName: true,
+            department: true,
+            photoUrl: true,
+            isPhotoVisible: true,
+          },
+        },
+        alumni: {
+          select: {
+            id: true,
+            fullName: true,
+            department: true,
+            photoUrl: true,
+            isPhotoVisible: true,
+            alumniProfile: {
+              select: {
+                jobPosition: true,
+                company: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
     }),
   ]);
 
@@ -819,6 +860,137 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed italic">
               &ldquo;{member.bio}&rdquo;
             </p>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Mentorship History & Public Testimonials Section */}
+      {publicMentorshipHistory.length > 0 && (
+        <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl">
+          <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+                <History className="w-4 h-4 text-emerald-400" />
+                <span>Mentorship History &amp; Testimonials</span>
+                <Badge variant="outline" className="border-white/10 text-zinc-400 font-mono text-[10px]">
+                  {publicMentorshipHistory.length} {publicMentorshipHistory.length === 1 ? "Session" : "Sessions"}
+                </Badge>
+              </CardTitle>
+              <p className="text-xs text-zinc-400 pt-0.5">
+                Public record of completed mentorship engagements, forum guidance, and bilateral testimonials.
+              </p>
+            </div>
+          </CardHeader>
+
+          <CardContent className="pt-4 space-y-3">
+            {publicMentorshipHistory.map((sess) => {
+              const isSessionAlumni = sess.alumniId === rawUser.id;
+              const partner = isSessionAlumni ? sess.student : sess.alumni;
+              const partnerName = partner.fullName;
+              const partnerDept = partner.department;
+              const partnerPhoto = partner.isPhotoVisible ? partner.photoUrl : null;
+
+              const durationText = formatMentorshipDuration(sess.startedAt || sess.createdAt, sess.endedAt);
+
+              const formattedRange =
+                sess.startedAt && sess.endedAt
+                  ? `${new Date(sess.startedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })} — ${new Date(sess.endedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`
+                  : sess.status === "ACTIVE"
+                  ? "Active Engagement"
+                  : "Completed";
+
+              return (
+                <div
+                  key={sess.id}
+                  className="p-3.5 rounded-xl border border-white/5 bg-white/[0.02] flex flex-col gap-3 text-xs"
+                >
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center text-zinc-300 font-bold font-mono text-xs">
+                        {partnerPhoto ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={partnerPhoto} alt={partnerName} className="w-full h-full object-cover" />
+                        ) : (
+                          partnerName.charAt(0).toUpperCase()
+                        )}
+                      </div>
+
+                      <div className="min-w-0 space-y-0.5">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] text-zinc-500 font-mono uppercase">
+                            {isSessionAlumni ? "Mentored" : "Mentored by"}
+                          </span>
+                          <Link
+                            href={`/directory/${partner.id}`}
+                            className="font-semibold text-white hover:text-emerald-300 transition-colors flex items-center gap-1 group"
+                          >
+                            <span className="truncate">{partnerName}</span>
+                            <ExternalLink className="w-3 h-3 text-zinc-500 group-hover:text-emerald-400 shrink-0" />
+                          </Link>
+                          <span className="text-zinc-600">•</span>
+                          <span className="text-zinc-400 text-[11px]">{partnerDept}</span>
+                          {sess.status === "ACTIVE" && (
+                            <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/30 text-[10px] py-0 px-1.5 font-mono">
+                              Active
+                            </Badge>
+                          )}
+                        </div>
+
+                        <p className="text-[11px] text-zinc-500 flex items-center gap-1.5">
+                          <Calendar className="w-3 h-3" />
+                          <span>{formattedRange}</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Formatted Duration Badge */}
+                    <div className="shrink-0">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-950/20 text-emerald-300 font-mono text-[11px]">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                        <span>{durationText}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Render Public Testimonials & Comments */}
+                  {(sess.alumniComment || sess.studentComment) && (
+                    <div className="pt-2.5 border-t border-white/5 space-y-2 text-xs">
+                      {sess.alumniComment && (
+                        <div className="p-2.5 rounded-lg border border-teal-500/15 bg-teal-950/20 space-y-1">
+                          <span className="text-[10px] text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                            <Quote className="w-3 h-3 text-teal-400" />
+                            <span>
+                              {isSessionAlumni
+                                ? "Mentor Evaluation"
+                                : `Mentor Feedback (${sess.alumni.fullName})`}
+                            </span>
+                          </span>
+                          <p className="text-zinc-200 text-xs italic leading-relaxed">
+                            &ldquo;{sess.alumniComment}&rdquo;
+                          </p>
+                        </div>
+                      )}
+
+                      {sess.studentComment && (
+                        <div className="p-2.5 rounded-lg border border-emerald-500/15 bg-emerald-950/20 space-y-1">
+                          <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                            <Quote className="w-3 h-3 text-emerald-400" />
+                            <span>
+                              {!isSessionAlumni
+                                ? "Student Reflection"
+                                : `Student Testimonial (${sess.student.fullName})`}
+                            </span>
+                          </span>
+                          <p className="text-zinc-200 text-xs italic leading-relaxed">
+                            &ldquo;{sess.studentComment}&rdquo;
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </CardContent>
         </Card>
       )}

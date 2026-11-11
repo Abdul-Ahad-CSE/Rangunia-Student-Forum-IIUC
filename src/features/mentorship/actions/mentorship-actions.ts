@@ -284,3 +284,74 @@ export async function updateMentorshipSettingsAction(input: {
     };
   }
 }
+
+/**
+ * Student or Alumni adds or updates their feedback/comment on a mentorship session (Active or Completed).
+ */
+export async function saveMentorshipCommentAction(input: {
+  sessionId: string;
+  comment: string;
+}): Promise<MentorshipActionResponse> {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { success: false, error: "Unauthorized. Please sign in to save feedback." };
+    }
+
+    const mentorshipSession = await prisma.mentorshipSession.findUnique({
+      where: { id: input.sessionId },
+    });
+
+    if (!mentorshipSession) {
+      return { success: false, error: "Mentorship session not found." };
+    }
+
+    const isStudent = mentorshipSession.studentId === session.user.id;
+    const isAlumni = mentorshipSession.alumniId === session.user.id;
+
+    if (!isStudent && !isAlumni) {
+      return { success: false, error: "You are not authorized to comment on this mentorship session." };
+    }
+
+    if (mentorshipSession.status !== "ACTIVE" && mentorshipSession.status !== "COMPLETED") {
+      return {
+        success: false,
+        error: "Comments can only be submitted for active or completed mentorship sessions.",
+      };
+    }
+
+    const trimmedComment = input.comment.trim();
+
+    if (isStudent) {
+      await prisma.mentorshipSession.update({
+        where: { id: input.sessionId },
+        data: {
+          studentComment: trimmedComment || null,
+        },
+      });
+    } else {
+      await prisma.mentorshipSession.update({
+        where: { id: input.sessionId },
+        data: {
+          alumniComment: trimmedComment || null,
+        },
+      });
+    }
+
+    revalidatePath("/profile");
+    revalidatePath("/directory");
+    revalidatePath(`/directory/${mentorshipSession.studentId}`);
+    revalidatePath(`/directory/${mentorshipSession.alumniId}`);
+
+    return {
+      success: true,
+      message: "Feedback saved successfully!",
+    };
+  } catch (error) {
+    console.error("saveMentorshipCommentAction error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to save comment.",
+    };
+  }
+}
