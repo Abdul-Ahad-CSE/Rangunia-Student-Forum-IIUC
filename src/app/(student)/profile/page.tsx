@@ -10,6 +10,9 @@ import { IdentityHeader } from "@/features/profile/components/identity-header";
 import { StudentProfileForm } from "@/features/profile/components/student-profile-form";
 import { AlumniProfileForm } from "@/features/profile/components/alumni-profile-form";
 import { PrivacySettingsDialog } from "@/features/profile/components/privacy-settings-dialog";
+import { MentorshipRequestsManager } from "@/features/mentorship/components/mentorship-requests-manager";
+import { ActiveMentorshipCard } from "@/features/mentorship/components/active-mentorship-card";
+import { MentorshipHistoryCard } from "@/features/mentorship/components/mentorship-history-card";
 
 async function ProfileContent() {
   const session = await auth();
@@ -26,13 +29,50 @@ async function ProfileContent() {
     redirect("/admin/dashboard");
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    include: {
-      studentProfile: true,
-      alumniProfile: true,
-    },
-  });
+  const [user, mentorshipSessions] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: session.user.id },
+      include: {
+        studentProfile: true,
+        alumniProfile: true,
+      },
+    }),
+    prisma.mentorshipSession.findMany({
+      where: {
+        OR: [
+          { studentId: session.user.id },
+          { alumniId: session.user.id },
+        ],
+      },
+      include: {
+        student: {
+          select: {
+            id: true,
+            fullName: true,
+            studentId: true,
+            department: true,
+            session: true,
+            photoUrl: true,
+          },
+        },
+        alumni: {
+          select: {
+            id: true,
+            fullName: true,
+            department: true,
+            photoUrl: true,
+            alumniProfile: {
+              select: {
+                jobPosition: true,
+                company: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
 
   if (!user) {
     return (
@@ -51,6 +91,12 @@ async function ProfileContent() {
   }
 
   const isAlumni = Boolean(user.alumniProfile);
+
+  const pendingRequests = mentorshipSessions.filter(
+    (s) => s.status === "PENDING" && s.alumniId === session.user.id
+  );
+  const activeSessions = mentorshipSessions.filter((s) => s.status === "ACTIVE");
+  const completedSessions = mentorshipSessions.filter((s) => s.status === "COMPLETED");
 
   return (
     <div className="space-y-6">
@@ -115,6 +161,8 @@ async function ProfileContent() {
             scholarshipInfo: user.alumniProfile?.scholarshipInfo,
             researchThesisTitle: user.alumniProfile?.researchThesisTitle,
             higherEducationDetails: user.alumniProfile?.higherEducationDetails,
+            mentorshipAvailable: user.alumniProfile?.mentorshipAvailable,
+            mentorshipDetails: user.alumniProfile?.mentorshipDetails,
           }}
         />
       ) : (
@@ -131,6 +179,17 @@ async function ProfileContent() {
           }}
         />
       )}
+
+      {/* 4. Mentorship Requests (Incoming for Alumni) */}
+      {isAlumni && (
+        <MentorshipRequestsManager requests={pendingRequests} />
+      )}
+
+      {/* 5. Active Mentorship Engagements (Both Alumni and Student) */}
+      <ActiveMentorshipCard sessions={activeSessions} isAlumni={isAlumni} />
+
+      {/* 6. Mentorship History (Completed Sessions) */}
+      <MentorshipHistoryCard sessions={completedSessions} isAlumni={isAlumni} />
 
       {/* Verification Notice Banner */}
       {user.verificationStatus === "PENDING" && (

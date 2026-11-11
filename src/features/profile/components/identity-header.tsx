@@ -283,7 +283,7 @@ export function IdentityHeader({
                 <span>Batch</span>
               </span>
               <span className="text-white font-mono font-medium truncate block">
-                {batch ? `${batch} Batch` : "N/A"}
+                {batch ? (batch.toLowerCase().startsWith("batch") ? batch : `Batch: ${batch}`) : "Batch: N/A"}
               </span>
             </div>
 

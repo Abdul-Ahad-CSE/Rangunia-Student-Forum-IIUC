@@ -165,6 +165,7 @@ export async function getDirectoryData(params: DirectoryFilterParams): Promise<{
             passingYear: u.alumniProfile.passingYear,
             graduationYear: u.alumniProfile.graduationYear,
             mentorshipAvailable: u.alumniProfile.mentorshipAvailable,
+            mentorshipDetails: u.alumniProfile.mentorshipDetails,
           }
         : null,
     };

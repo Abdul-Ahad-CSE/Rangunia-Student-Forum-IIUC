@@ -62,6 +62,16 @@
     - Refactored public directory to use minimal cards linking to dynamic detailed profile pages with strict server-side masking. Moved student portal privacy controls into a dismissible Dialog/Sheet for cleaner UX.
     - Resolved browser security block on PDF viewing by implementing a Next.js API route that decodes and streams Base64 CVs as binary application/pdf responses.
     - Refactored Alumni registration layout, implemented Alumni Profile dashboard with Academic and Higher Education sections, and enforced hidden-optional UI rules.
-- [ ] Phase 6: Request-Based Data Entry System (Draft submission & Admin approval)
-- [ ] Phase 7: Notice & Event Modules (Role-protected)
-- [ ] Phase 8: Public Directory & Smart Search (Gender-isolation & Privacy masking)
+- [x] Phase 6: Public Directory & Smart Privacy Controls
+  - Implemented the Public Students & Alumni Directory with server-side privacy masking for phone, email, photo, addresses, and social links.
+  - Refactored directory cards into minimal clickable units linking to dynamic public profiles (`/directory/[id]`).
+- [x] Phase 7: Mentorship Module & UI Refinements
+  - **Prisma Schema & Neon DB Migration:** Added `MentorshipStatus` enum (`PENDING`, `ACTIVE`, `COMPLETED`, `REJECTED`), expanded `AlumniProfile` with `mentorshipAvailable` and `mentorshipDetails`, and created `MentorshipSession` model tracking `studentId`, `alumniId`, `status`, `notes`, `startedAt`, and `endedAt`.
+  - **Batch & Directory UI Refinements:** Enforced non-changeable `batch` rendering (e.g., "Batch: 57") across Student, Alumni, and Public Directory headers. Refactored minimal directory cards to align Name and Department left and `session` (e.g., "Autumn 2021") right via flexbox (`justify-between`).
+  - **Alumni Mentorship Settings:** Integrated editable Mentorship Settings section in `/profile` with availability Switch/Toggle, scope Textarea, and Server Actions.
+  - **Mentorship Request Lifecycle:** Built interactive `RequestMentorshipButton` on alumni public profiles (`/directory/[id]`), preventing duplicate submissions, gating student-only requests, and persisting `PENDING` sessions with custom notes.
+  - **Alumni Request Management:** Implemented `MentorshipRequestsManager` in the Alumni dashboard with real-time pending request count, requesting student directory links, and Server Actions to Accept (`ACTIVE`, `startedAt = now()`) or Decline (`REJECTED`).
+  - **Active Status & Polite Ending:** Created `ActiveMentorshipCard` in both Student and Alumni dashboards (and public directory) displaying active mentor-mentee partnerships, paired with a politely worded "End Mentorship Session" confirmation flow that marks sessions `COMPLETED` and records `endedAt = now()`.
+  - **Natural Duration History Logging:** Built `MentorshipHistoryCard` listing all completed engagements with exact natural-language duration calculations (e.g., "Mentored for 3 months, 14 days").
+- [ ] Phase 8: Notice & Event Modules (Role-protected)
+- [ ] Phase 9: Emergency Blood Donation Network & Direct Connect

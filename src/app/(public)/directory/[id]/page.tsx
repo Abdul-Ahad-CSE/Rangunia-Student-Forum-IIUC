@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { LandingNav } from "@/features/landing/components/landing-nav";
@@ -8,6 +9,7 @@ import { Footer } from "@/components/shared/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { RequestMentorshipButton } from "@/features/mentorship/components/request-mentorship-button";
 import {
   GraduationCap,
   Briefcase,
@@ -28,6 +30,7 @@ import {
   Loader2,
   Award,
   BookOpen,
+  UserCheck,
 } from "lucide-react";
 
 interface PublicProfilePageProps {
@@ -180,9 +183,49 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           researchThesisTitle: rawUser.alumniProfile.researchThesisTitle,
           higherEducationDetails: rawUser.alumniProfile.higherEducationDetails,
           mentorshipAvailable: rawUser.alumniProfile.mentorshipAvailable,
+          mentorshipDetails: rawUser.alumniProfile.mentorshipDetails,
         }
       : null,
   };
+
+  // 3. Fetch active mentorship relationships and viewer mentorship status
+  const [session, activeMentorships] = await Promise.all([
+    auth(),
+    prisma.mentorshipSession.findMany({
+      where: {
+        OR: [
+          { studentId: rawUser.id, status: "ACTIVE" },
+          { alumniId: rawUser.id, status: "ACTIVE" },
+        ],
+      },
+      include: {
+        student: { select: { id: true, fullName: true, department: true } },
+        alumni: { select: { id: true, fullName: true, department: true } },
+      },
+    }),
+  ]);
+
+  let existingMentorshipStatus: "PENDING" | "ACTIVE" | "COMPLETED" | "REJECTED" | null = null;
+  let isStudentViewer = false;
+
+  if (session?.user?.id) {
+    const viewerUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { alumniProfile: true },
+    });
+    isStudentViewer = !viewerUser?.alumniProfile;
+
+    if (isStudentViewer) {
+      const existingSession = await prisma.mentorshipSession.findFirst({
+        where: {
+          studentId: session.user.id,
+          alumniId: rawUser.id,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+      existingMentorshipStatus = existingSession?.status ?? null;
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -275,18 +318,25 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                 </span>
                 <span className="text-zinc-600">•</span>
                 <span className="font-mono text-emerald-400">
-                  {member.batch ? `Batch ${member.batch}` : member.session}
+                  {member.batch ? (member.batch.toLowerCase().startsWith("batch") ? member.batch : `Batch: ${member.batch}`) : member.session}
                 </span>
               </p>
             </div>
           </div>
 
           {/* Core Identity Attributes */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs pt-2 border-t border-white/5">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs pt-2 border-t border-white/5">
             <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5">Student ID</span>
               <span className="font-mono font-semibold text-white truncate block">
                 {member.studentId}
+              </span>
+            </div>
+
+            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+              <span className="text-[10px] text-zinc-500 block mb-0.5">Batch</span>
+              <span className="font-mono font-medium text-white truncate block">
+                {member.batch ? (member.batch.toLowerCase().startsWith("batch") ? member.batch : `Batch: ${member.batch}`) : "Batch: N/A"}
               </span>
             </div>
 
@@ -317,8 +367,67 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
               </span>
             </div>
           </div>
+
+          {/* Active Mentorship Relationship Callout */}
+          {activeMentorships.length > 0 && (
+            <div className="mt-3 p-3 rounded-xl border border-teal-500/20 bg-teal-950/20 flex items-center gap-2 flex-wrap text-xs">
+              <span className="font-semibold text-teal-300 flex items-center gap-1.5">
+                <UserCheck className="w-3.5 h-3.5 text-teal-400" />
+                {isAlumni ? "Currently Mentoring:" : "Mentored by:"}
+              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                {activeMentorships.map((sess, idx) => {
+                  const partner = isAlumni ? sess.student : sess.alumni;
+                  return (
+                    <Link
+                      key={sess.id}
+                      href={`/directory/${partner.id}`}
+                      className="text-white hover:text-teal-300 underline underline-offset-2 transition-colors font-medium"
+                    >
+                      {partner.fullName} ({partner.department})
+                      {idx < activeMentorships.length - 1 ? "," : ""}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
+
+      {/* Prominent Mentorship Availability Banner & Request Module */}
+      {isAlumni && member.alumniProfile?.mentorshipAvailable && (
+        <Card className="border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-[#07130f]/90 to-emerald-950/30 backdrop-blur-xl text-white shadow-2xl overflow-hidden relative">
+          <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1.5 flex-1">
+              <div className="flex items-center gap-2">
+                <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/40 text-xs px-2.5 py-0.5">
+                  <Sparkles className="w-3.5 h-3.5 mr-1 text-teal-300" />
+                  Available for Mentorship
+                </Badge>
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                Career Guidance &amp; Academic Advising
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
+                {member.alumniProfile.mentorshipDetails ||
+                  "This alumni is open to answering questions, offering career coaching, and reviewing academic or job trajectories for forum students."}
+              </p>
+            </div>
+
+            <div className="shrink-0 w-full sm:w-auto">
+              <RequestMentorshipButton
+                alumniId={member.id}
+                alumniName={member.fullName}
+                isLoggedIn={Boolean(session?.user?.id)}
+                isStudent={isStudentViewer}
+                isSelf={session?.user?.id === member.id}
+                existingStatus={existingMentorshipStatus}
+              />
+            </div>
+          </div>
+        </Card>
+      )}
 
       {/* Academic & Professional Trajectory */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

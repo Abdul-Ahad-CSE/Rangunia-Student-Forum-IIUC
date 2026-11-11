@@ -45,6 +45,7 @@ export interface MaskedDirectoryMember {
     passingYear: string | null;
     graduationYear: string | null;
     mentorshipAvailable: boolean;
+    mentorshipDetails: string | null;
   } | null;
 }
 

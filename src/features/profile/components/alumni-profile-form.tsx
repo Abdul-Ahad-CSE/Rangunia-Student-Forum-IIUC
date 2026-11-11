@@ -26,6 +26,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import {
   updateAlumniProfileAction,
@@ -49,6 +50,8 @@ type Props = {
     scholarshipInfo?: string | null;
     researchThesisTitle?: string | null;
     higherEducationDetails?: string | null;
+    mentorshipAvailable?: boolean | null;
+    mentorshipDetails?: string | null;
   };
 };
 
@@ -84,6 +87,14 @@ export function AlumniProfileForm({ initialData }: Props) {
     initialData.higherEducationDetails || ""
   );
 
+  // 3. Mentorship Settings Form State
+  const [mentorshipAvailable, setMentorshipAvailable] = React.useState(
+    Boolean(initialData.mentorshipAvailable)
+  );
+  const [mentorshipDetails, setMentorshipDetails] = React.useState(
+    initialData.mentorshipDetails || ""
+  );
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -107,6 +118,8 @@ export function AlumniProfileForm({ initialData }: Props) {
         scholarshipInfo,
         researchThesisTitle,
         higherEducationDetails,
+        mentorshipAvailable,
+        mentorshipDetails,
       };
 
       const res = await updateAlumniProfileAction(payload);
@@ -386,6 +399,54 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="Describe your research focus, lab affiliation, supervisor, publications, or postgrad highlights..."
               value={higherEducationDetails}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHigherEducationDetails(e.target.value)}
+              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 3. Mentorship Settings */}
+      <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
+        <CardHeader className="pb-3 border-b border-white/5">
+          <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-teal-400" />
+            <span>Mentorship Settings</span>
+          </CardTitle>
+          <CardDescription className="text-xs text-zinc-400">
+            Offer career mentorship, academic advice, or industry guidance to current IIUC students.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="pt-4 space-y-4 text-xs">
+          {/* Availability Toggle */}
+          <div className="flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="space-y-0.5">
+              <Label htmlFor="mentorshipAvailable" className="text-xs font-semibold text-white cursor-pointer">
+                Available for mentorship?
+              </Label>
+              <p className="text-[11px] text-zinc-400">
+                When enabled, students can view your mentorship scope and send guidance requests.
+              </p>
+            </div>
+            <Switch
+              id="mentorshipAvailable"
+              checked={mentorshipAvailable}
+              onCheckedChange={setMentorshipAvailable}
+            />
+          </div>
+
+          {/* Mentorship Details & Opportunities */}
+          <div className="space-y-2">
+            <Label htmlFor="mentorshipDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-teal-400" />
+              <span>Mentorship Details &amp; Opportunities</span>
+            </Label>
+            <Textarea
+              id="mentorshipDetails"
+              rows={3}
+              placeholder="e.g. Open to mentoring students in Full-Stack Web Development, reviewing CVs for tech roles, or offering guidance for MSc admissions in Europe..."
+              value={mentorshipDetails}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMentorshipDetails(e.target.value)}
               className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
           </div>

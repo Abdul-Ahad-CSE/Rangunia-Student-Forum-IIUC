@@ -113,6 +113,10 @@ export type AlumniProfileUpdateInput = {
   scholarshipInfo?: string;
   researchThesisTitle?: string;
   higherEducationDetails?: string;
+
+  // Mentorship Settings
+  mentorshipAvailable?: boolean;
+  mentorshipDetails?: string;
 };
 
 export async function updateAlumniProfileAction(
@@ -185,6 +189,8 @@ export async function updateAlumniProfileAction(
           scholarshipInfo: data.scholarshipInfo !== undefined ? (data.scholarshipInfo ? data.scholarshipInfo.trim() : null) : undefined,
           researchThesisTitle: data.researchThesisTitle !== undefined ? (data.researchThesisTitle ? data.researchThesisTitle.trim() : null) : undefined,
           higherEducationDetails: data.higherEducationDetails !== undefined ? (data.higherEducationDetails ? data.higherEducationDetails.trim() : null) : undefined,
+          mentorshipAvailable: data.mentorshipAvailable !== undefined ? data.mentorshipAvailable : undefined,
+          mentorshipDetails: data.mentorshipDetails !== undefined ? (data.mentorshipDetails ? data.mentorshipDetails.trim() : null) : undefined,
         },
         create: {
           userId,
@@ -202,6 +208,8 @@ export async function updateAlumniProfileAction(
           scholarshipInfo: data.scholarshipInfo ? data.scholarshipInfo.trim() : null,
           researchThesisTitle: data.researchThesisTitle ? data.researchThesisTitle.trim() : null,
           higherEducationDetails: data.higherEducationDetails ? data.higherEducationDetails.trim() : null,
+          mentorshipAvailable: data.mentorshipAvailable ?? false,
+          mentorshipDetails: data.mentorshipDetails ? data.mentorshipDetails.trim() : null,
         },
       });
     });

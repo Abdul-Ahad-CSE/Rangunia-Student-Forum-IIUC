@@ -49,6 +49,13 @@ enum BloodGroup {
   O_NEGATIVE
 }
 
+enum MentorshipStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  REJECTED
+}
+
 model User {
   id                 String             @id @default(cuid())
   studentId          String             @unique // IIUC Matriculation / Student ID
@@ -93,11 +100,13 @@ model User {
   updateRequests     ProfileUpdateRequest[]
 
   // Platform Modules & Relations
-  verification       StudentVerification?
-  bloodDonor         BloodDonor?
-  auditLogs          AuditLog[]
-  accounts           Account[]
-  sessions           Session[]
+  verification        StudentVerification?
+  bloodDonor          BloodDonor?
+  auditLogs           AuditLog[]
+  accounts            Account[]
+  sessions            Session[]
+  mentorshipAsStudent MentorshipSession[] @relation("StudentMentorshipSessions")
+  mentorshipAsAlumni  MentorshipSession[] @relation("AlumniMentorshipSessions")
 
   @@index([studentId])
   @@index([email])
@@ -152,6 +161,7 @@ model AlumniProfile {
   passingYear           String?  // Passing year
   graduationYear        String?  // Degree conferral year
   mentorshipAvailable   Boolean  @default(false)
+  mentorshipDetails     String?  @db.Text // Guidance scope, topics, availability notes
   internshipHelp        Boolean  @default(false)
   cvReview              Boolean  @default(false)
   higherStudyGuidance   Boolean  @default(false)
@@ -160,6 +170,24 @@ model AlumniProfile {
   updatedAt             DateTime @updatedAt
 
   @@index([userId])
+}
+
+model MentorshipSession {
+  id        String           @id @default(cuid())
+  studentId String
+  student   User             @relation("StudentMentorshipSessions", fields: [studentId], references: [id], onDelete: Cascade)
+  alumniId  String
+  alumni    User             @relation("AlumniMentorshipSessions", fields: [alumniId], references: [id], onDelete: Cascade)
+  status    MentorshipStatus @default(PENDING)
+  notes     String?          @db.Text
+  startedAt DateTime?
+  endedAt   DateTime?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([studentId])
+  @@index([alumniId])
+  @@index([status])
 }
 
 model ProfileUpdateRequest {
