@@ -36,20 +36,41 @@ export async function GET(
       });
     }
 
-    // 2. Strip Data URI prefix if present
-    const base64Data = studentProfile.cvUrl.replace(/^data:application\/pdf;base64,/, "");
-
-    // 3. Convert Base64 string to native binary Buffer
-    const buffer = Buffer.from(base64Data, "base64");
-
-    // 4. Sanitize file name for Content-Disposition header
+    // Sanitize file name for Content-Disposition header
     const cleanName = (studentProfile.user?.fullName || "Student")
       .trim()
       .replace(/[^a-zA-Z0-9_\-\s]/g, "")
       .replace(/\s+/g, "_");
     const filename = `${cleanName}_CV.pdf`;
 
-    // 5. Return native binary streaming PDF response
+    // Check if cvUrl is a Cloudinary / remote URL
+    if (studentProfile.cvUrl.startsWith("http://") || studentProfile.cvUrl.startsWith("https://")) {
+      try {
+        const upstreamRes = await fetch(studentProfile.cvUrl);
+        if (upstreamRes.ok) {
+          const arrayBuffer = await upstreamRes.arrayBuffer();
+          return new Response(arrayBuffer, {
+            status: 200,
+            headers: {
+              "Content-Type": "application/pdf",
+              "Content-Disposition": `inline; filename="${filename}"`,
+              "Cache-Control": "public, max-age=3600, s-maxage=3600",
+            },
+          });
+        }
+      } catch (fetchErr) {
+        console.warn("Could not stream remote CV, redirecting to URL:", fetchErr);
+      }
+      return Response.redirect(studentProfile.cvUrl, 302);
+    }
+
+    // Legacy Base64 fallback: Strip Data URI prefix if present
+    const base64Data = studentProfile.cvUrl.replace(/^data:application\/pdf;base64,/, "");
+
+    // Convert Base64 string to native binary Buffer
+    const buffer = Buffer.from(base64Data, "base64");
+
+    // Return native binary streaming PDF response
     return new Response(buffer, {
       status: 200,
       headers: {

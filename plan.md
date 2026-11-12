@@ -86,4 +86,10 @@
   - **Role-Gated Admin Event Management:** Implemented `/admin/events` and `/admin/events/[id]` with capability validation (`canManageEvents`), full CRUD dialogs, and attendee roster tracking data tables.
   - **Public Discovery & Detail Pages:** Built `/events` separating upcoming and past events without exposing attendee counts, and `/events/[id]` with dynamic countdown and post-event recap galleries.
   - **Secure Registration Flow:** Integrated `EventRegisterButton` with callback auth redirect (`/login?callbackUrl=/events/${id}`), duplicate prevention, and deadline enforcement.
+- [x] Architectural Pivot: Migrated from Base64 database storage to highly secure, signed Cloudinary storage for all photos and CVs to protect Neon DB capacity.
+  - **Environment & Signed SDK Integration:** Installed `next-cloudinary` and backend `cloudinary` SDKs, configured `res.cloudinary.com` remote image pattern in `next.config.ts`, and set up Cloudinary credentials in `.env` (guarded by `.gitignore`).
+  - **Cryptographic Signature Endpoint:** Implemented `/api/cloudinary/sign` utilizing `cloudinary.v2.utils.api_sign_request` with `CLOUDINARY_API_SECRET`, allowing clients to perform secure signed uploads directly to Cloudinary without exposing secrets.
+  - **Base64 Deprecation Across All Forms:** Completely replaced `FileReader.readAsDataURL` across `/admin/register`, `/register/student`, `/register/alumni`, and the profile dashboard (`identity-header.tsx`, `student-profile-form.tsx`).
+  - **Direct Cloud Upload Widgets:** Integrated `CldUploadWidget` with `<React.Suspense>` streaming compliance, saving `result.info.secure_url` directly into `react-hook-form` and local state without modifying existing UI layouts.
+  - **Streaming CV Bridge:** Updated `/api/students/[id]/cv` to stream Cloudinary-stored PDF buffers directly with proper Content-Disposition headers while preserving legacy Base64 decoding support.
 - [ ] Phase 10: Emergency Blood Donation Network & Direct Connect

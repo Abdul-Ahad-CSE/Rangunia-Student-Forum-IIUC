@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { toast } from "sonner";
+import { CldUploadWidget } from "next-cloudinary";
 
 export default function AlumniRegisterPage() {
   const [serverError, setServerError] = React.useState<string | null>(null);
@@ -54,7 +55,6 @@ export default function AlumniRegisterPage() {
   const [photoPreview, setPhotoPreview] = React.useState<string | null>(null);
   const [photoFileName, setPhotoFileName] = React.useState<string | null>(null);
   const [isFemaleAnimating, setIsFemaleAnimating] = React.useState(false);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -77,32 +77,10 @@ export default function AlumniRegisterPage() {
     },
   });
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 3 * 1024 * 1024) {
-      setServerError("Please select an image smaller than 3MB.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      setValue("photoUrl", base64);
-      setPhotoPreview(base64);
-      setPhotoFileName(file.name);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleRemovePhoto = () => {
     setValue("photoUrl", "");
     setPhotoPreview(null);
     setPhotoFileName(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
 
   const handleGenderFemaleClick = (e: React.MouseEvent) => {
@@ -362,15 +340,6 @@ export default function AlumniRegisterPage() {
                     </span>
                   </div>
 
-                  <input
-                    ref={fileInputRef}
-                    id="alumni-photo"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handlePhotoChange}
-                  />
-
                   {photoPreview ? (
                     <div className="flex items-center gap-3 p-2.5 rounded-xl border border-teal-500/30 bg-teal-950/20">
                       <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-teal-500/40 bg-zinc-900 shrink-0">
@@ -383,9 +352,9 @@ export default function AlumniRegisterPage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-xs font-medium text-white truncate">
-                          {photoFileName || "Photo selected"}
+                          {photoFileName || "Photo uploaded"}
                         </p>
-                        <p className="text-[10px] text-teal-400">Ready to upload</p>
+                        <p className="text-[10px] text-teal-400">Ready to save</p>
                       </div>
                       <Button
                         type="button"
@@ -399,30 +368,61 @@ export default function AlumniRegisterPage() {
                       </Button>
                     </div>
                   ) : (
-                    <div
-                      onClick={() => fileInputRef.current?.click()}
-                      className="flex items-center justify-between p-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-teal-500/40 transition-all cursor-pointer group"
+                    <React.Suspense
+                      fallback={
+                        <div className="h-14 w-full rounded-xl border border-white/10 bg-white/5 animate-pulse" />
+                      }
                     >
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 group-hover:bg-teal-500/20 transition-colors">
-                          <Upload className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
-                            Choose Photo from Device
-                          </p>
-                          <p className="text-[10px] text-zinc-500">PNG, JPG, WebP up to 3MB</p>
-                        </div>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none"
+                      <CldUploadWidget
+                        signatureEndpoint="/api/cloudinary/sign"
+                        options={{
+                          maxFiles: 1,
+                          resourceType: "image",
+                          clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                          maxFileSize: 5 * 1024 * 1024,
+                        }}
+                        onSuccess={(result) => {
+                          if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                            const url = result.info.secure_url;
+                            setValue("photoUrl", url, { shouldValidate: true });
+                            setPhotoPreview(url);
+                            setPhotoFileName(
+                              result.info.original_filename
+                                ? `${result.info.original_filename}.${result.info.format || "jpg"}`
+                                : "Profile_Photo"
+                            );
+                            toast.success("Photo uploaded to cloud successfully!");
+                          }
+                        }}
                       >
-                        Browse
-                      </Button>
-                    </div>
+                        {({ open }) => (
+                          <div
+                            onClick={() => open?.()}
+                            className="flex items-center justify-between p-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-teal-500/40 transition-all cursor-pointer group"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 group-hover:bg-teal-500/20 transition-colors">
+                                <Upload className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
+                                  Choose Photo from Device
+                                </p>
+                                <p className="text-[10px] text-zinc-500">PNG, JPG, WebP up to 5MB</p>
+                              </div>
+                            </div>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-teal-500/40"
+                            >
+                              Browse
+                            </Button>
+                          </div>
+                        )}
+                      </CldUploadWidget>
+                    </React.Suspense>
                   )}
                   {errors.photoUrl && (
                     <p className="text-xs text-rose-400">{errors.photoUrl.message}</p>

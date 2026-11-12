@@ -24,6 +24,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { updateProfilePhotoAction } from "../actions/update-photo-action";
 import { VerificationStatus } from "@prisma/client";
+import { CldUploadWidget } from "next-cloudinary";
 
 export interface IdentityHeaderProps {
   name: string;
@@ -71,57 +72,8 @@ export function IdentityHeader({
 }: IdentityHeaderProps) {
   const [photoUrl, setPhotoUrl] = React.useState<string | null>(initialPhotoUrl);
   const [isUploading, setIsUploading] = React.useState(false);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const formattedBlood = formatBloodGroup(bloodGroup);
-
-  const handleAvatarClick = () => {
-    if (isUploading) return;
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please select a valid image file (PNG, JPG, WebP).");
-      return;
-    }
-
-    if (file.size > 3 * 1024 * 1024) {
-      toast.error("Image size must be smaller than 3MB.");
-      return;
-    }
-
-    setIsUploading(true);
-    const reader = new FileReader();
-
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      try {
-        const res = await updateProfilePhotoAction(base64);
-        if (res.success) {
-          setPhotoUrl(base64);
-          toast.success(res.message || "Profile photo updated successfully!");
-        } else {
-          toast.error(res.error || "Failed to update profile photo.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("An error occurred while uploading photo.");
-      } finally {
-        setIsUploading(false);
-      }
-    };
-
-    reader.onerror = () => {
-      setIsUploading(false);
-      toast.error("Failed to read image file.");
-    };
-
-    reader.readAsDataURL(file);
-  };
 
   return (
     <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-2xl overflow-hidden">
@@ -177,51 +129,82 @@ export function IdentityHeader({
         <div className="flex flex-col sm:flex-row items-start sm:items-end gap-5 -mt-12 mb-6">
           {/* Interactive Profile Photo */}
           <div className="relative group shrink-0">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              onChange={handleFileChange}
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={handleAvatarClick}
-              disabled={isUploading}
-              aria-label="Click to update profile photo"
-              className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-500/50 bg-zinc-950 shadow-2xl transition-all duration-300 group-hover:border-emerald-400 group-hover:shadow-[0_0_24px_rgba(16,185,129,0.35)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#07130f]"
+            <React.Suspense
+              fallback={
+                <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-500/50 bg-zinc-950 animate-pulse" />
+              }
             >
-              {photoUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={photoUrl}
-                  alt={name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-zinc-900 text-emerald-300 text-2xl font-bold font-mono">
-                  {name.charAt(0).toUpperCase()}
-                </div>
-              )}
-
-              {/* Hover / Loading Overlay */}
-              <div
-                className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-200 ${
-                  isUploading ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                }`}
+              <CldUploadWidget
+                signatureEndpoint="/api/cloudinary/sign"
+                options={{
+                  maxFiles: 1,
+                  resourceType: "image",
+                  clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                  maxFileSize: 5 * 1024 * 1024,
+                }}
+                onSuccess={async (result) => {
+                  if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                    const url = result.info.secure_url;
+                    setIsUploading(true);
+                    try {
+                      const res = await updateProfilePhotoAction(url);
+                      if (res.success) {
+                        setPhotoUrl(url);
+                        toast.success(res.message || "Profile photo updated successfully!");
+                      } else {
+                        toast.error(res.error || "Failed to update profile photo.");
+                      }
+                    } catch (err) {
+                      console.error(err);
+                      toast.error("An error occurred while updating profile photo.");
+                    } finally {
+                      setIsUploading(false);
+                    }
+                  }
+                }}
               >
-                {isUploading ? (
-                  <Loader2 className="w-6 h-6 animate-spin text-emerald-400" />
-                ) : (
-                  <>
-                    <Camera className="w-5 h-5 text-emerald-400 mb-0.5" />
-                    <span className="text-[10px] font-medium text-white tracking-wide">
-                      Edit Photo
-                    </span>
-                  </>
+                {({ open }) => (
+                  <button
+                    type="button"
+                    onClick={() => open?.()}
+                    disabled={isUploading}
+                    aria-label="Click to update profile photo"
+                    className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-500/50 bg-zinc-950 shadow-2xl transition-all duration-300 group-hover:border-emerald-400 group-hover:shadow-[0_0_24px_rgba(16,185,129,0.35)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#07130f]"
+                  >
+                    {photoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={photoUrl}
+                        alt={name}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-zinc-900 text-emerald-300 text-2xl font-bold font-mono">
+                        {name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+
+                    {/* Hover / Loading Overlay */}
+                    <div
+                      className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-200 ${
+                        isUploading ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    >
+                      {isUploading ? (
+                        <Loader2 className="w-6 h-6 animate-spin text-emerald-400" />
+                      ) : (
+                        <>
+                          <Camera className="w-5 h-5 text-emerald-400 mb-0.5" />
+                          <span className="text-[10px] font-medium text-white tracking-wide">
+                            Edit Photo
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </button>
                 )}
-              </div>
-            </button>
+              </CldUploadWidget>
+            </React.Suspense>
             <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-600 border-2 border-[#07130f] flex items-center justify-center text-white pointer-events-none shadow-md">
               <Camera className="w-3 h-3" />
             </div>

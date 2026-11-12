@@ -26,6 +26,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { toast } from "sonner";
+import { CldUploadWidget } from "next-cloudinary";
 import {
   updateStudentProfileAction,
   type StudentProfileUpdateInput,
@@ -52,59 +53,14 @@ export function StudentProfileForm({ userId, initialData }: Props) {
   const [clubRole, setClubRole] = React.useState(initialData.clubRole || "");
   const [details, setDetails] = React.useState(initialData.details || "");
   const [cvUrl, setCvUrl] = React.useState<string | null>(initialData.cvUrl || null);
-  const [localPreviewUrl, setLocalPreviewUrl] = React.useState<string | null>(null);
   const [cvFileName, setCvFileName] = React.useState<string | null>(
     initialData.cvUrl ? "Current_CV.pdf" : null
   );
   const [isLoading, setIsLoading] = React.useState(false);
-  const pdfInputRef = React.useRef<HTMLInputElement>(null);
-
-  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-      toast.error("Invalid file format. Please upload a PDF document (.pdf only).");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("PDF size exceeds 5MB limit. Please upload a compressed document.");
-      return;
-    }
-
-    // Create client blob URL for safe preview (bypasses browser data URI navigation block)
-    if (localPreviewUrl) {
-      URL.revokeObjectURL(localPreviewUrl);
-    }
-    const blobUrl = URL.createObjectURL(file);
-    setLocalPreviewUrl(blobUrl);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      setCvUrl(base64);
-      setCvFileName(file.name);
-      toast.success(`Selected "${file.name}" for upload.`);
-    };
-
-    reader.onerror = () => {
-      toast.error("Failed to read the selected PDF file.");
-    };
-
-    reader.readAsDataURL(file);
-  };
 
   const handleRemoveCv = () => {
-    if (localPreviewUrl) {
-      URL.revokeObjectURL(localPreviewUrl);
-      setLocalPreviewUrl(null);
-    }
     setCvUrl(null);
     setCvFileName(null);
-    if (pdfInputRef.current) {
-      pdfInputRef.current.value = "";
-    }
     toast.info("CV document removed. Click Save to apply changes.");
   };
 
@@ -235,100 +191,121 @@ export function StudentProfileForm({ userId, initialData }: Props) {
           </div>
 
           {/* 6. CV Document Upload (PDF only) */}
-          <div className="space-y-2.5 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-            <Label htmlFor="cvUpload" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-              <FileUp className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Curriculum Vitae / Resume (PDF Only)</span>
-            </Label>
+          <React.Suspense
+            fallback={
+              <div className="h-16 w-full rounded-xl border border-white/10 bg-white/5 animate-pulse" />
+            }
+          >
+            <CldUploadWidget
+              signatureEndpoint="/api/cloudinary/sign"
+              options={{
+                maxFiles: 1,
+                resourceType: "auto",
+                clientAllowedFormats: ["pdf"],
+                maxFileSize: 10 * 1024 * 1024,
+              }}
+              onSuccess={(result) => {
+                if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                  const url = result.info.secure_url;
+                  setCvUrl(url);
+                  setCvFileName(
+                    result.info.original_filename
+                      ? `${result.info.original_filename}.${result.info.format || "pdf"}`
+                      : "Student_CV.pdf"
+                  );
+                  toast.success("CV uploaded to cloud storage successfully! Click Save to apply changes.");
+                }
+              }}
+            >
+              {({ open }) => (
+                <div className="space-y-2.5 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                  <Label htmlFor="cvUpload" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <FileUp className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Curriculum Vitae / Resume (PDF Only)</span>
+                  </Label>
 
-            <input
-              ref={pdfInputRef}
-              id="cvUpload"
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handlePdfUpload}
-              className="hidden"
-            />
+                  {cvUrl ? (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg border border-emerald-500/30 bg-emerald-950/20">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                          <FileCheck className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-medium text-emerald-200 truncate">
+                            {cvFileName || "Student_CV.pdf"}
+                          </p>
+                          <p className="text-[10px] text-emerald-400/70 font-mono">
+                            PDF Document Attached
+                          </p>
+                        </div>
+                      </div>
 
-            {cvUrl ? (
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg border border-emerald-500/30 bg-emerald-950/20">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                    <FileCheck className="w-4 h-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-medium text-emerald-200 truncate">
-                      {cvFileName || "Student_CV.pdf"}
-                    </p>
-                    <p className="text-[10px] text-emerald-400/70 font-mono">
-                      PDF Document Attached
-                    </p>
-                  </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <a
+                          href={userId ? `/api/students/${userId}/cv` : cvUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 h-8 px-3 rounded-md text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition-colors"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>View CV</span>
+                        </a>
+
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => open?.()}
+                          className="h-8 text-xs border-white/10 bg-white/5 text-zinc-200 hover:text-white"
+                        >
+                          Replace
+                        </Button>
+
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleRemoveCv}
+                          className="h-8 px-2 text-rose-400 hover:text-rose-300 hover:bg-rose-950/30"
+                          title="Remove CV"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => open?.()}
+                      className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                          <FileUp className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
+                            Upload PDF Resume / CV
+                          </p>
+                          <p className="text-[10px] text-zinc-500">
+                            Standard PDF documents up to 10MB
+                          </p>
+                        </div>
+                      </div>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                      >
+                        Browse PDF
+                      </Button>
+                    </div>
+                  )}
                 </div>
-
-                <div className="flex items-center gap-2 shrink-0">
-                  <a
-                    href={localPreviewUrl || (userId ? `/api/students/${userId}/cv` : cvUrl)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 h-8 px-3 rounded-md text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition-colors"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>View CV</span>
-                  </a>
-
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => pdfInputRef.current?.click()}
-                    className="h-8 text-xs border-white/10 bg-white/5 text-zinc-200 hover:text-white"
-                  >
-                    Replace
-                  </Button>
-
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleRemoveCv}
-                    className="h-8 px-2 text-rose-400 hover:text-rose-300 hover:bg-rose-950/30"
-                    title="Remove CV"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div
-                onClick={() => pdfInputRef.current?.click()}
-                className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
-                    <FileUp className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
-                      Upload PDF Resume / CV
-                    </p>
-                    <p className="text-[10px] text-zinc-500">
-                      Standard PDF documents up to 5MB
-                    </p>
-                  </div>
-                </div>
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
-                >
-                  Browse PDF
-                </Button>
-              </div>
-            )}
-          </div>
+              )}
+            </CldUploadWidget>
+          </React.Suspense>
 
           {/* 7. Details / Bio */}
           <div className="space-y-2">
