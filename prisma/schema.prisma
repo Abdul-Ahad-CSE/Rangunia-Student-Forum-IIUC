@@ -369,3 +369,30 @@ model EventRegistration {
   @@index([eventId])
   @@index([userId])
 }
+
+model Notice {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  bannerUrl String?  @db.Text
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime
+  time        String
+  location    String
+  photos      String[] @default([])
+  description String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date])
+}
+

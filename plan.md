@@ -92,4 +92,10 @@
   - **Base64 Deprecation Across All Forms:** Completely replaced `FileReader.readAsDataURL` across `/admin/register`, `/register/student`, `/register/alumni`, and the profile dashboard (`identity-header.tsx`, `student-profile-form.tsx`).
   - **Direct Cloud Upload Widgets:** Integrated `CldUploadWidget` with `<React.Suspense>` streaming compliance, saving `result.info.secure_url` directly into `react-hook-form` and local state without modifying existing UI layouts.
   - **Streaming CV Bridge:** Updated `/api/students/[id]/cv` to stream Cloudinary-stored PDF buffers directly with proper Content-Disposition headers while preserving legacy Base64 decoding support.
-- [ ] Phase 10: Emergency Blood Donation Network & Direct Connect
+- [x] Phase 10: Notices & Activities Modules
+  - **Prisma Schema & Neon DB Models:** Added `Notice` model (with title, date, bannerUrl, content) and `Activity` model (with title, date, time, location, photos array, description) with indexes on publication dates.
+  - **Granular-Protected Admin Consoles:** Built `/admin/notices` and `/admin/activities` gated by `canManageNotices` and `canManageActivities` with capability metrics and filterable data tables.
+  - **Signed Cloudinary Upload Integration:** Reused `CldUploadWidget` for single notice banners and multi-photo activity galleries with thumbnail management and cover badge selection.
+  - **Public Discovery & Detail Pages:** Built `/notices` and `/notices/[id]` for official circulars, and `/activities` and `/activities/[id]` with responsive multi-photo lightboxes.
+  - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to seamlessly link to the live `/notices`, `/activities`, `/admin/notices`, and `/admin/activities` routes.
+- [ ] Phase 11: Emergency Blood Donation Network & Direct Connect

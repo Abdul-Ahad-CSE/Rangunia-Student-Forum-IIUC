@@ -101,13 +101,13 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
             Events
           </Link>
           <Link
-            href="/#notices"
+            href="/notices"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Notices
           </Link>
           <Link
-            href="/#activities"
+            href="/activities"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Activities
@@ -219,7 +219,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="/#notices"
+              href="/notices"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
@@ -227,7 +227,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="/#activities"
+              href="/activities"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >
