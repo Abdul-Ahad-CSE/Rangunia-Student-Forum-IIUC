@@ -245,6 +245,16 @@ export function NoticeFormDialog({
               >
                 <CldUploadWidget
                   signatureEndpoint="/api/cloudinary/sign"
+                  config={{
+                    cloud: {
+                      cloudName:
+                        process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
+                        "yoqifwb9",
+                      apiKey:
+                        process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY ||
+                        "171588185773459",
+                    },
+                  }}
                   options={{
                     maxFiles: 1,
                     resourceType: "image",
