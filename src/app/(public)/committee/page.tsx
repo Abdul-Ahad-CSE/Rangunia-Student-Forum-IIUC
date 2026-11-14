@@ -101,7 +101,7 @@ async function CommitteeDataContent() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {advisors.map((advisor) => (
               <CommitteeCard key={advisor.id} member={advisor} priority />
             ))}
@@ -159,16 +159,8 @@ async function CommitteeDataContent() {
                     </div>
                   </div>
 
-                  {/* Tier Grid Row */}
-                  <div
-                    className={`grid gap-6 ${
-                      tierMembers.length === 1
-                        ? "grid-cols-1 max-w-md mx-auto"
-                        : tierMembers.length === 2
-                        ? "grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto"
-                        : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                    }`}
-                  >
+                  {/* Tier Row with Dynamic Centering */}
+                  <div className="flex flex-wrap justify-center gap-6">
                     {tierMembers.map((member) => (
                       <CommitteeCard key={member.id} member={member} />
                     ))}

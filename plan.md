@@ -106,4 +106,5 @@
   - **Interactive Modal Detail Views:** Implemented a two-tier presentation architecture featuring minimal public cards (Photo, Name, Designation, Quote) that expand into rich `Dialog` modals showing department, gender identity, tier metadata, and full perspectives.
   - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to link to `/committee` and `/admin/committee`.
   - **UI/UX Cleanup:** Cleaned up public committee UI by removing privacy banners, group count headers, and rank tier badges from detailed modals.
+  - **Layout & Avatar Polish:** Removed privacy shield overlays from avatars and implemented dynamic flex-wrap centering for perfect row alignment of orphaned committee cards.
 - [ ] Phase 12: Emergency Blood Donation Network & Direct Connect

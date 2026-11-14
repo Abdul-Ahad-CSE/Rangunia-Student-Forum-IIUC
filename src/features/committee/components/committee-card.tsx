@@ -6,7 +6,7 @@ import {
   Sparkles,
   Award,
   GraduationCap,
-  Shield,
+  User,
   ChevronRight,
 } from "lucide-react";
 import {
@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 export interface PublicCommitteeMember {
   id: string;
@@ -31,9 +32,10 @@ export interface PublicCommitteeMember {
 interface CommitteeCardProps {
   member: PublicCommitteeMember;
   priority?: boolean;
+  className?: string;
 }
 
-export function CommitteeCard({ member }: CommitteeCardProps) {
+export function CommitteeCard({ member, className }: CommitteeCardProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const isFemale = member.gender.trim().toLowerCase() === "female";
@@ -57,11 +59,13 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
             setIsOpen(true);
           }
         }}
-        className={`group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 text-left cursor-pointer outline-none ${
+        className={cn(
+          "group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 text-left cursor-pointer outline-none hover:-translate-y-1 w-full max-w-sm sm:max-w-none sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]",
           isAdvisor
             ? "border-amber-500/20 bg-gradient-to-b from-amber-950/15 via-[#081510] to-[#040907] hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-950/30"
-            : "border-white/10 bg-gradient-to-b from-white/[0.03] to-[#050e0a] hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-950/30"
-        } hover:-translate-y-1`}
+            : "border-white/10 bg-gradient-to-b from-white/[0.03] to-[#050e0a] hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-950/30",
+          className
+        )}
       >
         {/* Glow Accent Top Right */}
         <div
@@ -88,15 +92,6 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              {isFemale && (
-                <div
-                  title="Privacy Protected (/hijabi.png)"
-                  className="absolute -bottom-1 -right-1 p-1 rounded-full bg-rose-950 border border-rose-500/50 text-rose-300 shadow-md"
-                >
-                  <Shield className="w-3 h-3" />
-                </div>
-              )}
             </div>
 
             {isAdvisor ? (
@@ -163,14 +158,6 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {isFemale && (
-                  <div
-                    title="Female Member Privacy Override"
-                    className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-rose-950 border border-rose-500/60 text-rose-300 shadow-md"
-                  >
-                    <Shield className="w-3.5 h-3.5" />
-                  </div>
-                )}
               </div>
 
               <div className="space-y-1.5 min-w-0">
@@ -224,7 +211,7 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
                       : "bg-teal-950/60 border-teal-500/30 text-teal-400"
                   }`}
                 >
-                  <Shield className="w-4 h-4" />
+                  <User className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="text-[10px] uppercase font-mono text-zinc-500">
