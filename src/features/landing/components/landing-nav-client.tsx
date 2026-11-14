@@ -113,7 +113,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
             Activities
           </Link>
           <Link
-            href="/#committee"
+            href="/committee"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Committee
@@ -235,7 +235,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
               <span className="text-zinc-500">→</span>
             </Link>
             <Link
-              href="/#committee"
+              href="/committee"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
             >

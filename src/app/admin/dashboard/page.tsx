@@ -107,7 +107,7 @@ async function AdminDashboardContent() {
       title: "Committee Management",
       description: "Manage executive committee appointments, advisory board rosters, and term records.",
       icon: Award,
-      href: "/#committee",
+      href: "/admin/committee",
       actionLabel: "Manage Committee",
       flagName: "canManageCommittee",
       isAuthorized: adminCapabilities.canManageCommittee,

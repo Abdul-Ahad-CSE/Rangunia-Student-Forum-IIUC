@@ -98,4 +98,11 @@
   - **Signed Cloudinary Upload Integration:** Reused `CldUploadWidget` for single notice banners and multi-photo activity galleries with thumbnail management and cover badge selection.
   - **Public Discovery & Detail Pages:** Built `/notices` and `/notices/[id]` for official circulars, and `/activities` and `/activities/[id]` with responsive multi-photo lightboxes.
   - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to seamlessly link to the live `/notices`, `/activities`, `/admin/notices`, and `/admin/activities` routes.
-- [ ] Phase 11: Emergency Blood Donation Network & Direct Connect
+- [x] Phase 11: Committee Module, Tiered Engine & Privacy Override
+  - **Prisma Schema & Neon DB Models:** Added `CommitteeType` enum (`ADVISOR`, `EXECUTIVE`) and `CommitteeMember` model with fields for name, photoUrl, gender, department, designation, quote, and nullable float rank.
+  - **Advisor Separation & Pinning:** Filtered `type === 'ADVISOR'` to pin advisors at the very top of the committee showcase with a dedicated gold/amber accent presentation and distinct mentor badging.
+  - **Decimal-Based Tiering Algorithm:** Grouped executive members mathematically using `Math.floor(exec.rank)` to assemble dynamic horizontal flex/grid rows (ensuring rank 1.0 and 1.1 share the same Tier 1 Presidium row).
+  - **Strict Female Avatar Privacy Override:** Watched the `gender` state in both admin form and public renderers; completely unmounts/disables `CldUploadWidget` for females, previews `/hijabi.png`, forces payload to `"/hijabi.png"`, and guarantees frontend fallback.
+  - **Interactive Modal Detail Views:** Implemented a two-tier presentation architecture featuring minimal public cards (Photo, Name, Designation, Quote) that expand into rich `Dialog` modals showing department, gender identity, tier metadata, and full perspectives.
+  - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to link to `/committee` and `/admin/committee`.
+- [ ] Phase 12: Emergency Blood Donation Network & Direct Connect
