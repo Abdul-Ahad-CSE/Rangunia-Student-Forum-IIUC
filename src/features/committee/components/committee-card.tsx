@@ -7,7 +7,6 @@ import {
   Award,
   GraduationCap,
   Shield,
-  Layers,
   ChevronRight,
 } from "lucide-react";
 import {
@@ -43,11 +42,6 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
   // STRICT RENDER OVERRIDE:
   // If member is female, strictly override photoUrl to "/hijabi.png"
   const avatarSrc = isFemale ? "/hijabi.png" : member.photoUrl || "/hijabi.png";
-
-  const tierNumber =
-    member.rank !== null && member.rank !== undefined
-      ? Math.floor(member.rank)
-      : null;
 
   return (
     <>
@@ -113,7 +107,7 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
             ) : (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-[10px] font-mono font-semibold tracking-wider uppercase text-emerald-300">
                 <Award className="w-3 h-3 text-emerald-400" />
-                <span>Tier {tierNumber}</span>
+                <span>Executive</span>
               </span>
             )}
           </div>
@@ -180,21 +174,14 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
               </div>
 
               <div className="space-y-1.5 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  {isAdvisor ? (
+                {isAdvisor && (
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-amber-500/40 bg-amber-950/50 text-[10px] font-mono font-bold uppercase text-amber-300">
                       <Sparkles className="w-3 h-3 text-amber-400" />
                       <span>Advisory Board</span>
                     </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/50 text-[10px] font-mono font-semibold uppercase text-emerald-300">
-                      <Award className="w-3 h-3 text-emerald-400" />
-                      <span>
-                        Tier {tierNumber} (Rank {member.rank?.toFixed(1)})
-                      </span>
-                    </span>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <DialogTitle className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-snug">
                   {member.name}
@@ -244,27 +231,11 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
                     Gender Identity
                   </div>
                   <div className="font-semibold text-zinc-200">
-                    {isFemale ? "Female (Privacy Masked)" : member.gender}
+                    {member.gender}
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Rank / Tier Information */}
-            {!isAdvisor && member.rank !== null && (
-              <div className="p-3.5 rounded-xl border border-emerald-500/20 bg-emerald-950/20 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 text-emerald-300 font-mono">
-                  <Layers className="w-4 h-4 text-emerald-400" />
-                  <span>Organizational Tier:</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-bold text-white">Tier {tierNumber}</span>
-                  <span className="text-zinc-400 text-[11px] ml-2">
-                    (Executive Rank {member.rank.toFixed(1)})
-                  </span>
-                </div>
-              </div>
-            )}
 
             {/* Full Quote Statement */}
             <div className="space-y-2">
@@ -276,16 +247,6 @@ export function CommitteeCard({ member }: CommitteeCardProps) {
                 &quot;{member.quote}&quot;
               </div>
             </div>
-
-            {/* Privacy Override Note for Females */}
-            {isFemale && (
-              <div className="p-3 rounded-xl border border-rose-500/20 bg-rose-950/20 flex items-start gap-2.5 text-[11px] text-rose-300/90 leading-relaxed">
-                <Shield className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                <span>
-                  Official Modesty Avatar Active: Female committee members are safeguarded by privacy controls, rendering the standard verified silhouette.
-                </span>
-              </div>
-            )}
           </div>
         </DialogContent>
       </Dialog>

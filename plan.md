@@ -105,4 +105,5 @@
   - **Strict Female Avatar Privacy Override:** Watched the `gender` state in both admin form and public renderers; completely unmounts/disables `CldUploadWidget` for females, previews `/hijabi.png`, forces payload to `"/hijabi.png"`, and guarantees frontend fallback.
   - **Interactive Modal Detail Views:** Implemented a two-tier presentation architecture featuring minimal public cards (Photo, Name, Designation, Quote) that expand into rich `Dialog` modals showing department, gender identity, tier metadata, and full perspectives.
   - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to link to `/committee` and `/admin/committee`.
+  - **UI/UX Cleanup:** Cleaned up public committee UI by removing privacy banners, group count headers, and rank tier badges from detailed modals.
 - [ ] Phase 12: Emergency Blood Donation Network & Direct Connect
