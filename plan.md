@@ -107,4 +107,5 @@
   - **Navigation & Dashboard Synchronization:** Updated public Navbar and Admin Console to link to `/committee` and `/admin/committee`.
   - **UI/UX Cleanup:** Cleaned up public committee UI by removing privacy banners, group count headers, and rank tier badges from detailed modals.
   - **Layout & Avatar Polish:** Removed privacy shield overlays from avatars and implemented dynamic flex-wrap centering for perfect row alignment of orphaned committee cards.
+  - **Mobile UX Optimization:** Optimized mobile UX by implementing compact, multi-column center-aligned cards and hiding quotes to reduce scroll fatigue, relying on the modal for full details.
 - [ ] Phase 12: Emergency Blood Donation Network & Direct Connect

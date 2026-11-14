@@ -101,7 +101,7 @@ async function CommitteeDataContent() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
             {advisors.map((advisor) => (
               <CommitteeCard key={advisor.id} member={advisor} priority />
             ))}
@@ -138,7 +138,7 @@ async function CommitteeDataContent() {
               return (
                 <div
                   key={tierNum}
-                  className="space-y-5 p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.015] relative overflow-hidden"
+                  className="space-y-4 sm:space-y-5 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/[0.015] relative overflow-hidden"
                 >
                   {/* Subtle Background Glow for Presidium / Tier 1 */}
                   {isPresidium && (
@@ -160,7 +160,7 @@ async function CommitteeDataContent() {
                   </div>
 
                   {/* Tier Row with Dynamic Centering */}
-                  <div className="flex flex-wrap justify-center gap-6">
+                  <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
                     {tierMembers.map((member) => (
                       <CommitteeCard key={member.id} member={member} />
                     ))}

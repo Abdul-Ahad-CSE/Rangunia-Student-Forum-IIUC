@@ -60,7 +60,7 @@ export function CommitteeCard({ member, className }: CommitteeCardProps) {
           }
         }}
         className={cn(
-          "group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 text-left cursor-pointer outline-none hover:-translate-y-1 w-full max-w-sm sm:max-w-none sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]",
+          "group relative flex flex-col justify-between p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 text-left cursor-pointer outline-none hover:-translate-y-1 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] lg:w-[calc(25%-0.75rem)]",
           isAdvisor
             ? "border-amber-500/20 bg-gradient-to-b from-amber-950/15 via-[#081510] to-[#040907] hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-950/30"
             : "border-white/10 bg-gradient-to-b from-white/[0.03] to-[#050e0a] hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-950/30",
@@ -74,12 +74,12 @@ export function CommitteeCard({ member, className }: CommitteeCardProps) {
           }`}
         />
 
-        <div className="space-y-4">
+        <div className="space-y-2.5 sm:space-y-4">
           {/* Avatar & Role Badge */}
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start justify-between gap-2 sm:gap-3">
             <div className="relative">
               <div
-                className={`w-20 h-20 rounded-2xl overflow-hidden border-2 shadow-lg transition-transform duration-300 group-hover:scale-105 ${
+                className={`w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl sm:rounded-2xl overflow-hidden border-2 shadow-lg transition-transform duration-300 group-hover:scale-105 ${
                   isAdvisor
                     ? "border-amber-400/50 bg-amber-950/30 shadow-amber-950/40"
                     : "border-emerald-500/40 bg-zinc-950 shadow-emerald-950/40"
@@ -95,25 +95,25 @@ export function CommitteeCard({ member, className }: CommitteeCardProps) {
             </div>
 
             {isAdvisor ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-amber-500/40 bg-amber-950/40 text-[10px] font-mono font-bold tracking-wider uppercase text-amber-300 shadow-sm">
-                <Sparkles className="w-3 h-3 text-amber-400" />
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-amber-500/40 bg-amber-950/40 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-amber-300 shadow-sm shrink-0">
+                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-400" />
                 <span>Advisor</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-[10px] font-mono font-semibold tracking-wider uppercase text-emerald-300">
-                <Award className="w-3 h-3 text-emerald-400" />
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-[9px] sm:text-[10px] font-mono font-semibold tracking-wider uppercase text-emerald-300 shrink-0">
+                <Award className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
                 <span>Executive</span>
               </span>
             )}
           </div>
 
           {/* Name & Designation */}
-          <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-emerald-300 transition-colors tracking-tight">
+          <div className="space-y-0.5 sm:space-y-1">
+            <h3 className="text-xs sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors tracking-tight line-clamp-1 sm:line-clamp-none">
               {member.name}
             </h3>
             <p
-              className={`text-xs font-medium line-clamp-1 ${
+              className={`text-[10px] sm:text-xs font-medium line-clamp-1 ${
                 isAdvisor ? "text-amber-200/90" : "text-emerald-400/90"
               }`}
             >
@@ -121,9 +121,9 @@ export function CommitteeCard({ member, className }: CommitteeCardProps) {
             </p>
           </div>
 
-          {/* Quote */}
-          <div className="relative pt-1">
-            <QuoteIcon className="w-4 h-4 text-zinc-600 mb-1 opacity-60" />
+          {/* Quote (Hidden on mobile to drastically reduce vertical scrolling) */}
+          <div className="relative pt-1 hidden sm:block">
+            <QuoteIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-600 mb-1 opacity-60" />
             <p className="text-xs text-zinc-300 italic line-clamp-3 leading-relaxed pl-1">
               &quot;{member.quote}&quot;
             </p>
@@ -131,9 +131,9 @@ export function CommitteeCard({ member, className }: CommitteeCardProps) {
         </div>
 
         {/* Card Footer: Subtle Hint to Click */}
-        <div className="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-zinc-500 group-hover:text-zinc-300 transition-colors">
-          <span>Click to view details</span>
-          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-emerald-400" />
+        <div className="mt-2.5 sm:mt-5 pt-2 sm:pt-3 border-t border-white/5 flex items-center justify-between text-[10px] sm:text-[11px] text-zinc-500 group-hover:text-zinc-300 transition-colors">
+          <span>View Details</span>
+          <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-1 transition-transform text-emerald-400 shrink-0" />
         </div>
       </div>
 
