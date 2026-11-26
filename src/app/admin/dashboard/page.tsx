@@ -125,7 +125,7 @@ async function AdminDashboardContent() {
   ];
 
   return (
-    <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] text-white">
+    <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] w-full max-w-[100vw] overflow-x-hidden text-white">
       <Container className="space-y-8">
         {/* Header Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
@@ -149,23 +149,25 @@ async function AdminDashboardContent() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {isSuperAdmin && (
               <>
                 <Link href="/admin/super/permissions">
                   <Button
                     variant="outline"
-                    className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-9 hidden md:flex"
+                    className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 flex items-center"
+                    title="Capability Controls"
                   >
-                    <Lock className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Capability Controls</span>
+                    <Lock className="w-3.5 h-3.5 sm:mr-1.5 text-emerald-400" />
+                    <span className="hidden sm:inline">Capability Controls</span>
                   </Button>
                 </Link>
 
                 <Link href="/admin/super">
-                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 shadow-md shadow-emerald-950">
-                    <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Approval Center</span>
+                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 shadow-md shadow-emerald-950 flex items-center">
+                    <ShieldCheck className="w-3.5 h-3.5 sm:mr-1.5" />
+                    <span className="hidden sm:inline">Approval Center</span>
+                    <span className="sm:hidden">Approvals</span>
                   </Button>
                 </Link>
               </>

@@ -136,7 +136,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
           />
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 rounded-xl border border-white/10 bg-black/40 text-xs">
+        <div className="w-full grid grid-cols-3 gap-1 sm:flex sm:w-auto items-center p-1 rounded-xl border border-white/10 bg-black/40 text-xs">
           <Button
             type="button"
             variant="ghost"
