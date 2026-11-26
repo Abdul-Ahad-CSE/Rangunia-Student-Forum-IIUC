@@ -173,3 +173,7 @@
   - **Notice Pattern Adoption:** Replaced the cramped multi-line header on `/admin/super` with the standardized sticky system bar (`Home | Super Admin Panel ... Sign Out`).
   - **Text-Wrap Elimination:** Removed awkward title wrapping and cramped icon buttons on mobile viewports.
   - **Action Bar Restructuring:** Positioned the `← Admin Console` breadcrumb, `Shield` icon title, and quick-action buttons directly within the workspace layout matching the Notice Management standard.
+- [x] Phase 28: Global Footer Polish — Facebook Socials, Animated IhsanX Credit & Infinite News Ticker
+  - **Official Facebook Link:** Embedded the official RSF Facebook page link with custom branded SVG icon and hover states.
+  - **Eye-Catching IhsanX Credit:** Implemented animated creator badge featuring an emerald pulse beacon, gradient shimmer text, and hover-lift motion linking to `https://www.ihsanx.com/`.
+  - **Continuous News Ticker Crawler:** Added a full-width bottom news ticker tape displaying `"Unity is strength. Rangunia Students Forum. International Islamic University Chittagong."` with smooth infinite linear motion and pause-on-hover mechanics.
