@@ -160,3 +160,8 @@
   - **Total Elimination of Horizontal Scroll:** Applied root viewport containment (`max-w-[100vw] overflow-x-hidden`) and responsive header sizing across all admin modules.
   - **Responsive Metric Grids:** Converted all admin stat metric rows to 3-column mobile grids, eliminating flex blowout.
   - **Zero Functional Mutation:** Strictly preserved all Prisma queries, Server Actions, and permission governance.
+- [x] Phase 25: Unified 2-Tier Mobile Header Architecture Across Admin Consoles
+  - **Cross-Console 2-Tier Stack:** Replaced cramped single-line mobile headers with a clean 2-tier architecture across both `/admin/super/permissions` and `/admin/approvals`.
+  - **Text-Wrap & Badge Clipping Elimination:** Restored proper single-line typography for console titles and role badges on mobile viewports.
+  - **Dedicated Full-Width Back Navigation:** Provided a spacious, thumb-friendly `← Back` button on Row 2 for mobile users while preserving desktop button layouts.
+  - **Zero Functional Mutation:** Strictly preserved all Prisma queries, Server Actions, and permission governance.

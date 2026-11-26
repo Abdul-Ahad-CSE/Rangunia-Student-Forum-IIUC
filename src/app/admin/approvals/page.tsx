@@ -104,97 +104,129 @@ async function ApprovalsDashboardContent() {
 
   return (
     <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white">
-      {/* Top Header */}
+      {/* Top Header - 2-Tier Mobile Header Architecture */}
       <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
-        <Container className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-md">
-              <Users className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-white leading-tight">
-                  Forum Member Approvals
-                </span>
-                <span className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-bold tracking-wider text-emerald-400">
-                  {isSuperAdmin ? "ROOT SUPER ADMIN" : "CAN_MANAGE_PROFILES"}
-                </span>
+        <Container className="py-2.5 sm:py-0 sm:h-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
+          {/* Row 1 on Mobile / Left Column on Desktop */}
+          <div className="flex items-center justify-between w-full sm:w-auto gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-md shrink-0">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <p className="text-[11px] text-zinc-400 truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">
-                Authenticated as: {session.user.email}
-              </p>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-nowrap">
+                  <span className="font-bold text-xs sm:text-sm text-white tracking-tight truncate">
+                    Member Approvals
+                  </span>
+                  <span className="rounded border border-emerald-500/40 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-400 shrink-0">
+                    {isSuperAdmin ? "SUPER ADMIN" : "PROFILES"}
+                  </span>
+                </div>
+                <p className="text-[10px] sm:text-[11px] text-zinc-400 truncate max-w-[170px] sm:max-w-none">
+                  {session.user.email}
+                </p>
+              </div>
+            </div>
+
+            {/* Mobile Quick Utility Actions */}
+            <div className="flex items-center gap-1.5 sm:hidden shrink-0">
+              <Link href="/">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0 border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10"
+                  title="Home"
+                >
+                  <Home className="h-3.5 w-3.5 text-emerald-400" />
+                </Button>
+              </Link>
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut({ redirectTo: "/login" });
+                }}
+              >
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0 border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white"
+                  title="Sign Out"
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                </Button>
+              </form>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Mobile Always-Visible Back Button (< sm) */}
-            <Link href={isSuperAdmin ? "/admin/super" : "/admin/dashboard"} className="sm:hidden">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs px-2.5 h-8 flex items-center gap-1 font-semibold"
-              >
-                <ArrowLeft className="h-3.5 w-3.5 text-emerald-400" />
-                <span>Back</span>
-              </Button>
-            </Link>
-
-            {/* Desktop Back Links (sm:) */}
-            {isSuperAdmin ? (
-              <Link href="/admin/super" className="hidden sm:flex">
+          {/* Row 2 on Mobile: Dedicated Full-Width Back Button (< sm) | Desktop Actions (sm:) */}
+          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+            <div className="w-full sm:hidden pt-1 border-t border-white/5">
+              <Link href={isSuperAdmin ? "/admin/super" : "/admin/dashboard"} className="w-full block">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                  className="w-full h-8 border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
-                  <span>Super Admin Panel</span>
+                  <ArrowLeft className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>{isSuperAdmin ? "← Back to Authority Center" : "← Back to Admin Console"}</span>
                 </Button>
               </Link>
-            ) : (
-              <Link href="/admin/dashboard" className="hidden sm:flex">
+            </div>
+
+            <div className="hidden sm:flex items-center gap-3">
+              {isSuperAdmin ? (
+                <Link href="/admin/super">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                  >
+                    <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
+                    <span>Super Admin Panel</span>
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/admin/dashboard">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                  >
+                    <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
+                    <span>Admin Dashboard</span>
+                  </Button>
+                </Link>
+              )}
+
+              <Link href="/">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                  className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs px-3 h-9"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
-                  <span>Admin Dashboard</span>
+                  <Home className="h-3.5 w-3.5 text-emerald-400 mr-1.5" />
+                  <span>← Home</span>
                 </Button>
               </Link>
-            )}
 
-            {/* Responsive Home Trigger */}
-            <Link href="/">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs px-2.5 sm:px-3 h-8 sm:h-9"
-                title="Home"
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut({ redirectTo: "/login" });
+                }}
               >
-                <Home className="h-3.5 w-3.5 text-emerald-400 sm:mr-1.5" />
-                <span className="hidden sm:inline">← Home</span>
-              </Button>
-            </Link>
-
-            {/* Responsive Sign Out Trigger */}
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <Button
-                type="submit"
-                variant="outline"
-                size="sm"
-                className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs px-2.5 sm:px-3 h-8 sm:h-9"
-                title="Sign Out"
-              >
-                <LogOut className="h-3.5 w-3.5 sm:mr-1.5" />
-                <span className="hidden sm:inline">Sign Out</span>
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs px-3 h-9"
+                >
+                  <LogOut className="h-3.5 w-3.5 mr-1.5" />
+                  <span>Sign Out</span>
+                </Button>
+              </form>
+            </div>
           </div>
         </Container>
       </header>
