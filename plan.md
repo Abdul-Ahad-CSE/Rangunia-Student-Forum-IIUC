@@ -122,3 +122,8 @@
   - **Legacy Showcase Removal:** Deprecated and purged `CommunityShowcase` from `src/app/(public)/page.tsx`, removing static photo grids and outdated text.
   - **Hero & Footer Focused Architecture:** Streamlined the public home page to strictly the cinematic Hero section (`LandingHeroContainer`), global navbar (`LandingNav`), and the platform `Footer`.
   - **Modular Preparation:** Established a clean, decoupled `<main>` structure ready for upcoming dynamic showcase widgets (Events, Notices, Activities, and About RSF).
+- [x] Phase 15: Public Portal Featured Events — Top 3 Left-to-Right Carousel
+  - **Database Query Layer:** Implemented `getTopEvents()` fetching the top 3 events prioritizing upcoming schedules with automatic fallback for empty states.
+  - **Cinematic Carousel Engine:** Built `TopEventsCarousel` utilizing `motion/react` with left-to-right gliding motion, pause-on-hover mechanics, and dynamic glowing progress pills.
+  - **Atmospheric Visual Polish:** Designed glassmorphic cards with responsive 16:9 banner imagery, status tags, date/venue metadata, and direct routing to `/events/[id]`.
+  - **Landing Page Integration:** Embedded `EventsShowcaseSection` directly below the hero section with an ambient radial backdrop and a link to the full `/events` directory.
