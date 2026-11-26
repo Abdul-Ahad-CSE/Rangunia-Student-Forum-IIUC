@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { CldUploadWidget } from "next-cloudinary";
 import {
   Sparkles,
   Camera,
@@ -65,35 +66,6 @@ export function EventRecapDialog({
       resetForm();
     }
     setOpen(nextOpen);
-  };
-
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    Array.from(files).forEach((file) => {
-      if (!file.type.startsWith("image/")) {
-        toast.error(`"${file.name}" is not a supported image file.`);
-        return;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error(`"${file.name}" exceeds the 5MB file size limit.`);
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (result) {
-          setPhotos((prev) => [...prev, result]);
-        }
-      };
-      reader.onerror = () => {
-        toast.error(`Failed to read "${file.name}".`);
-      };
-      reader.readAsDataURL(file);
-    });
   };
 
   const removePhoto = (indexToRemove: number) => {
@@ -192,26 +164,61 @@ export function EventRecapDialog({
               </div>
 
               {/* Upload Dropzone */}
-              <label className="flex flex-col items-center justify-center h-24 w-full rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-teal-500/40 cursor-pointer transition-all">
-                <div className="flex items-center gap-2 text-center p-3">
-                  <UploadCloud className="w-5 h-5 text-teal-400" />
-                  <div className="text-left">
-                    <p className="text-xs font-medium text-zinc-200">
-                      Upload recap photos (select multiple)
-                    </p>
-                    <p className="text-[10px] text-zinc-500">
-                      PNG, JPG, WebP up to 5MB each
-                    </p>
-                  </div>
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  onChange={handlePhotoUpload}
-                />
-              </label>
+              <React.Suspense fallback={<div className="h-20 w-full rounded-xl border border-white/10 bg-white/5 animate-pulse" />}>
+                <CldUploadWidget
+                  signatureEndpoint="/api/cloudinary/sign"
+                  config={{
+                    cloud: {
+                      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "yoqifwb9",
+                      apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || "171588185773459",
+                    },
+                  }}
+                  options={{
+                    multiple: true,
+                    maxFiles: 15,
+                    resourceType: "image",
+                    clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                    maxFileSize: 5 * 1024 * 1024,
+                  }}
+                  onSuccess={(result) => {
+                    if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                      const newUrl = result.info.secure_url;
+                      setPhotos((prev) => (!prev.includes(newUrl) ? [...prev, newUrl] : prev));
+                      toast.success("Photo added to event recap gallery!");
+                    }
+                  }}
+                >
+                  {({ open }) => (
+                    <div
+                      onClick={() => open?.()}
+                      className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                          <UploadCloud className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                            Upload Recap Photos
+                          </p>
+                          <p className="text-[10px] text-zinc-500">
+                            Select multiple photos (PNG, JPG, WebP up to 5MB each)
+                          </p>
+                        </div>
+                      </div>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                      >
+                        Add Photos
+                      </Button>
+                    </div>
+                  )}
+                </CldUploadWidget>
+              </React.Suspense>
 
               {/* Photo Thumbnails Grid */}
               {photos.length > 0 && (

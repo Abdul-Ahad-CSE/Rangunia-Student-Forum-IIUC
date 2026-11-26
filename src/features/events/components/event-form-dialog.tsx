@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { CldUploadWidget } from "next-cloudinary";
 import {
   Calendar,
   Clock,
@@ -103,30 +104,6 @@ export function EventFormDialog({
       resetForm();
     }
     setOpen(nextOpen);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please upload a valid image file (JPEG, PNG, WebP).");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image size must be under 5MB.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setBannerUrl(event.target?.result as string);
-    };
-    reader.onerror = () => {
-      toast.error("Failed to read image file.");
-    };
-    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -278,35 +255,90 @@ export function EventFormDialog({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <label className="cursor-pointer bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-md">
-                      <span>Change Banner</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleFileChange}
-                      />
-                    </label>
+                    <React.Suspense fallback={<div className="h-8 w-24 rounded-lg bg-white/10 animate-pulse" />}>
+                      <CldUploadWidget
+                        signatureEndpoint="/api/cloudinary/sign"
+                        config={{
+                          cloud: {
+                            cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "yoqifwb9",
+                            apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || "171588185773459",
+                          },
+                        }}
+                        options={{
+                          maxFiles: 1,
+                          resourceType: "image",
+                          clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                          maxFileSize: 5 * 1024 * 1024,
+                        }}
+                        onSuccess={(result) => {
+                          if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                            setBannerUrl(result.info.secure_url);
+                            toast.success("Event banner uploaded to Cloudinary successfully!");
+                          }
+                        }}
+                      >
+                        {({ open }) => (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => open?.()}
+                            className="bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-md"
+                          >
+                            <span>Change Banner</span>
+                          </Button>
+                        )}
+                      </CldUploadWidget>
+                    </React.Suspense>
+                  </div>
+                  <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-[10px] font-mono text-emerald-300 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                    <span>Cloud Stored</span>
                   </div>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center h-32 w-full rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 cursor-pointer transition-all">
-                  <div className="flex flex-col items-center justify-center space-y-1.5 text-center p-4">
-                    <UploadCloud className="w-7 h-7 text-emerald-400 mb-1" />
-                    <p className="text-xs font-medium text-zinc-300">
-                      Upload high-resolution event banner
-                    </p>
-                    <p className="text-[11px] text-zinc-500">
-                      PNG, JPG, or WebP up to 5MB (16:9 recommended)
-                    </p>
-                  </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                </label>
+                <React.Suspense fallback={<div className="h-28 w-full rounded-xl border border-white/10 bg-white/5 animate-pulse" />}>
+                  <CldUploadWidget
+                    signatureEndpoint="/api/cloudinary/sign"
+                    config={{
+                      cloud: {
+                        cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "yoqifwb9",
+                        apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || "171588185773459",
+                      },
+                    }}
+                    options={{
+                      maxFiles: 1,
+                      resourceType: "image",
+                      clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                      maxFileSize: 5 * 1024 * 1024,
+                    }}
+                    onSuccess={(result) => {
+                      if (result.info && typeof result.info === "object" && "secure_url" in result.info) {
+                        setBannerUrl(result.info.secure_url);
+                        toast.success("Event banner uploaded to Cloudinary successfully!");
+                      }
+                    }}
+                  >
+                    {({ open }) => (
+                      <div
+                        onClick={() => open?.()}
+                        className="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group text-center space-y-2"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                          <UploadCloud className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                            Upload Event Banner
+                          </p>
+                          <p className="text-[11px] text-zinc-500">
+                            PNG, JPG, WebP up to 5MB (Signed Cloudinary Storage)
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </CldUploadWidget>
+                </React.Suspense>
               )}
             </div>
 

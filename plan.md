@@ -185,3 +185,7 @@
   - **Mathematical Boundary Enforcement:** Replaced unstable `calc()` transforms with a locked `w-[200%]` and `x: ["0%", "-50%", "0%"]` architecture, completely eliminating the black empty gap bug.
   - **Mosque Anchoring:** Used `object-left` to guarantee full, uncropped visibility of the IIUC Central Mosque on the left edge.
   - **Continuous Fluidity:** Established a 20-second cinematic drone sweep that seamlessly transitions between the mosque and the academic campus without stuttering or overshooting.
+- [x] Phase 31: Event Management Cloudinary Migration
+  - **Signed Banner Uploads:** Replaced `FileReader` Base64 encoding in `EventFormDialog` with `CldUploadWidget`, persisting direct Cloudinary CDN URLs.
+  - **Multi-Photo Recap Gallery:** Upgraded `EventRecapDialog` to support multi-image Cloudinary uploads with signed request authentication.
+  - **Database Payload Optimization:** Eliminated heavy Base64 payload storage in Neon PostgreSQL, matching the performance standards of Notices and Activities.
