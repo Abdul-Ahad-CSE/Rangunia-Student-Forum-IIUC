@@ -127,3 +127,8 @@
   - **Cinematic Carousel Engine:** Built `TopEventsCarousel` utilizing `motion/react` with left-to-right gliding motion, pause-on-hover mechanics, and dynamic glowing progress pills.
   - **Atmospheric Visual Polish:** Designed glassmorphic cards with responsive 16:9 banner imagery, status tags, date/venue metadata, and direct routing to `/events/[id]`.
   - **Landing Page Integration:** Embedded `EventsShowcaseSection` directly below the hero section with an ambient radial backdrop and a link to the full `/events` directory.
+- [x] Phase 16: Public Portal Notices & Activities Integration — Distinct UI Paradigms
+  - **Notices Digital Bulletin Board:** Implemented `NoticesShowcaseSection` querying top 3 notices with dedicated date calendar chips, official circular tags, and direct detail routing.
+  - **Activities Bento Photo Mosaic:** Implemented `ActivitiesShowcaseSection` showcasing up to 3 activities in an asymmetric visual grid with multi-photo count chips and location metadata.
+  - **Dynamic Quantity Scaling:** Designed both modules to adapt gracefully to 1, 2, or 3 items (and friendly empty states) depending on admin publications.
+  - **Home Page Rhythm:** Composed the public landing page with 3 visually distinct modules (Events Carousel → Notices Bulletin → Activities Bento) before the footer.
