@@ -4,7 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, GraduationCap, Calendar, Compass } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 
@@ -52,7 +52,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] w-full flex flex-col justify-center overflow-hidden bg-[#040907] pt-24 pb-16 sm:pt-28 sm:pb-24">
+    <section className="relative min-h-[100svh] w-full flex flex-col justify-start pt-24 pb-14 sm:justify-center sm:pt-28 sm:pb-24 overflow-hidden bg-[#040907]">
       {/* 1. Cinematic Fullscreen Background Image with Smooth Mobile Pan */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -143,15 +143,66 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               at IIUC
             </motion.h1>
 
-            {/* Primary Action Button (Centered) */}
+            {/* 3 Compact Translucent Feature Cards */}
             <motion.div
               variants={itemVariants}
-              className="mt-8 sm:mt-10 flex w-full justify-center items-center px-4"
+              className="mt-5 sm:mt-8 flex flex-col gap-2.5 sm:gap-3 w-full max-w-md px-3 text-left"
+            >
+              {/* Card A: Alumni Network */}
+              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/20 text-emerald-300">
+                  <GraduationCap className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                </div>
+                <div>
+                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                    Alumni Network & Career Bridge
+                  </h2>
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                    Lifelong fraternity connecting current students with established graduates.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card B: Activities & Events */}
+              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-teal-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-teal-500/30 bg-teal-500/20 text-teal-300">
+                  <Calendar className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                </div>
+                <div>
+                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                    Forum Activities & Events
+                  </h2>
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                    Reunions, skill-building workshops, and academic gatherings.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card C: 1-on-1 Mentorship */}
+              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-sky-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-sky-500/30 bg-sky-500/20 text-sky-300">
+                  <Compass className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                </div>
+                <div>
+                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                    1-on-1 Senior Mentorship
+                  </h2>
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                    Direct academic guidance, department pathways, and career referrals.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Primary Action Button (Centered directly below the 3 cards) */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-6 sm:mt-7 w-full max-w-md px-3 flex justify-center"
             >
               <Link href="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto h-12 sm:h-14 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full sm:w-auto h-12 sm:h-13 px-8 text-sm sm:text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_25px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>Join Student Forum</span>
                   <ArrowRight className="ml-2 h-4 w-4" />

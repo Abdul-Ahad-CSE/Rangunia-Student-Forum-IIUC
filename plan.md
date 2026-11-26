@@ -113,3 +113,8 @@
   - **Feature Highlights Removal:** Removed the 3 bottom feature cards ("24/7 Blood Network", "Verified Directory", "15 Unions & Wards") for a minimalist, focused presentation.
   - **Mobile Hero Panning Animation:** Implemented a smooth 20-second continuous horizontal panning animation (`motion/react`) on mobile viewports for `/images/iiuc.jpg` to showcase the full campus scenery without cropping.
   - **Deprecation of Standalone Blood Network:** Purged the `#blood-network` teaser section, registration triggers, and footer links, while safely preserving standard profile demographic `bloodGroup` fields.
+- [x] Phase 13: Mobile Hero Redesign — Elevated Typography, 3 Translucent Feature Cards & Repositioned CTA Gateway
+  - **Vertical Realignment & Navbar Clearance:** Replaced vertical center locking on mobile with `justify-start pt-24 pb-14 sm:justify-center sm:pt-28 sm:pb-24` to elevate the ambient badge and main headline with comfortable clearance beneath the fixed navbar.
+  - **3 Compact Translucent Feature Cards:** Introduced 3 glassmorphic micro-cards (`Alumni Network & Career Bridge`, `Forum Activities & Events`, `1-on-1 Senior Mentorship`) styled with `backdrop-blur-md bg-black/30 border-white/10` and color-coded icon chips (`bg-emerald-500/20`, `bg-teal-500/20`, `bg-sky-500/20`) to let the campus background shine through clearly.
+  - **Repositioned CTA Gateway:** Anchored the full-width mobile `"Join Student Forum"` CTA button cleanly directly below the 3 cards (`mt-6 sm:mt-7 max-w-md`), establishing an intuitive visual hierarchy.
+  - **Preserved Mobile Background Pan Animation:** Verified that the continuous horizontal campus background pan on mobile operates smoothly behind the glass cards.
