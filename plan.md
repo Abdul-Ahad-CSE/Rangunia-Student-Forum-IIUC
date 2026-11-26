@@ -181,3 +181,7 @@
   - **Natural Aspect Ratio Locking:** Replaced fixed `w-[165%]` with `aspect-[16/9] max-w-none` on mobile, eliminating all horizontal image cropping.
   - **Edge-to-Edge Mathematical Panning:** Applied `x: ["0%", "calc(-100% + 100vw)", "0%"]` with `object-left`, guaranteeing complete visibility of the IIUC Central Mosque on the left through to the eastern campus on the right.
   - **Pacing & Desktop Isolation:** Adjusted cinematic duration to 24s `easeInOut` while cleanly resetting desktop viewports to centered static coverage.
+- [x] Phase 30: Hero Background Mobile Pan Fix — Zero-Blank-Space Guarantee
+  - **Mathematical Boundary Enforcement:** Replaced unstable `calc()` transforms with a locked `w-[200%]` and `x: ["0%", "-50%", "0%"]` architecture, completely eliminating the black empty gap bug.
+  - **Mosque Anchoring:** Used `object-left` to guarantee full, uncropped visibility of the IIUC Central Mosque on the left edge.
+  - **Continuous Fluidity:** Established a 20-second cinematic drone sweep that seamlessly transitions between the mosque and the academic campus without stuttering or overshooting.

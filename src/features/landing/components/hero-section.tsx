@@ -53,19 +53,19 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-fit sm:min-h-[100svh] w-full flex flex-col justify-start pt-20 pb-10 sm:justify-center sm:pt-28 sm:pb-24 overflow-hidden bg-[#040907]">
-      {/* 1. Cinematic Fullscreen Background Image with Full Edge-to-Edge Pan */}
+      {/* 1. Cinematic Fullscreen Background Image with Guaranteed Zero-Blank-Space Pan */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="relative h-full aspect-[16/9] max-w-none sm:aspect-auto sm:w-full transform-gpu"
+          className="relative h-full w-[200%] sm:w-full transform-gpu"
           animate={
             isMobile
-              ? { x: ["0%", "calc(-100% + 100vw)", "0%"] }
+              ? { x: ["0%", "-50%", "0%"] }
               : { x: "0%" }
           }
           transition={
             isMobile
               ? {
-                  duration: 24,
+                  duration: 20,
                   repeat: Infinity,
                   repeatType: "mirror",
                   ease: "easeInOut",
@@ -78,7 +78,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             alt="International Islamic University Chittagong (IIUC) Campus"
             fill
             priority
-            sizes="(max-width: 640px) 250vw, 100vw"
+            sizes="(max-width: 640px) 200vw, 100vw"
             quality={95}
             className="object-cover object-left sm:object-center transform-gpu"
           />
