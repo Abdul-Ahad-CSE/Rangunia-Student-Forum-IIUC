@@ -143,14 +143,14 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               at IIUC
             </motion.h1>
 
-            {/* 3 Compact Translucent Feature Cards */}
+            {/* 3 Compact Translucent Feature Cards (Mobile: Vertical Stack | Desktop: 3-Column Side-by-Side Grid) */}
             <motion.div
               variants={itemVariants}
-              className="mt-30 sm:mt-8 flex flex-col gap-2.5 sm:gap-3 w-full max-w-md px-3 text-left"
+              className="mt-6 sm:mt-8 flex flex-col md:grid md:grid-cols-3 gap-2.5 sm:gap-3.5 lg:gap-4 w-full max-w-md md:max-w-4xl lg:max-w-5xl px-3 text-left"
             >
               {/* Card A: Alumni Network */}
-              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/20 text-emerald-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-emerald-500/30 bg-emerald-500/20 text-emerald-300">
                   <GraduationCap className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
@@ -164,8 +164,8 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               </div>
 
               {/* Card B: Activities & Events */}
-              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-teal-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-teal-500/30 bg-teal-500/20 text-teal-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-teal-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-teal-500/30 bg-teal-500/20 text-teal-300">
                   <Calendar className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
@@ -179,8 +179,8 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               </div>
 
               {/* Card C: 1-on-1 Mentorship */}
-              <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-sky-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg border border-sky-500/30 bg-sky-500/20 text-sky-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-sky-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-sky-500/30 bg-sky-500/20 text-sky-300">
                   <Compass className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
@@ -197,7 +197,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             {/* Primary Action Button (Centered directly below the 3 cards) */}
             <motion.div
               variants={itemVariants}
-              className="mt-6 sm:mt-7 w-full max-w-md px-3 flex justify-center"
+              className="mt-6 sm:mt-8 w-full flex justify-center px-3"
             >
               <Link href="/register" className="w-full sm:w-auto">
                 <Button
