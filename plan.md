@@ -132,3 +132,9 @@
   - **Activities Bento Photo Mosaic:** Implemented `ActivitiesShowcaseSection` showcasing up to 3 activities in an asymmetric visual grid with multi-photo count chips and location metadata.
   - **Dynamic Quantity Scaling:** Designed both modules to adapt gracefully to 1, 2, or 3 items (and friendly empty states) depending on admin publications.
   - **Home Page Rhythm:** Composed the public landing page with 3 visually distinct modules (Events Carousel → Notices Bulletin → Activities Bento) before the footer.
+- [x] Phase 17: Full-Stack About Module — Super-Admin-Approved Content Console & Public Showcase
+  - **Prisma Schema & Neon DB:** Created `AboutContent` singleton model supporting narrative text, subtitle, and an array of 3 Cloudinary photo URLs.
+  - **Dual-Layer Super Admin Approval Gating:** Gated `/admin/about` and `updateAboutContentAction` by `approvalStatus === "APPROVED"` AND `canManageAbout: true`.
+  - **Admin Content Console:** Built `/admin/about` with text editor and 3-photo signed Cloudinary uploaders.
+  - **Public About Showcase:** Built `AboutShowcaseSection` on the homepage featuring the RSF logo seal, 3-photo floating motion fan (`motion/react`), and editorial typography.
+  - **Real-Time Dynamic Synchronization:** Connected public section to server revalidation so admin edits reflect immediately on the live landing page.

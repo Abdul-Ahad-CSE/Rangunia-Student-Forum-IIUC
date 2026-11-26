@@ -117,7 +117,7 @@ async function AdminDashboardContent() {
       title: "About Management",
       description: "Update forum history, constitution, mission vision, and general forum information pages.",
       icon: Info,
-      href: "/#about",
+      href: "/admin/about",
       actionLabel: "Manage About",
       flagName: "canManageAbout",
       isAuthorized: adminCapabilities.canManageAbout,

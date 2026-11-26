@@ -418,4 +418,14 @@ model CommitteeMember {
   @@index([rank])
 }
 
+model AboutContent {
+  id        String   @id @default("singleton")
+  title     String   @default("Rangunia Students Forum (IIUC)")
+  subtitle  String?  @default("Rooted in Rangunia, Thriving at IIUC")
+  content   String   @db.Text
+  photos    String[] @default([])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 
