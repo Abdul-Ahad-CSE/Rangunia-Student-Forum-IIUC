@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import type { Session } from "next-auth";
 
 interface LandingNavClientProps {
@@ -56,7 +57,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur-xl transition-all">
+    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-zinc-200/80 dark:border-white/10 bg-white/85 dark:bg-black/40 backdrop-blur-xl transition-all">
       <Container className="flex h-16 sm:h-20 items-center justify-between">
         {/* Brand Lockup */}
         <Link
@@ -74,11 +75,11 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
             />
           </div>
           <div className="flex flex-col text-left">
-            <span className="font-bold tracking-tight text-white text-sm sm:text-base leading-tight">
+            <span className="font-bold tracking-tight text-zinc-900 dark:text-white text-sm sm:text-base leading-tight">
               Rangunia Students Forum
             </span>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-emerald-400 uppercase">
+              <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
                 IIUC Chapter
               </span>
               <span className="inline-block h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
@@ -90,37 +91,37 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
         <div className="hidden md:flex items-center gap-7">
           <Link
             href="/directory"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             Directory
           </Link>
           <Link
             href="/events"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             Events
           </Link>
           <Link
             href="/notices"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             Notices
           </Link>
           <Link
             href="/activities"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             Activities
           </Link>
           <Link
             href="/committee"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             Committee
           </Link>
           <Link
             href="/#about"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
           >
             About
           </Link>
@@ -128,6 +129,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
 
         {/* Desktop Action Buttons: Dynamic based on Session State */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           {user ? (
             <Link href={dashboardHref}>
               <Button
@@ -145,7 +147,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-white/15 bg-white/5 text-zinc-200 hover:bg-white/10 hover:text-white transition-all text-xs"
+                  className="border-zinc-200 dark:border-white/15 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200/80 dark:hover:bg-white/10 hover:text-zinc-900 dark:hover:text-white transition-all text-xs"
                 >
                   Sign In
                 </Button>
@@ -165,14 +167,15 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
 
         {/* Mobile Action & Hamburger Toggle */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
           {user ? (
             <Link href={dashboardHref}>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-xs text-emerald-300 h-9 px-2.5 border border-emerald-500/30 bg-emerald-950/40 font-medium flex items-center gap-1.5"
+                className="text-xs text-emerald-700 dark:text-emerald-300 h-9 px-2.5 border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 font-medium flex items-center gap-1.5"
               >
-                <RoleIcon className="w-3.5 h-3.5 text-emerald-400" />
+                <RoleIcon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span className="max-w-[100px] truncate">{dashboardLabel}</span>
               </Button>
             </Link>
@@ -181,7 +184,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-xs text-zinc-200 h-9 px-3 border border-white/10 bg-white/5 font-medium"
+                className="text-xs text-zinc-700 dark:text-zinc-200 h-9 px-3 border border-zinc-200 dark:border-white/10 bg-zinc-100/80 dark:bg-white/5 font-medium"
               >
                 Sign In
               </Button>
@@ -189,7 +192,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
           )}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-zinc-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 dark:border-white/15 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
             aria-label="Toggle Navigation Menu"
             aria-expanded={isOpen}
           >
@@ -200,67 +203,67 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="border-b border-white/10 bg-[#06100c]/95 backdrop-blur-2xl px-6 py-6 md:hidden">
+        <div className="border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#06100c]/95 backdrop-blur-2xl px-6 py-6 md:hidden">
           <div className="flex flex-col space-y-4">
             <Link
               href="/directory"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>Directory</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
             <Link
               href="/events"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>Events</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
             <Link
               href="/notices"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>Notices</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
             <Link
               href="/activities"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>Activities</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
             <Link
               href="/committee"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>Committee</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
             <Link
               href="/#about"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between text-base font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5"
+              className="flex items-center justify-between text-base font-medium text-zinc-700 hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400 py-2 border-b border-zinc-100 dark:border-white/5"
             >
               <span>About</span>
-              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400 dark:text-zinc-500">→</span>
             </Link>
 
             {/* Bottom Actions based on Session State */}
             {user ? (
               <div className="pt-4 flex flex-col gap-3">
-                <div className="p-3.5 rounded-xl border border-white/10 bg-white/[0.03] flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 font-bold font-mono text-sm">
+                <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.03] flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 font-bold font-mono text-sm">
                     {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-white truncate">{user.name || "Logged In User"}</p>
-                    <p className="text-[11px] text-emerald-400 font-mono">{roleBadgeText}</p>
+                    <p className="text-xs font-semibold text-zinc-900 dark:text-white truncate">{user.name || "Logged In User"}</p>
+                    <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">{roleBadgeText}</p>
                   </div>
                 </div>
 
@@ -282,9 +285,9 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
                 <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
                   <Button
                     variant="outline"
-                    className="w-full h-12 text-base font-medium border-white/15 bg-white/5 text-zinc-200 hover:bg-white/10"
+                    className="w-full h-12 text-base font-medium border-zinc-200 dark:border-white/15 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200/80 dark:hover:bg-white/10"
                   >
-                    <ShieldCheck className="h-4 w-4 mr-2 text-emerald-400" />
+                    <ShieldCheck className="h-4 w-4 mr-2 text-emerald-600 dark:text-emerald-400" />
                     Sign In to Portal
                   </Button>
                 </Link>

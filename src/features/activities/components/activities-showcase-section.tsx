@@ -14,10 +14,10 @@ export async function ActivitiesShowcaseSection() {
   });
 
   return (
-    <section className="relative bg-[#020604] py-16 sm:py-24 border-t border-white/5 overflow-hidden text-white">
+    <section className="relative bg-zinc-50 dark:bg-[#020604] py-16 sm:py-24 border-t border-zinc-200/80 dark:border-white/5 overflow-hidden text-zinc-900 dark:text-white transition-colors">
       {/* Subtle Ambient Radial Glow */}
       <div
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-950/20 via-transparent to-transparent"
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-950/5 dark:from-teal-950/20 via-transparent to-transparent"
         aria-hidden="true"
       />
 
@@ -26,18 +26,18 @@ export async function ActivitiesShowcaseSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div className="max-w-2xl">
             {/* Ambient Category Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-950/40 px-3.5 py-1 text-xs font-semibold text-teal-300">
-              <Camera className="h-3.5 w-3.5 text-teal-400" />
-              <span>Community Memories & Action</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 dark:border-teal-500/30 bg-teal-50 dark:bg-teal-950/40 px-3.5 py-1 text-xs font-semibold text-teal-800 dark:text-teal-300">
+              <Camera className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+              <span>Community Memories &amp; Action</span>
             </div>
 
             {/* Headline */}
-            <h2 className="mt-3 text-2xl sm:text-4xl font-sans font-bold tracking-tight text-white">
+            <h2 className="mt-3 text-2xl sm:text-4xl font-sans font-bold tracking-tight text-zinc-900 dark:text-white">
               Recent Forum Activities
             </h2>
 
             {/* Subtitle */}
-            <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
               Reliving social initiatives, sports tournaments, study sessions, and campus life with Rangunia students.
             </p>
           </div>
@@ -45,7 +45,7 @@ export async function ActivitiesShowcaseSection() {
           {/* Direct Link to Activities Archive */}
           <Link
             href="/activities"
-            className="inline-flex items-center text-sm font-semibold text-teal-400 hover:text-teal-300 transition-colors gap-1.5 shrink-0 group self-start sm:self-end"
+            className="inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 transition-colors gap-1.5 shrink-0 group self-start sm:self-end"
           >
             <span>Explore All Activities</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

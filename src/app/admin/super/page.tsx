@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { SuperAdminTabs } from "@/features/admin/components/super-admin-tabs";
 import type { SerializedAdminUser } from "@/features/admin/components/admin-approval-cards";
 import type { SerializedPendingMember } from "@/features/approvals/types/approval.types";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Shield, LogOut, ArrowLeft, Users, CheckCircle2, Clock, Loader2, Lock, Home } from "lucide-react";
 
 export const metadata = {
@@ -82,36 +83,38 @@ async function SuperAdminDashboardContent() {
   const pendingMemberCount = serializedMembers.length;
 
   return (
-    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white flex flex-col transition-colors duration-200">
       {/* Top System Bar (Matches Notice Management Pattern) */}
-      <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
+      <header className="border-b border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-30">
         <Container className="h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
             >
-              <Home className="w-4 h-4 text-emerald-400" />
+              <Home className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span className="text-xs font-semibold">Home</span>
             </Link>
-            <span className="text-zinc-600">|</span>
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+            <span className="text-zinc-300 dark:text-zinc-600">|</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Super Admin Panel
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Desktop Quick Nav Links */}
             <Link href="/admin/dashboard" className="hidden sm:inline-flex">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white text-xs h-8"
+                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white text-xs h-8 shadow-xs"
               >
                 <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
                 <span>Admin Console</span>
               </Button>
             </Link>
+
+            <ThemeToggle />
 
             <form
               action={async () => {
@@ -123,7 +126,7 @@ async function SuperAdminDashboardContent() {
                 type="submit"
                 variant="ghost"
                 size="sm"
-                className="text-xs text-zinc-400 hover:text-rose-300 hover:bg-rose-950/20 h-8"
+                className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/20 h-8"
               >
                 <LogOut className="w-3.5 h-3.5 mr-1.5" />
                 <span>Sign Out</span>
@@ -137,27 +140,27 @@ async function SuperAdminDashboardContent() {
       <main className="py-8 sm:py-10">
         <Container className="space-y-6 sm:space-y-8">
           {/* Header Summary & Actions (Matches Notice Management Pattern) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/10 pb-6">
             <div className="space-y-1">
               {/* Breadcrumb Navigation */}
               <div className="flex items-center gap-2 mb-1">
                 <Link
                   href="/admin/dashboard"
-                  className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Admin Console</span>
                 </Link>
-                <span className="text-zinc-600">/</span>
-                <span className="text-xs text-emerald-400 font-medium">Super Admin Authority</span>
+                <span className="text-zinc-400 dark:text-zinc-600">/</span>
+                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Super Admin Authority</span>
               </div>
 
               {/* Prominent Title with Shield Icon */}
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-                <Shield className="w-7 h-7 text-emerald-400 shrink-0" />
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-2.5">
+                <Shield className="w-7 h-7 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Forum Authority Center</span>
               </h1>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl">
                 Oversee executive appointments, review pending member registrations, and govern platform capabilities.
               </p>
             </div>
@@ -168,9 +171,9 @@ async function SuperAdminDashboardContent() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-9 px-3.5 font-semibold shadow-sm"
+                  className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 text-xs h-9 px-3.5 font-semibold shadow-xs"
                 >
-                  <Lock className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                  <Lock className="w-3.5 h-3.5 mr-1.5 text-emerald-600 dark:text-emerald-400" />
                   <span>Admin Permissions</span>
                 </Button>
               </Link>
@@ -179,9 +182,9 @@ async function SuperAdminDashboardContent() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/40 text-xs h-9 px-3.5 font-semibold shadow-sm"
+                  className="border-teal-500/30 bg-teal-50 dark:bg-teal-950/20 text-teal-800 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/40 text-xs h-9 px-3.5 font-semibold shadow-xs"
                 >
-                  <Users className="w-3.5 h-3.5 mr-1.5 text-teal-400" />
+                  <Users className="w-3.5 h-3.5 mr-1.5 text-teal-600 dark:text-teal-400" />
                   <span>Member Approvals ({pendingMemberCount})</span>
                 </Button>
               </Link>
@@ -190,27 +193,27 @@ async function SuperAdminDashboardContent() {
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-2 w-full sm:flex sm:w-auto sm:items-center sm:gap-3">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+              <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
               <div className="min-w-0 w-full sm:w-auto">
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Admins</p>
-                <p className="text-sm sm:text-base font-bold text-amber-300">{pendingAdminCount}</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Pending Admins</p>
+                <p className="text-sm sm:text-base font-bold text-amber-700 dark:text-amber-300">{pendingAdminCount}</p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-              <Users className="w-4 h-4 text-teal-400 shrink-0" />
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+              <Users className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
               <div className="min-w-0 w-full sm:w-auto">
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Members</p>
-                <p className="text-sm sm:text-base font-bold text-teal-300">{pendingMemberCount}</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Pending Members</p>
+                <p className="text-sm sm:text-base font-bold text-teal-700 dark:text-teal-300">{pendingMemberCount}</p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <div className="min-w-0 w-full sm:w-auto">
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Approved Admins</p>
-                <p className="text-sm sm:text-base font-bold text-emerald-300">{approvedAdminCount}</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Approved Admins</p>
+                <p className="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-300">{approvedAdminCount}</p>
               </div>
             </div>
           </div>
@@ -230,7 +233,7 @@ export default function SuperAdminDashboardPage() {
   return (
     <React.Suspense
       fallback={
-        <div className="min-h-screen bg-[#040907] flex items-center justify-center">
+        <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] flex items-center justify-center">
           <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
         </div>
       }

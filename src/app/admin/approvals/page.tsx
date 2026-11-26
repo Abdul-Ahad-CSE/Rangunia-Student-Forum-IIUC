@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { MemberApprovalList } from "@/features/approvals/components/member-approval-list";
 import type { SerializedPendingMember } from "@/features/approvals/types/approval.types";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 export const metadata = {
   title: "Member Approvals | RSF Admin Console",
@@ -103,26 +104,26 @@ async function ApprovalsDashboardContent() {
   const pendingAlumni = serializedMembers.filter((m) => m.isAlumni).length;
 
   return (
-    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white transition-colors duration-200">
       {/* Top Header - 2-Tier Mobile Header Architecture */}
-      <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
+      <header className="border-b border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-30">
         <Container className="py-2.5 sm:py-0 sm:h-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
           {/* Row 1 on Mobile / Left Column on Desktop */}
           <div className="flex items-center justify-between w-full sm:w-auto gap-3">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-md shrink-0">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shadow-md shrink-0">
                 <Users className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5 flex-nowrap">
-                  <span className="font-bold text-xs sm:text-sm text-white tracking-tight truncate">
+                  <span className="font-bold text-xs sm:text-sm text-zinc-900 dark:text-white tracking-tight truncate">
                     Member Approvals
                   </span>
-                  <span className="rounded border border-emerald-500/40 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-400 shrink-0">
+                  <span className="rounded border border-emerald-500/40 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
                     {isSuperAdmin ? "SUPER ADMIN" : "PROFILES"}
                   </span>
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-zinc-400 truncate max-w-[170px] sm:max-w-none">
+                <p className="text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400 truncate max-w-[170px] sm:max-w-none">
                   {session.user.email}
                 </p>
               </div>
@@ -130,14 +131,15 @@ async function ApprovalsDashboardContent() {
 
             {/* Mobile Quick Utility Actions */}
             <div className="flex items-center gap-1.5 sm:hidden shrink-0">
+              <ThemeToggle />
               <Link href="/">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-8 w-8 p-0 border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10"
+                  className="h-8 w-8 p-0 border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10"
                   title="Home"
                 >
-                  <Home className="h-3.5 w-3.5 text-emerald-400" />
+                  <Home className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                 </Button>
               </Link>
               <form
@@ -150,7 +152,7 @@ async function ApprovalsDashboardContent() {
                   type="submit"
                   variant="outline"
                   size="sm"
-                  className="h-8 w-8 p-0 border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white"
+                  className="h-8 w-8 p-0 border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/40 hover:text-rose-900 dark:hover:text-white"
                   title="Sign Out"
                 >
                   <LogOut className="h-3.5 w-3.5" />
@@ -161,26 +163,26 @@ async function ApprovalsDashboardContent() {
 
           {/* Row 2 on Mobile: Dedicated Full-Width Back Button (< sm) | Desktop Actions (sm:) */}
           <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-            <div className="w-full sm:hidden pt-1 border-t border-white/5">
+            <div className="w-full sm:hidden pt-1 border-t border-zinc-200 dark:border-white/5">
               <Link href={isSuperAdmin ? "/admin/super" : "/admin/dashboard"} className="w-full block">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full h-8 border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm"
+                  className="w-full h-8 border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/50 text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5 text-emerald-400" />
+                  <ArrowLeft className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>{isSuperAdmin ? "← Back to Authority Center" : "← Back to Admin Console"}</span>
                 </Button>
               </Link>
             </div>
 
-            <div className="hidden sm:flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2.5">
               {isSuperAdmin ? (
                 <Link href="/admin/super">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                    className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 text-xs shadow-xs"
                   >
                     <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
                     <span>Super Admin Panel</span>
@@ -191,7 +193,7 @@ async function ApprovalsDashboardContent() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
+                    className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 text-xs shadow-xs"
                   >
                     <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
                     <span>Admin Dashboard</span>
@@ -203,12 +205,14 @@ async function ApprovalsDashboardContent() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs px-3 h-9"
+                  className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 text-xs px-3 h-9 shadow-xs"
                 >
-                  <Home className="h-3.5 w-3.5 text-emerald-400 mr-1.5" />
+                  <Home className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 mr-1.5" />
                   <span>← Home</span>
                 </Button>
               </Link>
+
+              <ThemeToggle />
 
               <form
                 action={async () => {
@@ -220,7 +224,7 @@ async function ApprovalsDashboardContent() {
                   type="submit"
                   variant="outline"
                   size="sm"
-                  className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs px-3 h-9"
+                  className="border-rose-200 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/40 hover:text-rose-900 dark:hover:text-white text-xs px-3 h-9 shadow-xs"
                 >
                   <LogOut className="h-3.5 w-3.5 mr-1.5" />
                   <span>Sign Out</span>
@@ -237,36 +241,36 @@ async function ApprovalsDashboardContent() {
           {/* Header Summary */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
+              <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-zinc-900 dark:text-white">
                 Member Registration Approvals
               </h1>
-              <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+              <p className="mt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                 Review and approve newly registered IIUC students and alumni before their profiles become verified in the community directory.
               </p>
             </div>
 
             <div className="grid grid-cols-3 gap-2 w-full sm:flex sm:w-auto sm:items-center sm:gap-3">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+                <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
                 <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Students</p>
-                  <p className="text-sm sm:text-base font-bold text-amber-300">{pendingStudents}</p>
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Students</p>
+                  <p className="text-sm sm:text-base font-bold text-amber-700 dark:text-amber-300">{pendingStudents}</p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+                <CheckCircle2 className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
                 <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Alumni</p>
-                  <p className="text-sm sm:text-base font-bold text-teal-300">{pendingAlumni}</p>
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Alumni</p>
+                  <p className="text-sm sm:text-base font-bold text-teal-700 dark:text-teal-300">{pendingAlumni}</p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <Users className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 sm:px-4 sm:py-2 shadow-xs">
+                <Users className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Total Queue</p>
-                  <p className="text-sm sm:text-base font-bold text-white">{serializedMembers.length}</p>
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 truncate w-full">Total Queue</p>
+                  <p className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white">{serializedMembers.length}</p>
                 </div>
               </div>
             </div>
@@ -284,7 +288,7 @@ export default function AdminApprovalsPage() {
   return (
     <React.Suspense
       fallback={
-        <div className="min-h-screen bg-[#040907] flex items-center justify-center">
+        <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] flex items-center justify-center">
           <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
         </div>
       }

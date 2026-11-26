@@ -109,24 +109,24 @@ export function AdminCommitteeTable({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Search Input */}
         <div className="relative w-full sm:w-72">
-          <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
           <Input
             placeholder="Search by name, role, dept..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 h-9 text-xs bg-black/40 border-white/10 text-white placeholder:text-zinc-600 focus:border-emerald-500"
+            className="pl-9 h-9 text-xs bg-white dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:border-emerald-500 shadow-xs"
           />
         </div>
 
         {/* Tab Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10 text-xs w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-100 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/10 text-xs w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setActiveTab("ALL")}
             className={`px-3 py-1.5 rounded-lg font-medium transition-all text-xs ${
               activeTab === "ALL"
                 ? "bg-emerald-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             All ({initialMembers.length})
@@ -137,7 +137,7 @@ export function AdminCommitteeTable({
             className={`px-3 py-1.5 rounded-lg font-medium transition-all text-xs ${
               activeTab === "ADVISOR"
                 ? "bg-amber-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             Advisors ({initialMembers.filter((m) => m.type === "ADVISOR").length})
@@ -148,7 +148,7 @@ export function AdminCommitteeTable({
             className={`px-3 py-1.5 rounded-lg font-medium transition-all text-xs ${
               activeTab === "EXECUTIVE"
                 ? "bg-teal-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             Executives ({initialMembers.filter((m) => m.type === "EXECUTIVE").length})
@@ -157,10 +157,10 @@ export function AdminCommitteeTable({
       </div>
 
       {/* Committee Data Table */}
-      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.01] shadow-xl">
+      <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.01] shadow-xs dark:shadow-xl">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-white/10 bg-white/[0.02] text-zinc-400 uppercase tracking-wider font-mono text-[11px]">
+            <tr className="border-b border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-mono text-[11px]">
               <th className="py-3.5 px-4 font-semibold">Member</th>
               <th className="py-3.5 px-4 font-semibold">Role Type</th>
               <th className="py-3.5 px-4 font-semibold">Rank / Tier</th>
@@ -169,14 +169,14 @@ export function AdminCommitteeTable({
               <th className="py-3.5 px-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5 text-zinc-300">
+          <tbody className="divide-y divide-zinc-200 dark:divide-white/5 text-zinc-700 dark:text-zinc-300">
             {filteredMembers.length === 0 ? (
               <tr>
                 <td colSpan={6} className="py-12 text-center text-zinc-500">
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <Users className="w-8 h-8 text-zinc-600" />
-                    <p className="text-sm font-medium">No committee members found</p>
-                    <p className="text-xs text-zinc-600">
+                    <Users className="w-8 h-8 text-zinc-400 dark:text-zinc-600" />
+                    <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">No committee members found</p>
+                    <p className="text-xs text-zinc-400 dark:text-zinc-600">
                       Try adjusting your search criteria or appoint a new member above.
                     </p>
                   </div>
@@ -312,30 +312,30 @@ export function AdminCommitteeTable({
         open={memberToDelete !== null}
         onOpenChange={(open) => !open && setMemberToDelete(null)}
       >
-        <DialogContent className="max-w-md bg-[#07130f] border border-white/10 text-white p-6 rounded-2xl shadow-2xl">
+        <DialogContent className="max-w-md bg-white dark:bg-[#07130f] border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white p-6 rounded-2xl shadow-2xl">
           <DialogHeader className="space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-rose-950/50 border border-rose-500/30 flex items-center justify-center text-rose-400">
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-400">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <DialogTitle className="text-base font-bold text-white">
+            <DialogTitle className="text-base font-bold text-zinc-900 dark:text-white">
               Remove Committee Member?
             </DialogTitle>
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
               Are you sure you want to remove{" "}
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-zinc-900 dark:text-white">
                 {memberToDelete?.name}
               </span>{" "}
               ({memberToDelete?.designation}) from the committee? This will delete their record and remove them from the public showcase.
             </p>
           </DialogHeader>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-white/10">
             <Button
               variant="ghost"
               size="sm"
               disabled={isDeleting}
               onClick={() => setMemberToDelete(null)}
-              className="text-xs text-zinc-400 hover:text-white"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             >
               Cancel
             </Button>

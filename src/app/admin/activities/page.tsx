@@ -10,6 +10,7 @@ import {
   AdminActivitiesTable,
   ActivityItem,
 } from "@/features/activities/components/admin-activities-table";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import {
   Activity,
   ShieldAlert,
@@ -48,20 +49,20 @@ async function AdminActivitiesContent() {
   // Access Denied Gate
   if (!hasCapability) {
     return (
-      <div className="min-h-screen bg-[#040907] flex items-center justify-center p-4 text-white">
-        <div className="max-w-md w-full p-8 rounded-2xl border border-destructive/40 bg-destructive/10 text-center space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-destructive/20 border border-destructive/40 flex items-center justify-center mx-auto text-rose-400">
+      <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] flex items-center justify-center p-4 text-zinc-900 dark:text-white transition-colors duration-200">
+        <div className="max-w-md w-full p-8 rounded-2xl border border-destructive/30 dark:border-destructive/40 bg-rose-50/80 dark:bg-destructive/10 text-center space-y-4 shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-destructive/10 dark:bg-destructive/20 border border-destructive/30 dark:border-destructive/40 flex items-center justify-center mx-auto text-rose-600 dark:text-rose-400">
             <ShieldAlert className="w-8 h-8" />
           </div>
-          <h2 className="text-xl font-bold text-white">Activity Management Access Denied</h2>
-          <p className="text-xs text-zinc-300 leading-relaxed">
+          <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Activity Management Access Denied</h2>
+          <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Your administrative account does not possess the{" "}
-            <code className="text-rose-300 font-mono">canManageActivities</code> capability.
+            <code className="text-rose-600 dark:text-rose-300 font-mono font-medium">canManageActivities</code> capability.
             Please request activity management permissions from the Super Admin.
           </p>
           <div className="pt-2">
             <Link href="/admin/dashboard">
-              <Button variant="outline" className="border-white/10 text-white text-xs">
+              <Button variant="outline" className="border-zinc-300 dark:border-white/10 text-zinc-800 dark:text-white text-xs">
                 ← Return to Admin Console
               </Button>
             </Link>
@@ -95,24 +96,24 @@ async function AdminActivitiesContent() {
   return (
     <div className="space-y-8">
       {/* Top Action Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/10 pb-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Link
               href="/admin/dashboard"
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Admin Console</span>
             </Link>
-            <span className="text-zinc-600">/</span>
-            <span className="text-xs text-emerald-400 font-medium">Activities</span>
+            <span className="text-zinc-400 dark:text-zinc-600">/</span>
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Activities</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-            <Activity className="w-7 h-7 text-emerald-400" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <Activity className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
             <span>Activity Management Console</span>
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
             Coordinate and archive volunteer drives, social initiatives, workshops, and student projects.
           </p>
         </div>
@@ -122,7 +123,7 @@ async function AdminActivitiesContent() {
             <Button
               variant="outline"
               size="sm"
-              className="border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 text-xs"
+              className="border-zinc-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-zinc-100 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-200 text-xs shadow-xs"
             >
               Live Activities
             </Button>
@@ -133,33 +134,33 @@ async function AdminActivitiesContent() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <div className="p-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.02] flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
             <Activity className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-zinc-400 font-medium">Total Activities</p>
-            <p className="text-xl font-bold text-white font-mono">{totalActivities}</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Total Activities</p>
+            <p className="text-xl font-bold text-zinc-900 dark:text-white font-mono">{totalActivities}</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <div className="p-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.02] flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
             <MapPin className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-zinc-400 font-medium">Unique Locations</p>
-            <p className="text-xl font-bold text-white font-mono">{uniqueLocations}</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Unique Locations</p>
+            <p className="text-xl font-bold text-zinc-900 dark:text-white font-mono">{uniqueLocations}</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <div className="p-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.02] flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
             <Camera className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs text-zinc-400 font-medium">Archived Photos</p>
-            <p className="text-xl font-bold text-white font-mono">{totalPhotos}</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Archived Photos</p>
+            <p className="text-xl font-bold text-zinc-900 dark:text-white font-mono">{totalPhotos}</p>
           </div>
         </div>
       </div>
@@ -172,40 +173,43 @@ async function AdminActivitiesContent() {
 
 export default function AdminActivitiesPage() {
   return (
-    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white flex flex-col transition-colors duration-200 selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300">
       {/* Top System Bar */}
-      <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
+      <header className="border-b border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-30">
         <Container className="h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
             >
-              <Home className="w-4 h-4 text-emerald-400" />
+              <Home className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span className="text-xs font-semibold">Home</span>
             </Link>
-            <span className="text-zinc-600">|</span>
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+            <span className="text-zinc-300 dark:text-zinc-600">|</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Activity Panel
             </span>
           </div>
 
-          <form
-            action={async () => {
-              "use server";
-              await signOut({ redirectTo: "/" });
-            }}
-          >
-            <Button
-              type="submit"
-              variant="ghost"
-              size="sm"
-              className="text-xs text-zinc-400 hover:text-rose-300 hover:bg-rose-950/20"
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <form
+              action={async () => {
+                "use server";
+                await signOut({ redirectTo: "/" });
+              }}
             >
-              <LogOut className="w-3.5 h-3.5 mr-1.5" />
-              <span>Sign Out</span>
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                variant="ghost"
+                size="sm"
+                className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/20"
+              >
+                <LogOut className="w-3.5 h-3.5 mr-1.5" />
+                <span>Sign Out</span>
+              </Button>
+            </form>
+          </div>
         </Container>
       </header>
 

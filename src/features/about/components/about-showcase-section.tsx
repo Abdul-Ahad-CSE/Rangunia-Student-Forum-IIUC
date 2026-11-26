@@ -14,10 +14,10 @@ export async function AboutShowcaseSection() {
   const about = await getAboutContent();
 
   return (
-    <section className="relative bg-[#030806] py-20 sm:py-28 border-t border-white/5 overflow-hidden text-white">
+    <section className="relative bg-white dark:bg-[#030806] py-20 sm:py-28 border-t border-zinc-200/80 dark:border-white/5 overflow-hidden text-zinc-900 dark:text-white transition-colors">
       {/* Subtle Ambient Radial Lighting */}
       <div
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-950/25 via-transparent to-transparent"
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-950/5 dark:from-emerald-950/25 via-transparent to-transparent"
         aria-hidden="true"
       />
 
@@ -28,7 +28,7 @@ export async function AboutShowcaseSection() {
             {/* Header Identity Badge */}
             <div className="flex items-center gap-3.5">
               {/* High-Resolution RSF Official Logo Seal */}
-              <div className="h-14 w-14 p-2 rounded-2xl border border-emerald-500/30 bg-emerald-950/40 shadow-lg shadow-emerald-950/50 flex items-center justify-center shrink-0">
+              <div className="h-14 w-14 p-2 rounded-2xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 shadow-md dark:shadow-lg dark:shadow-emerald-950/50 flex items-center justify-center shrink-0">
                 <Image
                   src="/images/rsf_logo.png"
                   alt="RSF Official Seal"
@@ -39,12 +39,12 @@ export async function AboutShowcaseSection() {
               </div>
 
               <div>
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-0.5 text-xs font-semibold text-emerald-300">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-0.5 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>About Our Fraternity • IIUC Chapter</span>
                 </div>
                 {about.subtitle && (
-                  <p className="text-xs text-zinc-400 font-mono mt-1">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-mono mt-1">
                     {about.subtitle}
                   </p>
                 )}
@@ -52,12 +52,12 @@ export async function AboutShowcaseSection() {
             </div>
 
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-extrabold tracking-tight text-white leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
               {about.title}
             </h2>
 
             {/* Story / Narrative Body */}
-            <div className="text-sm sm:text-base text-zinc-300 leading-relaxed space-y-4 whitespace-pre-line font-normal">
+            <div className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed space-y-4 whitespace-pre-line font-normal">
               {about.content}
             </div>
 

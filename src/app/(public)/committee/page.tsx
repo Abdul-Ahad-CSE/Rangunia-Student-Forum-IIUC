@@ -65,14 +65,14 @@ async function CommitteeDataContent() {
 
   if (members.length === 0) {
     return (
-      <div className="py-20 px-6 rounded-3xl border border-white/10 bg-white/[0.02] text-center space-y-4 max-w-2xl mx-auto">
-        <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mx-auto text-zinc-500">
+      <div className="py-20 px-6 rounded-3xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-center space-y-4 max-w-2xl mx-auto shadow-xs">
+        <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 flex items-center justify-center mx-auto text-zinc-400 dark:text-zinc-500">
           <Users className="w-7 h-7" />
         </div>
-        <h3 className="text-lg font-bold text-zinc-200">
+        <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-200">
           Committee Roster In Formation
         </h3>
-        <p className="text-xs text-zinc-400 leading-relaxed">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
           The executive committee and advisory board appointments for the upcoming term are currently being finalized. Please check back shortly for the official announcement.
         </p>
       </div>
@@ -85,17 +85,17 @@ async function CommitteeDataContent() {
       {advisors.length > 0 && (
         <section className="space-y-6">
           <div className="flex items-center gap-2.5 border-b border-amber-500/20 pb-4">
-            <div className="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-400 shadow-md shadow-amber-950/50">
+            <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-500/30 text-amber-600 dark:text-amber-400 shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-2">
                 <span>Advisory Board</span>
-                <span className="text-xs font-mono font-normal px-2.5 py-0.5 rounded-full border border-amber-500/30 bg-amber-950/40 text-amber-300">
+                <span className="text-xs font-mono font-normal px-2.5 py-0.5 rounded-full border border-amber-500/30 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300">
                   Honorable Mentors
                 </span>
               </h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Respected senior patrons, faculty advisors, and foundational guidance mentors.
               </p>
             </div>
@@ -112,18 +112,18 @@ async function CommitteeDataContent() {
       {/* 2. EXECUTIVES SECTION (Tiered Integer Rows) */}
       {sortedTierKeys.length > 0 && (
         <section className="space-y-12">
-          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
-            <div className="p-2 rounded-xl bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 shadow-md shadow-emerald-950/50">
+          <div className="flex items-center gap-3 border-b border-zinc-200 dark:border-white/10 pb-4">
+            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-500/20 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-2">
                 <span>Executive Council</span>
-                <span className="text-xs font-mono font-normal px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300">
+                <span className="text-xs font-mono font-normal px-2.5 py-0.5 rounded-full border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300">
                   {executives.length} Leaders
                 </span>
               </h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Elected and appointed executive body grouped by hierarchical decimal ranking tiers.
               </p>
             </div>
@@ -138,20 +138,20 @@ async function CommitteeDataContent() {
               return (
                 <div
                   key={tierNum}
-                  className="space-y-4 sm:space-y-5 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/[0.015] relative overflow-hidden"
+                  className="space-y-4 sm:space-y-5 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-zinc-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.015] relative overflow-hidden shadow-xs"
                 >
                   {/* Subtle Background Glow for Presidium / Tier 1 */}
                   {isPresidium && (
-                    <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+                    <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-emerald-500/5 dark:bg-emerald-500/10 blur-3xl pointer-events-none" />
                   )}
 
                   {/* Tier Header Banner */}
-                  <div className="border-b border-white/5 pb-3">
+                  <div className="border-b border-zinc-200 dark:border-white/5 pb-3">
                     <div className="flex items-center gap-2">
-                      <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono font-bold text-xs">
+                      <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-500/20 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-xs">
                         {tierNum}
                       </div>
-                      <span className="text-sm font-bold uppercase tracking-wider text-white">
+                      <span className="text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
                         {isPresidium
                           ? "Tier 1: Presidium Leadership"
                           : `Tier ${tierNum} Executive Panel`}
@@ -177,7 +177,7 @@ async function CommitteeDataContent() {
 
 export default function PublicCommitteePage() {
   return (
-    <div className="min-h-screen bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-300 transition-colors duration-200">
       {/* Navigation */}
       <LandingNav />
 
@@ -186,20 +186,20 @@ export default function PublicCommitteePage() {
         <Container className="space-y-12">
           {/* Header Banner */}
           <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1 text-xs font-semibold text-emerald-300">
-              <Users className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 px-3.5 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+              <Users className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Leadership &amp; Governance</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
               Executive Committee &amp;{" "}
-              <span className="bg-gradient-to-r from-emerald-300 via-amber-200 to-teal-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-600 via-amber-700 to-teal-800 dark:from-emerald-300 dark:via-amber-200 dark:to-teal-200 bg-clip-text text-transparent">
                 Advisory Board
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
               Meet the visionary minds, faculty advisors, and student executives steering the Rangunia Students Forum at International Islamic University Chittagong.
             </p>
           </div>
@@ -207,8 +207,8 @@ export default function PublicCommitteePage() {
           {/* Committee Roster with Suspense PPR Streaming */}
           <React.Suspense
             fallback={
-              <div className="py-24 text-center text-zinc-400 flex flex-col items-center justify-center gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
+              <div className="py-24 text-center text-zinc-500 dark:text-zinc-400 flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-500 dark:text-emerald-400" />
                 <p className="text-sm font-mono">
                   Loading executive committee &amp; advisory board...
                 </p>

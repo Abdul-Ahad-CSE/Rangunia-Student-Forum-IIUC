@@ -117,7 +117,7 @@ export function TopEventsCarousel({ events }: TopEventsCarouselProps) {
       onTouchEnd={() => setIsPaused(false)}
     >
       {/* Cinematic Carousel Slide Window */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#091712]/90 via-[#06120e]/95 to-[#040c09] backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+      <div className="relative overflow-hidden rounded-3xl border border-zinc-200/80 dark:border-white/10 bg-white dark:bg-gradient-to-b dark:from-[#091712]/90 dark:via-[#06120e]/95 dark:to-[#040c09] backdrop-blur-2xl shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
             key={currentEvent.id}
@@ -129,7 +129,7 @@ export function TopEventsCarousel({ events }: TopEventsCarouselProps) {
             className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 p-5 sm:p-7 lg:p-9 items-center"
           >
             {/* Banner Column (16:9 Aspect Ratio) */}
-            <div className="lg:col-span-7 relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 shadow-inner">
+            <div className="lg:col-span-7 relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-inner">
               {currentEvent.bannerUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -182,31 +182,31 @@ export function TopEventsCarousel({ events }: TopEventsCarouselProps) {
               <div className="space-y-3.5">
                 {/* Meta Chips */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-950/50 px-2.5 py-1 text-xs font-medium text-emerald-300">
-                    <Calendar className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:text-emerald-300">
+                    <Calendar className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{formattedDate}</span>
                   </span>
                   {currentEvent.eventTime && (
-                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-zinc-300">
-                      <Clock className="h-3.5 w-3.5 text-zinc-400 shrink-0" />
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 px-2.5 py-1 text-xs text-zinc-700 dark:text-zinc-300">
+                      <Clock className="h-3.5 w-3.5 text-zinc-500 dark:text-zinc-400 shrink-0" />
                       <span>{currentEvent.eventTime}</span>
                     </span>
                   )}
                 </div>
 
                 {/* Title */}
-                <h3 className="font-bold text-xl sm:text-2xl text-white group-hover:text-emerald-300 transition-colors line-clamp-2 leading-tight">
+                <h3 className="font-bold text-xl sm:text-2xl text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors line-clamp-2 leading-tight">
                   {currentEvent.title}
                 </h3>
 
                 {/* Venue */}
-                <div className="flex items-start gap-2 text-xs sm:text-sm text-zinc-300">
-                  <MapPin className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                <div className="flex items-start gap-2 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
+                  <MapPin className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <span className="line-clamp-1">{currentEvent.venue}</span>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-zinc-400 line-clamp-3 leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed">
                   {currentEvent.description}
                 </p>
               </div>

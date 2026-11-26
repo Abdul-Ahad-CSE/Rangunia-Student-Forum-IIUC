@@ -120,14 +120,14 @@ async function ProfileContent() {
       />
 
       {/* 2. Sleek Privacy Management Bar (Encapsulated into Modal Dialog) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs sm:text-sm font-semibold text-white">Public Directory Privacy Controls</p>
-            <p className="text-[11px] text-zinc-400">Control what contact information and photos are visible to peers in the public directory.</p>
+            <p className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white">Public Directory Privacy Controls</p>
+            <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Control what contact information and photos are visible to peers in the public directory.</p>
           </div>
         </div>
 
@@ -209,7 +209,7 @@ async function ProfileContent() {
 
 export default function ProfilePage() {
   return (
-    <div className="min-h-screen bg-[#040907] text-white py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white py-10 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
       <Container className="max-w-4xl">
         <React.Suspense
           fallback={

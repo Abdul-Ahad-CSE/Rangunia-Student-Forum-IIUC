@@ -55,8 +55,8 @@ export function DirectoryView({
       {/* Directory Top Bar: Tabs + Smart Filter Bar */}
       <div className="space-y-4">
         {/* Tab Selection */}
-        <div className="flex items-center justify-between gap-4 flex-wrap pb-2 border-b border-white/5">
-          <div className="flex items-center gap-2 p-1 rounded-2xl bg-zinc-900/80 border border-white/10">
+        <div className="flex items-center justify-between gap-4 flex-wrap pb-2 border-b border-zinc-200 dark:border-white/5">
+          <div className="flex items-center gap-2 p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-white/10">
             {/* Students Tab */}
             <button
               type="button"
@@ -64,7 +64,7 @@ export function DirectoryView({
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 currentTab === "students"
                   ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/60"
-                  : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-white/5"
               }`}
             >
               <GraduationCap className="w-4 h-4" />
@@ -73,7 +73,7 @@ export function DirectoryView({
                 className={`ml-1 px-2 py-0.5 rounded-full font-mono text-[11px] ${
                   currentTab === "students"
                     ? "bg-emerald-700/80 text-white"
-                    : "bg-zinc-800 text-zinc-400"
+                    : "bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-400"
                 }`}
               >
                 {counts.students}
@@ -87,7 +87,7 @@ export function DirectoryView({
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 currentTab === "alumni"
                   ? "bg-teal-600 text-white shadow-lg shadow-teal-950/60"
-                  : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-white/5"
               }`}
             >
               <Briefcase className="w-4 h-4" />
@@ -96,7 +96,7 @@ export function DirectoryView({
                 className={`ml-1 px-2 py-0.5 rounded-full font-mono text-[11px] ${
                   currentTab === "alumni"
                     ? "bg-teal-700/80 text-white"
-                    : "bg-zinc-800 text-zinc-400"
+                    : "bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-400"
                 }`}
               >
                 {counts.alumni}
@@ -105,8 +105,8 @@ export function DirectoryView({
           </div>
 
           {/* Privacy Shield Indicator */}
-          <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-400 font-mono">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Server Masked: Confidential fields protected</span>
           </div>
         </div>
@@ -124,13 +124,13 @@ export function DirectoryView({
         </div>
       ) : (
         /* Empty State */
-        <div className="rounded-3xl border border-white/10 bg-[#07130f]/60 p-12 text-center backdrop-blur-xl space-y-4 max-w-md mx-auto my-12">
-          <div className="w-14 h-14 rounded-2xl border border-white/10 bg-zinc-900/80 flex items-center justify-center text-zinc-500 mx-auto">
+        <div className="rounded-3xl border border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-[#07130f]/60 p-12 text-center backdrop-blur-xl space-y-4 max-w-md mx-auto my-12 shadow-sm">
+          <div className="w-14 h-14 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900/80 flex items-center justify-center text-zinc-400 dark:text-zinc-500 mx-auto">
             <SearchX className="w-7 h-7" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-white">No Members Found</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">No Members Found</h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
               No registered members match your current search queries and filters.
             </p>
           </div>
@@ -139,7 +139,7 @@ export function DirectoryView({
             onClick={handleResetFilters}
             variant="outline"
             size="sm"
-            className="border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/60"
+            className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/60"
           >
             <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
             <span>Clear Filters</span>

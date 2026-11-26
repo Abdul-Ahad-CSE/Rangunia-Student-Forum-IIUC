@@ -184,9 +184,9 @@ function LoginForm() {
   );
 
   return (
-    <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-2xl">
+    <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl dark:shadow-2xl">
       {/* Segmented Role Selector Header */}
-      <div className="p-2 border-b border-white/5 bg-black/40">
+      <div className="p-2 border-b border-zinc-200 dark:border-white/5 bg-zinc-100 dark:bg-black/40">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs font-medium">
           {(["student", "alumni", "executive", "super_admin"] as RoleOption[]).map((role) => {
             const isSelected = activeRole === role;
@@ -203,7 +203,7 @@ function LoginForm() {
                 className={`flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg transition-all ${
                   isSelected
                     ? "bg-emerald-600/90 text-white shadow-sm font-semibold border border-emerald-400/30"
-                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/60 dark:hover:bg-white/5"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -220,17 +220,17 @@ function LoginForm() {
         </div>
       </div>
 
-      <CardHeader className="border-b border-white/5 pb-4">
+      <CardHeader className="border-b border-zinc-200 dark:border-white/5 pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <RoleIcon className="w-4 h-4 text-emerald-400" />
+          <CardTitle className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <RoleIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>{meta.title}</span>
           </CardTitle>
           <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${meta.badgeColor}`}>
             {meta.badge}
           </span>
         </div>
-        <CardDescription className="text-xs text-zinc-400">
+        <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400">
           {meta.description}
         </CardDescription>
       </CardHeader>
@@ -241,14 +241,14 @@ function LoginForm() {
           <div
             className={`mb-5 p-4 rounded-xl border text-xs sm:text-sm flex items-start gap-3 animate-in fade-in slide-in-from-top-1 ${
               isPendingApprovalError
-                ? "border-amber-500/40 bg-amber-950/40 text-amber-200"
-                : "border-destructive/40 bg-destructive/10 text-rose-300"
+                ? "border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200"
+                : "border-destructive/40 bg-destructive/10 text-rose-700 dark:text-rose-300"
             }`}
           >
             {isPendingApprovalError ? (
-              <Clock className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <Clock className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
             )}
             <div className="space-y-1">
               <p className="font-semibold">
@@ -260,7 +260,7 @@ function LoginForm() {
         )}
 
         {meta.note && (
-          <div className="mb-4 p-3 rounded-lg border border-rose-500/30 bg-rose-950/20 text-rose-200 text-xs">
+          <div className="mb-4 p-3 rounded-lg border border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-200 text-xs">
             {meta.note}
           </div>
         )}
@@ -272,8 +272,8 @@ function LoginForm() {
             value={ROLE_TO_LOGIN_TYPE[activeRole]}
           />
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-              <Mail className="w-3.5 h-3.5 text-emerald-400" />
+            <Label htmlFor="email" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Email Address</span>
             </Label>
             <Input
@@ -283,13 +283,13 @@ function LoginForm() {
               placeholder={meta.emailPlaceholder}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs sm:text-sm"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs sm:text-sm"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5 text-emerald-400" />
+            <Label htmlFor="password" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Password</span>
             </Label>
             <Input
@@ -299,7 +299,7 @@ function LoginForm() {
               placeholder="••••••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs sm:text-sm"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs sm:text-sm"
             />
           </div>
 
@@ -307,7 +307,7 @@ function LoginForm() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-950 transition-all hover:scale-[1.01]"
+              className="w-full h-11 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-950/20 transition-all hover:scale-[1.01]"
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
@@ -325,10 +325,10 @@ function LoginForm() {
         </form>
 
         {/* Dynamic Contextual Footer */}
-        <div className="mt-6 pt-5 border-t border-white/5 text-center text-xs text-zinc-400 space-y-2">
+        <div className="mt-6 pt-5 border-t border-zinc-200 dark:border-white/5 text-center text-xs text-zinc-600 dark:text-zinc-400 space-y-2">
           {meta.registerText && meta.registerLink ? (
             <p>
-              <Link href={meta.registerLink} className="text-emerald-400 hover:underline font-semibold">
+              <Link href={meta.registerLink} className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">
                 {meta.registerText} →
               </Link>
             </p>
@@ -341,10 +341,10 @@ function LoginForm() {
           <div className="pt-2">
             <Link
               href="/register"
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-300 font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-300 font-medium transition-colors"
             >
               <span>Need to register a different role?</span>
-              <span className="text-emerald-400 underline">View all registration options</span>
+              <span className="text-emerald-600 dark:text-emerald-400 underline">View all registration options</span>
             </Link>
           </div>
         </div>
@@ -355,32 +355,32 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#040907] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-white">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-zinc-900 dark:text-white transition-colors duration-200">
       <div className="max-w-lg w-full space-y-6">
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/20 hover:bg-emerald-950/40 transition-all group"
+            className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 transition-all group"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             <span>Back to Home</span>
           </Link>
-          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
-            <Shield className="w-8 h-8 text-emerald-400" />
+          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+            <Shield className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-zinc-900 dark:text-white">
             Forum Access Portal
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-zinc-400 max-w-sm">
+          <p className="mt-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-sm">
             Sign in to access your personal student profile, alumni network, or executive admin tools.
           </p>
         </div>
 
         <React.Suspense
           fallback={
-            <div className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center text-zinc-400">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-emerald-400" />
+            <div className="p-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-center text-zinc-500 dark:text-zinc-400">
+              <Loader2 className="w-6 h-6 animate-spin mx-auto text-emerald-600 dark:text-emerald-400" />
             </div>
           }
         >

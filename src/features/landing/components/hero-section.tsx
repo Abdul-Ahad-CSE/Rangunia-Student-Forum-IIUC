@@ -149,45 +149,45 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               className="mt-30 sm:mt-8 flex flex-col md:grid md:grid-cols-3 gap-2.5 sm:gap-3.5 lg:gap-4 w-full max-w-md md:max-w-4xl lg:max-w-5xl px-3 text-left"
             >
               {/* Card A: Alumni Network */}
-              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-emerald-500/30 bg-emerald-500/20 text-emerald-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-zinc-200/80 dark:border-white/10 bg-white/85 dark:bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-white dark:hover:bg-black/45 hover:border-emerald-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-emerald-500/30 bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
                   <GraduationCap className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
-                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                  <h2 className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white">
                     Alumni Network & Career Bridge
                   </h2>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-300 leading-snug">
                     Lifelong fraternity connecting current students with established graduates.
                   </p>
                 </div>
               </div>
 
               {/* Card B: Activities & Events */}
-              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-teal-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-teal-500/30 bg-teal-500/20 text-teal-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-zinc-200/80 dark:border-white/10 bg-white/85 dark:bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-white dark:hover:bg-black/45 hover:border-teal-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-teal-500/30 bg-teal-500/20 text-teal-700 dark:text-teal-300">
                   <Calendar className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
-                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                  <h2 className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white">
                     Forum Activities & Events
                   </h2>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-300 leading-snug">
                     Reunions, skill-building workshops, and academic gatherings.
                   </p>
                 </div>
               </div>
 
               {/* Card C: 1-on-1 Mentorship */}
-              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-sky-500/30">
-                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-sky-500/30 bg-sky-500/20 text-sky-300">
+              <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-zinc-200/80 dark:border-white/10 bg-white/85 dark:bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-white dark:hover:bg-black/45 hover:border-sky-500/30">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg md:rounded-xl border border-sky-500/30 bg-sky-500/20 text-sky-700 dark:text-sky-300">
                   <Compass className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                 </div>
                 <div>
-                  <h2 className="text-xs sm:text-sm font-semibold text-white">
+                  <h2 className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white">
                     1-on-1 Senior Mentorship
                   </h2>
-                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-300 leading-snug">
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-300 leading-snug">
                     Direct academic guidance, department pathways, and career referrals.
                   </p>
                 </div>

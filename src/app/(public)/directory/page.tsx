@@ -57,7 +57,7 @@ async function DirectoryDataContent({ searchParams }: DirectoryPageProps) {
 
 export default function DirectoryPage({ searchParams }: DirectoryPageProps) {
   return (
-    <div className="min-h-screen bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-300 transition-colors duration-200">
       {/* Navigation */}
       <LandingNav />
 
@@ -66,20 +66,20 @@ export default function DirectoryPage({ searchParams }: DirectoryPageProps) {
         <Container className="space-y-8">
           {/* Header Banner */}
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1 text-xs font-semibold text-emerald-300">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 px-3.5 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
               <Users className="w-3.5 h-3.5" />
               <span>Community Network</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
               Students &amp; Alumni{" "}
-              <span className="bg-gradient-to-r from-emerald-300 via-emerald-100 to-teal-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 dark:from-emerald-300 dark:via-emerald-100 dark:to-teal-200 bg-clip-text text-transparent">
                 Directory
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
               Connect with fellow Rangunia students and accomplished alumni at IIUC.
               All sensitive contact details are privacy-controlled by individual members.
             </p>
@@ -88,8 +88,8 @@ export default function DirectoryPage({ searchParams }: DirectoryPageProps) {
           {/* Directory Coordinator with Smart Search & Filtering in Suspense */}
           <React.Suspense
             fallback={
-              <div className="py-24 text-center text-zinc-400 flex flex-col items-center justify-center gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
+              <div className="py-24 text-center text-zinc-500 dark:text-zinc-400 flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-500 dark:text-emerald-400" />
                 <p className="text-sm">Loading community directory...</p>
               </div>
             }

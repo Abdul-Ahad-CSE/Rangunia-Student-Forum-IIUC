@@ -9,23 +9,23 @@ import { Footer } from "@/components/shared/footer";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#040907]">
+    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white transition-colors duration-200">
       {/* Global Server-Aware Navigation */}
       <LandingNav />
 
       {/* Main Landmark: Cinematic Intro + Hero Section + Events + Notices + Activities + About RSF */}
       <main className="flex-1 flex flex-col">
         <LandingHeroContainer />
-        <React.Suspense fallback={<div className="min-h-[400px] bg-[#030806]" />}>
+        <React.Suspense fallback={<div className="min-h-[400px] bg-zinc-100 dark:bg-[#030806]" />}>
           <EventsShowcaseSection />
         </React.Suspense>
-        <React.Suspense fallback={<div className="min-h-[300px] bg-[#040907]" />}>
+        <React.Suspense fallback={<div className="min-h-[300px] bg-zinc-50 dark:bg-[#040907]" />}>
           <NoticesShowcaseSection />
         </React.Suspense>
-        <React.Suspense fallback={<div className="min-h-[400px] bg-[#020604]" />}>
+        <React.Suspense fallback={<div className="min-h-[400px] bg-zinc-100 dark:bg-[#020604]" />}>
           <ActivitiesShowcaseSection />
         </React.Suspense>
-        <React.Suspense fallback={<div className="min-h-[400px] bg-[#030806]" />}>
+        <React.Suspense fallback={<div className="min-h-[400px] bg-zinc-50 dark:bg-[#030806]" />}>
           <AboutShowcaseSection />
         </React.Suspense>
       </main>

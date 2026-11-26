@@ -117,37 +117,37 @@ export default function StudentRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#040907] py-12 px-4 sm:px-6 lg:px-8 text-white">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] py-12 px-4 sm:px-6 lg:px-8 text-zinc-900 dark:text-white transition-colors duration-200">
       <div className="max-w-2xl mx-auto">
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center mb-8">
           <Link
             href="/register"
-            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/20 hover:bg-emerald-950/40 transition-all group"
+            className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-6 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 transition-all group"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             <span>Back to Role Selection</span>
           </Link>
-          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
-            <GraduationCap className="w-8 h-8 text-emerald-400" />
+          <div className="inline-flex items-center justify-center p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/40 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+            <GraduationCap className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
           </div>
-          <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white sm:text-4xl">
+          <h1 className="text-3xl font-sans font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
             Student Member Registration
           </h1>
-          <p className="mt-2 text-sm text-zinc-400 max-w-lg">
+          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 max-w-lg">
             Create your verified student profile in Rangunia Students Forum (IIUC Chapter).
           </p>
         </div>
 
         {/* Success Banner */}
         {successMessage ? (
-          <Card className="border-emerald-500/40 bg-emerald-950/20 backdrop-blur-xl text-white">
+          <Card className="border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/20 backdrop-blur-xl text-zinc-900 dark:text-white shadow-md">
             <CardContent className="pt-8 pb-8 text-center space-y-4">
-              <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl font-bold text-white">Registration Request Submitted!</h2>
-              <p className="text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
+              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Registration Request Submitted!</h2>
+              <p className="text-sm text-zinc-700 dark:text-zinc-300 max-w-md mx-auto leading-relaxed">
                 {successMessage}
               </p>
               <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
@@ -158,7 +158,7 @@ export default function StudentRegisterPage() {
                   </Button>
                 </Link>
                 <Link href="/">
-                  <Button variant="outline" className="w-full sm:w-auto border-white/15 bg-white/5 text-zinc-200">
+                  <Button variant="outline" className="w-full sm:w-auto border-zinc-300 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-800 dark:text-zinc-200">
                     Return to Landing Page
                   </Button>
                 </Link>
@@ -166,12 +166,12 @@ export default function StudentRegisterPage() {
             </CardContent>
           </Card>
         ) : (
-          <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-2xl">
-            <CardHeader className="border-b border-white/5 pb-6">
-              <CardTitle className="text-xl text-white font-bold">
+          <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl dark:shadow-2xl">
+            <CardHeader className="border-b border-zinc-200 dark:border-white/5 pb-6">
+              <CardTitle className="text-xl text-zinc-900 dark:text-white font-bold">
                 Student Profile Information
               </CardTitle>
-              <CardDescription className="text-zinc-400 text-xs">
+              <CardDescription className="text-zinc-600 dark:text-zinc-400 text-xs">
                 Please provide accurate academic details for identity and forum verification.
               </CardDescription>
             </CardHeader>

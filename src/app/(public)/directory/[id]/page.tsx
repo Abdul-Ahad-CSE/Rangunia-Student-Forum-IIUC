@@ -274,7 +274,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
       <div>
         <Link
           href="/directory"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-300 transition-colors py-1 px-2.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/[0.05]"
+          className="inline-flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors py-1 px-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:bg-zinc-100 dark:hover:bg-white/[0.05] shadow-xs"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Directory</span>
@@ -282,7 +282,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
       </div>
 
       {/* Top Identity Hero Card */}
-      <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-2xl overflow-hidden">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/85 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl overflow-hidden">
         {/* Header Gradient */}
         <div className="h-28 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-teal-950/90 border-b border-white/5 relative">
           <div className="absolute top-4 right-4 flex items-center gap-2">
@@ -321,7 +321,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
             {/* Name, Roles, and Department */}
             <div className="space-y-1.5 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
                   {member.fullName}
                 </h1>
                 <Badge
@@ -645,42 +645,42 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
         </Card>
 
         {/* Right Card: Verified Contact & Origin (Privacy Masked) */}
-        <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
-          <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
-            <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+        <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
+          <CardHeader className="pb-3 border-b border-zinc-200 dark:border-white/5 flex flex-row items-center justify-between">
+            <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Contact &amp; Origin</span>
             </CardTitle>
             <span className="text-[10px] text-zinc-500 font-mono">Privacy Governed</span>
           </CardHeader>
           <CardContent className="pt-4 space-y-3.5 text-xs">
             {/* Permanent Address */}
-            <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+            <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-emerald-400" />
+                <MapPin className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Permanent Address (Rangunia Origin)</span>
               </span>
               {member.permanentAddress ? (
-                <span className="text-white font-medium">{member.permanentAddress}</span>
+                <span className="text-zinc-900 dark:text-white font-medium">{member.permanentAddress}</span>
               ) : (
                 <span className="text-zinc-500 flex items-center gap-1 italic">
-                  <Lock className="w-3 h-3 text-zinc-600" />
+                  <Lock className="w-3 h-3 text-zinc-500 dark:text-zinc-600" />
                   <span>Confidential (Masked by member)</span>
                 </span>
               )}
             </div>
 
             {/* Present Address */}
-            <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+            <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-emerald-400" />
+                <MapPin className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Present Address (Campus / Hall)</span>
               </span>
               {member.presentAddress ? (
-                <span className="text-white font-medium">{member.presentAddress}</span>
+                <span className="text-zinc-900 dark:text-white font-medium">{member.presentAddress}</span>
               ) : (
                 <span className="text-zinc-500 flex items-center gap-1 italic">
-                  <Lock className="w-3 h-3 text-zinc-600" />
+                  <Lock className="w-3 h-3 text-zinc-500 dark:text-zinc-600" />
                   <span>Confidential (Masked by member)</span>
                 </span>
               )}
@@ -1000,15 +1000,15 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
 export default function PublicProfilePage({ params }: PublicProfilePageProps) {
   return (
-    <div className="min-h-screen bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] text-zinc-900 dark:text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-300 transition-colors duration-200">
       <LandingNav />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
         <Container className="max-w-4xl space-y-6">
           <React.Suspense
             fallback={
-              <div className="py-24 text-center text-zinc-400 flex flex-col items-center justify-center gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
+              <div className="py-24 text-center text-zinc-500 dark:text-zinc-400 flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-500 dark:text-emerald-400" />
                 <p className="text-sm">Loading member profile...</p>
               </div>
             }

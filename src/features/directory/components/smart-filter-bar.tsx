@@ -103,17 +103,17 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
     <div className="w-full space-y-3">
       {/* Collapsed Bar / Trigger Control */}
       {!isExpanded ? (
-        <div className="flex items-center justify-between gap-3 p-2 sm:p-2.5 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl">
+        <div className="flex items-center justify-between gap-3 p-2 sm:p-2.5 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl shadow-sm">
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="flex-1 flex items-center gap-3 text-left px-3 py-1.5 text-zinc-400 hover:text-white transition-colors group"
+            className="flex-1 flex items-center gap-3 text-left px-3 py-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group"
           >
-            <div className="w-8 h-8 rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-xl border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <Search className="w-4 h-4" />
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-              <span className="text-sm font-medium text-zinc-200">
+              <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                 Search by Name or Student ID...
               </span>
               <span className="text-xs text-zinc-500 hidden sm:inline">
@@ -126,12 +126,12 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
             type="button"
             onClick={() => setIsExpanded(true)}
             size="sm"
-            className="border-emerald-500/30 bg-emerald-950/40 text-emerald-300 hover:bg-emerald-950/80 hover:text-white flex items-center gap-1.5 h-9 px-3 rounded-xl"
+            className="border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/80 hover:text-emerald-900 dark:hover:text-white flex items-center gap-1.5 h-9 px-3 rounded-xl shadow-xs"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>Filters</span>
             {activeCount > 0 && (
-              <span className="ml-1 w-5 h-5 rounded-full bg-emerald-500 text-black font-mono text-[10px] font-bold flex items-center justify-center">
+              <span className="ml-1 w-5 h-5 rounded-full bg-emerald-600 dark:bg-emerald-500 text-white dark:text-black font-mono text-[10px] font-bold flex items-center justify-center">
                 {activeCount}
               </span>
             )}
@@ -139,24 +139,24 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
         </div>
       ) : (
         /* Expanded Search & Smart Filters Panel */
-        <div className="rounded-2xl border border-emerald-500/30 bg-[#07130f]/95 p-4 sm:p-5 backdrop-blur-2xl shadow-2xl space-y-4 animate-in fade-in-50 zoom-in-95 duration-200">
+        <div className="rounded-2xl border border-emerald-500/20 dark:border-emerald-500/30 bg-white dark:bg-[#07130f]/95 p-4 sm:p-5 backdrop-blur-2xl shadow-xl dark:shadow-2xl space-y-4 animate-in fade-in-50 zoom-in-95 duration-200">
           {/* Top Search Input Row */}
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <Input
                 type="text"
                 placeholder="Search by student full name or student ID..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="pl-10 pr-9 h-11 bg-zinc-900/60 border-white/10 text-white placeholder:text-zinc-500 rounded-xl focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
+                className="pl-10 pr-9 h-11 bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 rounded-xl focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
                 autoFocus
               />
               {searchInput && (
                 <button
                   type="button"
                   onClick={() => setSearchInput("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -168,7 +168,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
               variant="ghost"
               size="sm"
               onClick={() => setIsExpanded(false)}
-              className="text-zinc-400 hover:text-white hover:bg-white/10 h-11 px-3 rounded-xl"
+              className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 h-11 px-3 rounded-xl"
               title="Collapse filter menu"
             >
               <ChevronDown className="w-4 h-4 rotate-180" />
@@ -177,16 +177,16 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
           </div>
 
           {/* Dropdown Filters Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2 border-t border-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2 border-t border-zinc-200 dark:border-white/5">
             {/* 1. Batch */}
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block font-mono">
+              <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block font-mono">
                 Batch
               </label>
               <select
                 value={batch || "ALL"}
                 onChange={(e) => updateParams({ batch: e.target.value })}
-                className="w-full h-10 rounded-xl border border-white/10 bg-zinc-900/80 px-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="w-full h-10 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 px-3 text-xs text-zinc-800 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
                 <option value="ALL">All Batches</option>
                 {options.batches.map((b) => (
@@ -199,13 +199,13 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
 
             {/* 2. Department */}
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block font-mono">
+              <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block font-mono">
                 Department
               </label>
               <select
                 value={department || "ALL"}
                 onChange={(e) => updateParams({ department: e.target.value })}
-                className="w-full h-10 rounded-xl border border-white/10 bg-zinc-900/80 px-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="w-full h-10 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 px-3 text-xs text-zinc-800 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
                 <option value="ALL">All Departments</option>
                 {options.departments.map((d) => (
@@ -218,13 +218,13 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
 
             {/* 3. Profession / Title (Particularly relevant for alumni) */}
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block font-mono">
+              <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block font-mono">
                 Profession
               </label>
               <select
                 value={profession || "ALL"}
                 onChange={(e) => updateParams({ profession: e.target.value })}
-                className="w-full h-10 rounded-xl border border-white/10 bg-zinc-900/80 px-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="w-full h-10 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 px-3 text-xs text-zinc-800 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
                 <option value="ALL">All Professions</option>
                 {options.professions.map((p) => (
@@ -237,13 +237,13 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
 
             {/* 4. Blood Group */}
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block font-mono">
+              <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block font-mono">
                 Blood Group
               </label>
               <select
                 value={bloodGroup || "ALL"}
                 onChange={(e) => updateParams({ bloodGroup: e.target.value })}
-                className="w-full h-10 rounded-xl border border-white/10 bg-zinc-900/80 px-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="w-full h-10 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 px-3 text-xs text-zinc-800 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
                 <option value="ALL">All Blood Groups</option>
                 {options.bloodGroups.map((bg) => (
@@ -256,13 +256,13 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
 
             {/* 5. Current City / Location */}
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block font-mono">
+              <label className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block font-mono">
                 Current City
               </label>
               <select
                 value={city || "ALL"}
                 onChange={(e) => updateParams({ city: e.target.value })}
-                className="w-full h-10 rounded-xl border border-white/10 bg-zinc-900/80 px-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="w-full h-10 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 px-3 text-xs text-zinc-800 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 cursor-pointer"
               >
                 <option value="ALL">All Locations</option>
                 {options.cities.map((c) => (
@@ -276,13 +276,13 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
 
           {/* Active Filters Pill Row & Reset */}
           {hasActiveFilters && (
-            <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/5 flex-wrap">
+            <div className="flex items-center justify-between gap-2 pt-2 border-t border-zinc-200 dark:border-white/5 flex-wrap">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-[11px] text-zinc-500 font-mono flex items-center gap-1">
-                  <Filter className="w-3 h-3 text-emerald-400" /> Active:
+                  <Filter className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> Active:
                 </span>
                 {search && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
                     <span>&quot;{search}&quot;</span>
                     <button onClick={() => updateParams({ search: null })}>
                       <X className="w-2.5 h-2.5" />
@@ -290,7 +290,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                   </span>
                 )}
                 {batch && batch !== "ALL" && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
                     <span>Batch {batch}</span>
                     <button onClick={() => updateParams({ batch: null })}>
                       <X className="w-2.5 h-2.5" />
@@ -298,7 +298,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                   </span>
                 )}
                 {department && department !== "ALL" && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
                     <span>{department}</span>
                     <button onClick={() => updateParams({ department: null })}>
                       <X className="w-2.5 h-2.5" />
@@ -306,7 +306,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                   </span>
                 )}
                 {profession && profession !== "ALL" && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-teal-950/60 border border-teal-500/30 text-teal-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-teal-50 dark:bg-teal-950/60 border border-teal-500/30 text-teal-800 dark:text-teal-300 px-2 py-0.5 rounded-full">
                     <span>{profession}</span>
                     <button onClick={() => updateParams({ profession: null })}>
                       <X className="w-2.5 h-2.5" />
@@ -314,7 +314,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                   </span>
                 )}
                 {bloodGroup && bloodGroup !== "ALL" && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-rose-950/60 border border-rose-500/30 text-rose-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-rose-50 dark:bg-rose-950/60 border border-rose-500/30 text-rose-800 dark:text-rose-300 px-2 py-0.5 rounded-full">
                     <span>
                       {options.bloodGroups.find((bg) => bg.value === bloodGroup)?.label || bloodGroup}
                     </span>
@@ -324,7 +324,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                   </span>
                 )}
                 {city && city !== "ALL" && (
-                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
                     <span>{city}</span>
                     <button onClick={() => updateParams({ city: null })}>
                       <X className="w-2.5 h-2.5" />
@@ -338,7 +338,7 @@ export function SmartFilterBar({ options }: SmartFilterBarProps) {
                 variant="ghost"
                 size="sm"
                 onClick={handleReset}
-                className="text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 h-7 px-2"
+                className="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 h-7 px-2"
               >
                 <RotateCcw className="w-3 h-3 mr-1" />
                 <span>Reset All Filters</span>

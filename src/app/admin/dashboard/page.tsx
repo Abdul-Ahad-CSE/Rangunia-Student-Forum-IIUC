@@ -6,6 +6,7 @@ import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import {
   ShieldAlert,
   ShieldCheck,
@@ -125,27 +126,27 @@ async function AdminDashboardContent() {
   ];
 
   return (
-    <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] w-full max-w-[100vw] overflow-x-hidden text-white">
+    <div className="py-10 bg-zinc-50 dark:bg-[#040907] min-h-[calc(100vh-65px)] w-full max-w-[100vw] overflow-x-hidden text-zinc-900 dark:text-white transition-colors duration-200">
       <Container className="space-y-8">
         {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/10 pb-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white">
+              <h1 className="text-3xl font-sans font-extrabold tracking-tight text-zinc-900 dark:text-white">
                 Admin Console
               </h1>
               <Badge
                 className={
                   isSuperAdmin
-                    ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-mono"
-                    : "bg-blue-500/20 text-blue-300 border-blue-500/40 font-mono"
+                    ? "bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/40 font-mono"
+                    : "bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-500/40 font-mono"
                 }
               >
                 {session?.user?.role || "ADMIN"}
               </Badge>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-400">
-              Logged in as: <strong className="text-zinc-200">{session?.user?.email}</strong>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+              Logged in as: <strong className="text-zinc-800 dark:text-zinc-200">{session?.user?.email}</strong>
             </p>
           </div>
 
@@ -155,16 +156,16 @@ async function AdminDashboardContent() {
                 <Link href="/admin/super/permissions">
                   <Button
                     variant="outline"
-                    className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 flex items-center"
+                    className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 flex items-center shadow-xs"
                     title="Capability Controls"
                   >
-                    <Lock className="w-3.5 h-3.5 sm:mr-1.5 text-emerald-400" />
+                    <Lock className="w-3.5 h-3.5 sm:mr-1.5 text-emerald-600 dark:text-emerald-400" />
                     <span className="hidden sm:inline">Capability Controls</span>
                   </Button>
                 </Link>
 
                 <Link href="/admin/super">
-                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 shadow-md shadow-emerald-950 flex items-center">
+                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-8 sm:h-9 px-2.5 sm:px-3 shadow-xs flex items-center">
                     <ShieldCheck className="w-3.5 h-3.5 sm:mr-1.5" />
                     <span className="hidden sm:inline">Approval Center</span>
                     <span className="sm:hidden">Approvals</span>
@@ -177,7 +178,7 @@ async function AdminDashboardContent() {
               <Link href="/admin/approvals">
                 <Button
                   variant="outline"
-                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 font-semibold text-xs h-9"
+                  className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 font-semibold text-xs h-9 shadow-xs"
                 >
                   <Users className="w-3.5 h-3.5 mr-1.5" />
                   <span>Member Approvals</span>
@@ -189,12 +190,14 @@ async function AdminDashboardContent() {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9 flex items-center gap-1.5"
+                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 text-xs h-9 flex items-center gap-1.5 shadow-xs"
               >
-                <Home className="w-3.5 h-3.5 text-emerald-400" />
+                <Home className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>← Home</span>
               </Button>
             </Link>
+
+            <ThemeToggle />
 
             <form
               action={async () => {
@@ -206,7 +209,7 @@ async function AdminDashboardContent() {
                 type="submit"
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9"
+                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-white hover:bg-rose-50 dark:hover:bg-white/10 text-xs h-9 shadow-xs"
               >
                 <LogOut className="w-3.5 h-3.5 mr-1.5" />
                 <span>Sign Out</span>
@@ -217,14 +220,14 @@ async function AdminDashboardContent() {
 
         {/* Super Admin Special Notice / Shortcut */}
         {isSuperAdmin && (
-          <div className="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="p-6 rounded-2xl border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-emerald-950/20 backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
             <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-900/40 text-emerald-400 shrink-0 mt-0.5">
+              <div className="p-2.5 rounded-xl border border-emerald-500/20 dark:border-emerald-500/30 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-base font-bold text-white">Super Admin Approvals &amp; Permissions</h2>
-                <p className="text-xs text-zinc-300 mt-0.5">
+                <h2 className="text-base font-bold text-zinc-900 dark:text-white">Super Admin Approvals &amp; Permissions</h2>
+                <p className="text-xs text-zinc-600 dark:text-zinc-300 mt-0.5">
                   Assistant administrators who applied via registration require root approval and capability configuration before accessing modules.
                 </p>
               </div>
@@ -234,7 +237,7 @@ async function AdminDashboardContent() {
               <Link href="/admin/super/permissions" className="w-full sm:w-auto">
                 <Button
                   variant="outline"
-                  className="w-full sm:w-auto border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs font-semibold"
+                  className="w-full sm:w-auto border-emerald-500/30 bg-white dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 text-xs font-semibold shadow-xs"
                 >
                   <Lock className="w-3.5 h-3.5 mr-1.5" />
                   <span>Permissions</span>
@@ -242,7 +245,7 @@ async function AdminDashboardContent() {
               </Link>
 
               <Link href="/admin/super" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">
+                <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-xs">
                   <span>Manage Approvals</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                 </Button>
@@ -258,8 +261,8 @@ async function AdminDashboardContent() {
               key={m.id}
               className={`border transition-all flex flex-col justify-between ${
                 m.isAuthorized
-                  ? "border-white/10 bg-[#07130f]/70 hover:border-emerald-500/40 shadow-lg"
-                  : "border-white/5 bg-white/[0.01] opacity-75"
+                  ? "border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/70 hover:border-emerald-500/40 shadow-xs dark:shadow-lg"
+                  : "border-zinc-200 dark:border-white/5 bg-zinc-100/60 dark:bg-white/[0.01] opacity-75"
               }`}
             >
               <CardHeader className="pb-3">
@@ -267,35 +270,35 @@ async function AdminDashboardContent() {
                   <div
                     className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
                       m.isAuthorized
-                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
-                        : "bg-white/5 border-white/10 text-zinc-500"
+                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                        : "bg-zinc-100 dark:bg-white/5 border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-zinc-500"
                     }`}
                   >
                     <m.icon className="w-5 h-5" />
                   </div>
 
                   {isSuperAdmin ? (
-                    <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
+                    <Badge className="bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
                       Root Authority
                     </Badge>
                   ) : m.isAuthorized ? (
-                    <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
+                    <Badge className="bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/30 text-[10px] font-mono">
                       Authorized
                     </Badge>
                   ) : (
                     <Badge
                       variant="outline"
-                      className="border-white/10 bg-white/5 text-zinc-500 text-[10px] font-mono flex items-center gap-1"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-500 text-[10px] font-mono flex items-center gap-1"
                     >
                       <Lock className="w-2.5 h-2.5" /> Locked
                     </Badge>
                   )}
                 </div>
 
-                <CardTitle className="text-base sm:text-lg font-bold text-white">
+                <CardTitle className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
                   {m.title}
                 </CardTitle>
-                <CardDescription className="text-zinc-400 text-xs leading-relaxed">
+                <CardDescription className="text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">
                   {m.description}
                 </CardDescription>
               </CardHeader>
@@ -305,7 +308,7 @@ async function AdminDashboardContent() {
                   <Link href={m.href} className="block w-full">
                     <Button
                       size="sm"
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-950 flex items-center justify-center gap-1.5 transition-all hover:scale-[1.01]"
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-xs flex items-center justify-center gap-1.5 transition-all hover:scale-[1.01]"
                     >
                       <span>{m.actionLabel}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -315,7 +318,7 @@ async function AdminDashboardContent() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full border-white/10 bg-white/5 text-zinc-500 text-xs cursor-not-allowed flex items-center justify-center gap-1.5"
+                    className="w-full border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-400 dark:text-zinc-500 text-xs cursor-not-allowed flex items-center justify-center gap-1.5"
                     disabled
                   >
                     <Lock className="w-3.5 h-3.5" />
@@ -335,7 +338,7 @@ export default function AdminDashboardPage() {
   return (
     <React.Suspense
       fallback={
-        <div className="min-h-[calc(100vh-65px)] bg-[#040907] flex items-center justify-center">
+        <div className="min-h-[calc(100vh-65px)] bg-zinc-50 dark:bg-[#040907] flex items-center justify-center">
           <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
         </div>
       }

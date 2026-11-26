@@ -37,10 +37,10 @@ export function EventCard({ event }: EventCardProps) {
   });
 
   return (
-    <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl hover:border-emerald-500/40 transition-all flex flex-col justify-between overflow-hidden group">
+    <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition-all flex flex-col justify-between overflow-hidden group">
       <div>
         {/* Banner Image or Gradient Header */}
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-950 border-b border-white/5">
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-white/5">
           {event.bannerUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -49,9 +49,9 @@ export function EventCard({ event }: EventCardProps) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-emerald-950/80 via-zinc-900 to-[#07130f] flex flex-col items-center justify-center p-6 text-center">
-              <Calendar className="w-10 h-10 text-emerald-400/60 mb-2" />
-              <span className="text-xs font-mono uppercase tracking-wider text-emerald-300/80">
+            <div className="w-full h-full bg-gradient-to-br from-emerald-100/60 dark:from-emerald-950/80 via-zinc-100 dark:via-zinc-900 to-emerald-50 dark:to-[#07130f] flex flex-col items-center justify-center p-6 text-center">
+              <Calendar className="w-10 h-10 text-emerald-600/70 dark:text-emerald-400/60 mb-2" />
+              <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 dark:text-emerald-300/80">
                 Forum Gathering
               </span>
             </div>
@@ -60,16 +60,16 @@ export function EventCard({ event }: EventCardProps) {
           {/* Status Badge Overlay */}
           <div className="absolute top-3 right-3 flex items-center gap-1.5">
             {isCompleted ? (
-              <Badge variant="outline" className="border-white/10 bg-black/60 backdrop-blur-md text-zinc-300 text-[10px] font-mono">
+              <Badge variant="outline" className="border-zinc-300 dark:border-white/10 bg-white/80 dark:bg-black/60 backdrop-blur-md text-zinc-700 dark:text-zinc-300 text-[10px] font-mono">
                 Concluded
               </Badge>
             ) : isRegistrationOpen ? (
-              <Badge className="bg-emerald-500/90 hover:bg-emerald-500 text-black font-semibold text-[10px] shadow-lg">
+              <Badge className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500/90 dark:hover:bg-emerald-500 text-white dark:text-black font-semibold text-[10px] shadow-md">
                 <Sparkles className="w-2.5 h-2.5 mr-1" />
                 Registration Open
               </Badge>
             ) : (
-              <Badge variant="outline" className="border-amber-500/40 bg-amber-950/70 backdrop-blur-md text-amber-300 text-[10px] font-mono">
+              <Badge variant="outline" className="border-amber-500/40 bg-amber-50 dark:bg-amber-950/70 backdrop-blur-md text-amber-800 dark:text-amber-300 text-[10px] font-mono">
                 Registration Closed
               </Badge>
             )}
@@ -79,25 +79,25 @@ export function EventCard({ event }: EventCardProps) {
         {/* Content Body */}
         <CardContent className="p-5 space-y-3.5">
           <div className="space-y-1.5">
-            <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-emerald-300 transition-colors line-clamp-2">
+            <h3 className="font-bold text-base sm:text-lg text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors line-clamp-2">
               {event.title}
             </h3>
-            <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
               {event.description}
             </p>
           </div>
 
-          <div className="space-y-2 text-xs text-zinc-300 border-t border-white/5 pt-3">
-            <div className="flex items-center gap-2 text-zinc-300">
-              <Calendar className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <div className="space-y-2 text-xs text-zinc-600 dark:text-zinc-300 border-t border-zinc-200/80 dark:border-white/5 pt-3">
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
+              <Calendar className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span className="font-medium">{formattedDate}</span>
-              <span className="text-zinc-600">•</span>
+              <span className="text-zinc-400 dark:text-zinc-600">•</span>
               <Clock className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-              <span className="text-zinc-400">{event.eventTime}</span>
+              <span className="text-zinc-500 dark:text-zinc-400">{event.eventTime}</span>
             </div>
 
-            <div className="flex items-center gap-2 text-zinc-400">
-              <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
+              <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span className="truncate">{event.venue}</span>
             </div>
           </div>
@@ -107,9 +107,9 @@ export function EventCard({ event }: EventCardProps) {
       {/* Footer Link */}
       <div className="p-5 pt-0">
         <Link href={`/events/${event.id}`} className="block w-full">
-          <div className="w-full py-2.5 px-3.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-emerald-950/30 hover:border-emerald-500/40 text-xs font-semibold text-zinc-200 hover:text-emerald-300 transition-all flex items-center justify-between">
+          <div className="w-full py-2.5 px-3.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.03] hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:border-emerald-500/40 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:text-emerald-700 dark:hover:text-emerald-300 transition-all flex items-center justify-between">
             <span>View Event Details</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-emerald-400" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-emerald-600 dark:text-emerald-400" />
           </div>
         </Link>
       </div>
