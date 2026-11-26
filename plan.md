@@ -177,3 +177,7 @@
   - **Official Facebook Link:** Embedded the official RSF Facebook page link with custom branded SVG icon and hover states.
   - **Eye-Catching IhsanX Credit:** Implemented animated creator badge featuring an emerald pulse beacon, gradient shimmer text, and hover-lift motion linking to `https://www.ihsanx.com/`.
   - **Continuous News Ticker Crawler:** Added a full-width bottom news ticker tape displaying `"Unity is strength. Rangunia Students Forum. International Islamic University Chittagong."` with smooth infinite linear motion and pause-on-hover mechanics.
+- [x] Phase 29: Hero Background Cinematic Panning Polish — Full Mosque & Campus Visibility
+  - **Natural Aspect Ratio Locking:** Replaced fixed `w-[165%]` with `aspect-[16/9] max-w-none` on mobile, eliminating all horizontal image cropping.
+  - **Edge-to-Edge Mathematical Panning:** Applied `x: ["0%", "calc(-100% + 100vw)", "0%"]` with `object-left`, guaranteeing complete visibility of the IIUC Central Mosque on the left through to the eastern campus on the right.
+  - **Pacing & Desktop Isolation:** Adjusted cinematic duration to 24s `easeInOut` while cleanly resetting desktop viewports to centered static coverage.

@@ -53,19 +53,19 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-fit sm:min-h-[100svh] w-full flex flex-col justify-start pt-20 pb-10 sm:justify-center sm:pt-28 sm:pb-24 overflow-hidden bg-[#040907]">
-      {/* 1. Cinematic Fullscreen Background Image with Smooth Mobile Pan */}
+      {/* 1. Cinematic Fullscreen Background Image with Full Edge-to-Edge Pan */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="relative h-full w-[165%] sm:w-full transform-gpu"
+          className="relative h-full aspect-[16/9] max-w-none sm:aspect-auto sm:w-full transform-gpu"
           animate={
             isMobile
-              ? { x: ["0%", "-39%", "0%"] }
+              ? { x: ["0%", "calc(-100% + 100vw)", "0%"] }
               : { x: "0%" }
           }
           transition={
             isMobile
               ? {
-                  duration: 20,
+                  duration: 24,
                   repeat: Infinity,
                   repeatType: "mirror",
                   ease: "easeInOut",
@@ -78,9 +78,9 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             alt="International Islamic University Chittagong (IIUC) Campus"
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 640px) 250vw, 100vw"
             quality={95}
-            className="object-cover object-center scale-[1.02] transform-gpu"
+            className="object-cover object-left sm:object-center transform-gpu"
           />
         </motion.div>
 
@@ -146,7 +146,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             {/* 3 Compact Translucent Feature Cards (Mobile: Vertical Stack | Desktop: 3-Column Side-by-Side Grid) */}
             <motion.div
               variants={itemVariants}
-              className="mt-6 sm:mt-8 flex flex-col md:grid md:grid-cols-3 gap-2.5 sm:gap-3.5 lg:gap-4 w-full max-w-md md:max-w-4xl lg:max-w-5xl px-3 text-left"
+              className="mt-30 sm:mt-8 flex flex-col md:grid md:grid-cols-3 gap-2.5 sm:gap-3.5 lg:gap-4 w-full max-w-md md:max-w-4xl lg:max-w-5xl px-3 text-left"
             >
               {/* Card A: Alumni Network */}
               <div className="flex items-center md:items-start gap-3 sm:gap-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-4 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">
