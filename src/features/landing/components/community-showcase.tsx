@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { Heart, Award, ArrowUpRight } from "lucide-react";
+import { Award, ArrowUpRight } from "lucide-react";
 
 const galleryItems = [
   {
@@ -25,7 +25,7 @@ const galleryItems = [
   },
   {
     src: "/images/rsf4.jpg",
-    alt: "RSF Blood Donation & Welfare Activity",
+    alt: "RSF Community Welfare Activity",
     title: "Community Welfare Drive",
     category: "Social Service",
   },
@@ -90,45 +90,6 @@ export function CommunityShowcase() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Blood Donation Section Teaser */}
-        <div
-          id="blood-network"
-          className="relative overflow-hidden rounded-3xl border border-rose-500/20 bg-gradient-to-br from-rose-950/30 via-[#0a0708] to-[#040907] p-6 sm:p-10 backdrop-blur-xl"
-        >
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8">
-            <div className="max-w-xl">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/30 bg-rose-950/50 px-3 py-1 text-xs font-semibold text-rose-300">
-                <Heart className="h-3.5 w-3.5 fill-rose-500 text-rose-500 animate-pulse" />
-                <span>24/7 Lifeline Network</span>
-              </div>
-              <h3 className="mt-3 text-xl sm:text-3xl font-sans font-bold text-white">
-                Emergency Blood Donor Network
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                Whenever a patient from Rangunia or an IIUC family member needs
-                urgent blood in Chittagong, our automated donor coordination system
-                matches volunteer donors by blood group, availability, and area.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <Link href="/register">
-                <Button className="w-full sm:w-auto h-11 bg-rose-600 hover:bg-rose-500 text-white font-semibold shadow-lg shadow-rose-950">
-                  Register as Blood Donor
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button
-                  variant="outline"
-                  className="w-full sm:w-auto h-11 border-white/15 bg-white/5 text-zinc-200 hover:bg-white/10"
-                >
-                  Search Available Donors
-                </Button>
-              </Link>
-            </div>
-          </div>
         </div>
       </Container>
     </section>

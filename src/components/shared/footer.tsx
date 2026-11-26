@@ -27,8 +27,7 @@ export function Footer() {
           </div>
           <p className="text-xs leading-relaxed text-zinc-400">
             A non-political, student-led organization fostering unity, academic
-            excellence, career support, and voluntary blood donation among Rangunia
-            students at IIUC.
+            excellence, and career support among Rangunia students at IIUC.
           </p>
         </div>
 
@@ -39,12 +38,6 @@ export function Footer() {
             </span>
             <Link href="#about" className="hover:text-emerald-400 transition-colors">
               About Forum
-            </Link>
-            <Link
-              href="#blood-network"
-              className="hover:text-rose-400 transition-colors flex items-center gap-1"
-            >
-              Blood Network
             </Link>
             <Link href="#events" className="hover:text-emerald-400 transition-colors">
               Forum Events

@@ -43,7 +43,7 @@ const ROLE_METADATA: Record<
     title: "Student Portal Login",
     badge: "IIUC Enrolled Student",
     badgeColor: "border-emerald-500/30 bg-emerald-950/40 text-emerald-300",
-    description: "Access your student profile, blood network status, and campus directory.",
+    description: "Access your student profile, verified campus directory, and forum updates.",
     emailPlaceholder: "e.g. c213045@ugrad.iiuc.ac.bd or student@gmail.com",
     registerText: "Not registered yet? Register as Student",
     registerLink: "/register/student",

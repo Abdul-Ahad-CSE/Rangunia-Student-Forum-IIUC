@@ -21,11 +21,11 @@ export default function RegisterHubPage() {
       badgeColor: "border-emerald-500/30 bg-emerald-950/40 text-emerald-300",
       icon: GraduationCap,
       description:
-        "For active IIUC students originating from Rangunia. Access emergency blood donor networks, department communities, and campus forum activities.",
+        "For active IIUC students originating from Rangunia. Access department communities, campus events, and student directory.",
       benefits: [
         "Verified member profile & student directory",
-        "Emergency blood donation request & volunteer access",
-        "Campus notices, events & transport coordination",
+        "Campus notices, events & activity updates",
+        "Peer networking & academic mentorship access",
       ],
       href: "/register/student",
       cta: "Register as Student",
@@ -58,7 +58,7 @@ export default function RegisterHubPage() {
         "For appointed executive committee officers applying for forum management credentials. Requires Super Admin verification prior to access.",
       benefits: [
         "Administrative dashboard & audit visibility",
-        "Moderation capabilities (profile, events, blood)",
+        "Moderation capabilities (profile, events, notices)",
         "Official executive committee portfolio listing",
       ],
       href: "/admin/register",

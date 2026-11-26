@@ -4,12 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
-import {
-  ArrowRight,
-  Droplet,
-  Users,
-  MapPin,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 
@@ -45,19 +40,49 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ introFinished = false }: HeroSectionProps) {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section className="relative min-h-[100svh] w-full flex flex-col justify-center overflow-hidden bg-[#040907] pt-24 pb-16 sm:pt-28 sm:pb-24">
-      {/* 1. Cinematic Fullscreen Background Image */}
+      {/* 1. Cinematic Fullscreen Background Image with Smooth Mobile Pan */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/iiuc.jpg"
-          alt="International Islamic University Chittagong (IIUC) Campus"
-          fill
-          priority
-          sizes="100vw"
-          quality={95}
-          className="object-cover object-center scale-[1.02] transform-gpu"
-        />
+        <motion.div
+          className="relative h-full w-[165%] sm:w-full transform-gpu"
+          animate={
+            isMobile
+              ? { x: ["0%", "-39%", "0%"] }
+              : { x: "0%" }
+          }
+          transition={
+            isMobile
+              ? {
+                  duration: 20,
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  ease: "easeInOut",
+                }
+              : { duration: 0.3 }
+          }
+        >
+          <Image
+            src="/images/iiuc.jpg"
+            alt="International Islamic University Chittagong (IIUC) Campus"
+            fill
+            priority
+            sizes="100vw"
+            quality={95}
+            className="object-cover object-center scale-[1.02] transform-gpu"
+          />
+        </motion.div>
 
         {/* Lightweight Translucent Vignette Overlays - lets IIUC campus shine clearly */}
         {/* Subtle base scrim for global readability */}
@@ -118,100 +143,23 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
               at IIUC
             </motion.h1>
 
-            {/* Subheading */}
-            <motion.p
-              variants={itemVariants}
-              className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed px-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
-            >
-              The dedicated platform uniting students and alumni through lifelong
-              brotherhood, academic guidance, career referrals, and an instant{" "}
-              <span className="text-rose-400 font-semibold underline decoration-rose-500/40 underline-offset-4">
-                emergency blood donor network
-              </span>
-              .
-            </motion.p>
-
-            {/* Primary Action Buttons */}
+            {/* Primary Action Button (Centered) */}
             <motion.div
               variants={itemVariants}
-              className="mt-8 sm:mt-10 flex w-full flex-col items-stretch sm:flex-row sm:w-auto sm:items-center justify-center gap-3.5 sm:gap-4 px-4"
+              className="mt-8 sm:mt-10 flex w-full justify-center items-center px-4"
             >
-              {/* CTA 1: Join / Portal */}
               <Link href="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto h-12 sm:h-14 px-7 text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full sm:w-auto h-12 sm:h-14 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>Join Student Forum</span>
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-
-              {/* CTA 2: Emergency Blood Directory */}
-              <Link href="#blood-network" className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto h-12 sm:h-14 px-6 text-base font-semibold border-rose-500/40 bg-rose-950/20 text-rose-200 hover:bg-rose-950/40 hover:text-white hover:border-rose-400 backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <Droplet className="mr-2 h-4 w-4 text-rose-400 fill-rose-400" />
-                  <span>Find Blood Donors</span>
-                </Button>
-              </Link>
             </motion.div>
-
-            {/* Mobile-First Feature Highlights Grid */}
-            <motion.div
-              variants={itemVariants}
-              className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 w-full max-w-4xl text-left"
-            >
-            {/* Feature 1 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-rose-500/30 bg-rose-950/60 text-rose-400 shadow-inner">
-                <Droplet className="h-5 w-5 fill-rose-500/40 text-rose-400" />
-              </div>
-              <div>
-                <h2 className="text-sm sm:text-base font-semibold text-white">
-                  24/7 Blood Network
-                </h2>
-                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
-                  Rapid volunteer coordination for emergency transfusion cases in Chittagong.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-inner">
-                <Users className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="text-sm sm:text-base font-semibold text-white">
-                  Verified Directory
-                </h2>
-                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
-                  Strictly authenticated IIUC student profiles with private-by-default controls.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="flex items-start gap-3.5 rounded-2xl border border-white/15 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-xl transition-all hover:border-emerald-500/40 hover:bg-black/60">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-teal-500/30 bg-teal-950/60 text-teal-400 shadow-inner">
-                <MapPin className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="text-sm sm:text-base font-semibold text-white">
-                  15 Unions & Wards
-                </h2>
-                <p className="mt-0.5 text-xs text-zinc-300 leading-normal">
-                  Connecting students from Betagi to Mariamnagar with localized brotherhood.
-                </p>
-              </div>
-            </div>
           </motion.div>
-        </motion.div>
-      </div>
+        </div>
       </Container>
     </section>
   );

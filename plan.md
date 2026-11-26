@@ -108,4 +108,8 @@
   - **UI/UX Cleanup:** Cleaned up public committee UI by removing privacy banners, group count headers, and rank tier badges from detailed modals.
   - **Layout & Avatar Polish:** Removed privacy shield overlays from avatars and implemented dynamic flex-wrap centering for perfect row alignment of orphaned committee cards.
   - **Mobile UX Optimization:** Optimized mobile UX by implementing compact, multi-column center-aligned cards and hiding quotes to reduce scroll fatigue, relying on the modal for full details.
-- [ ] Phase 12: Emergency Blood Donation Network & Direct Connect
+- [x] Phase 12: Landing Page UI Cleanup, Deprecation of Blood Donation System & Mobile Hero Pan Animation
+  - **Hero Subtitle & CTA Removal:** Removed the long subtitle description and the "Find Blood Donors" secondary CTA button, centering the primary "Join Student Forum" gateway.
+  - **Feature Highlights Removal:** Removed the 3 bottom feature cards ("24/7 Blood Network", "Verified Directory", "15 Unions & Wards") for a minimalist, focused presentation.
+  - **Mobile Hero Panning Animation:** Implemented a smooth 20-second continuous horizontal panning animation (`motion/react`) on mobile viewports for `/images/iiuc.jpg` to showcase the full campus scenery without cropping.
+  - **Deprecation of Standalone Blood Network:** Purged the `#blood-network` teaser section, registration triggers, and footer links, while safely preserving standard profile demographic `bloodGroup` fields.

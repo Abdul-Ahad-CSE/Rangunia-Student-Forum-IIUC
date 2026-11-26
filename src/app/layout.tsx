@@ -19,14 +19,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Rangunia Students Forum (IIUC) | Official Platform",
   description:
-    "The official university platform uniting Rangunia students and alumni at International Islamic University Chittagong (IIUC). Community connection, emergency blood donor network, events, and academic mentorship.",
+    "The official university platform uniting Rangunia students and alumni at International Islamic University Chittagong (IIUC). Community connection, events, and academic mentorship.",
   keywords: [
     "Rangunia Students Forum",
     "IIUC",
     "International Islamic University Chittagong",
     "Rangunia",
     "Student Community",
-    "Blood Donor Network",
     "Chittagong",
   ],
   authors: [{ name: "Rangunia Students Forum" }],
