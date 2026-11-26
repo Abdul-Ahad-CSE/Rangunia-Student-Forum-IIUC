@@ -5,7 +5,6 @@ import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { EventFormDialog } from "@/features/events/components/event-form-dialog";
 import { AdminEventCard, AdminEventData } from "@/features/events/components/admin-event-card";
 import {
@@ -97,63 +96,43 @@ async function AdminEventsContent() {
   }));
 
   return (
-    <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] text-white">
-      <Container className="space-y-8">
-        {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Link
-                href="/admin/dashboard"
-                className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-emerald-400 transition-colors mr-2"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Console</span>
-              </Link>
-              <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
-                Event Management
-              </h1>
-              <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-mono text-xs">
-                {isSuperAdmin ? "Super Admin" : "Event Organizer"}
-              </Badge>
-            </div>
-            <p className="text-xs sm:text-sm text-zinc-400">
-              Create and publish official forum programs, monitor participant registrations, and update post-event galleries.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <EventFormDialog />
-
-            <Link href="/">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9 flex items-center gap-1.5"
-              >
-                <Home className="w-3.5 h-3.5 text-emerald-400" />
-                <span>← Home</span>
-              </Button>
-            </Link>
-
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
+    <div className="space-y-8">
+      {/* Top Action Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/dashboard"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
             >
-              <Button
-                type="submit"
-                variant="outline"
-                size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9"
-              >
-                <LogOut className="w-3.5 h-3.5 mr-1.5" />
-                <span>Sign Out</span>
-              </Button>
-            </form>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Admin Console</span>
+            </Link>
+            <span className="text-zinc-600">/</span>
+            <span className="text-xs text-emerald-400 font-medium">Events</span>
           </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+            <Calendar className="w-7 h-7 text-emerald-400" />
+            <span>Event Management Console</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-zinc-400">
+            Create and publish official forum programs, monitor registrations, and update post-event galleries.
+          </p>
         </div>
+
+        <div className="flex items-center gap-2.5 self-start sm:self-center">
+          <Link href="/events" target="_blank">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 text-xs"
+            >
+              Live Events
+            </Button>
+          </Link>
+          <EventFormDialog />
+        </div>
+      </div>
 
         {/* Quick Stats Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -216,21 +195,64 @@ async function AdminEventsContent() {
             </div>
           </div>
         )}
-      </Container>
     </div>
   );
 }
 
 export default function AdminEventsPage() {
   return (
-    <React.Suspense
-      fallback={
-        <div className="min-h-[calc(100vh-65px)] bg-[#040907] flex items-center justify-center">
-          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
-        </div>
-      }
-    >
-      <AdminEventsContent />
-    </React.Suspense>
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+      {/* Top System Bar */}
+      <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
+        <Container className="h-14 sm:h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
+            >
+              <Home className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-semibold">Home</span>
+            </Link>
+            <span className="text-zinc-600">|</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+              Event Panel
+            </span>
+          </div>
+
+          <form
+            action={async () => {
+              "use server";
+              await signOut({ redirectTo: "/" });
+            }}
+          >
+            <Button
+              type="submit"
+              variant="ghost"
+              size="sm"
+              className="text-xs text-zinc-400 hover:text-rose-300 hover:bg-rose-950/20"
+            >
+              <LogOut className="w-3.5 h-3.5 mr-1.5" />
+              <span>Sign Out</span>
+            </Button>
+          </form>
+        </Container>
+      </header>
+
+      {/* Main Content Area in Suspense */}
+      <main className="flex-1 py-10">
+        <Container>
+          <React.Suspense
+            fallback={
+              <div className="py-24 text-center text-zinc-400 flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
+                <p className="text-sm">Loading event console...</p>
+              </div>
+            }
+          >
+            <AdminEventsContent />
+          </React.Suspense>
+        </Container>
+      </main>
+    </div>
   );
 }

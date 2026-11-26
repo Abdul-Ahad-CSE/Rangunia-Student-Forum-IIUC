@@ -172,10 +172,10 @@ async function AdminActivitiesContent() {
 
 export default function AdminActivitiesPage() {
   return (
-    <div className="min-h-screen bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
       {/* Top System Bar */}
       <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
-        <Container className="h-16 flex items-center justify-between">
+        <Container className="h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href="/"

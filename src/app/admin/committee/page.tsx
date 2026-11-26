@@ -123,69 +123,43 @@ async function AdminCommitteeContent() {
   ).size;
 
   return (
-    <div className="py-10 bg-[#040907] min-h-[calc(100vh-65px)] text-white">
-      <Container className="space-y-8">
-        {/* Navigation & Breadcrumbs */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
-          <div className="flex items-center gap-3">
+    <div className="space-y-8">
+      {/* Top Action Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
             <Link
               href="/admin/dashboard"
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors font-medium group"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
             >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+              <ArrowLeft className="w-3.5 h-3.5" />
               <span>Admin Console</span>
             </Link>
             <span className="text-zinc-600">/</span>
-            <span className="text-xs text-zinc-300 font-medium">
-              Committee Management
-            </span>
+            <span className="text-xs text-emerald-400 font-medium">Committee</span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-white transition-colors"
-            >
-              <Home className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Portal Home</span>
-            </Link>
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <Button
-                type="submit"
-                variant="ghost"
-                size="sm"
-                className="h-8 px-2 text-xs text-zinc-400 hover:text-rose-400 hover:bg-rose-950/20"
-              >
-                <LogOut className="w-3.5 h-3.5 sm:mr-1" />
-                <span className="hidden sm:inline">Sign Out</span>
-              </Button>
-            </form>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+            <Award className="w-7 h-7 text-emerald-400" />
+            <span>Committee Management Console</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-zinc-400">
+            Manage executive appointments, advisory board rosters, and tiered rank structures.
+          </p>
         </div>
 
-        {/* Console Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
-                <Users className="w-5 h-5" />
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                Committee Management
-              </h1>
-            </div>
-            <p className="text-xs text-zinc-400 max-w-xl pl-11">
-              Appoint advisors and executive panel members. Rank executives with decimals (e.g., 1.0, 1.1) to automatically construct tiered horizontal organizational rows.
-            </p>
-          </div>
-
+        <div className="flex items-center gap-2.5 self-start sm:self-center">
+          <Link href="/committee" target="_blank">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 text-xs"
+            >
+              Live Committee
+            </Button>
+          </Link>
           <CommitteeFormDialog mode="create" />
         </div>
+      </div>
 
         {/* Metrics Banner */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -234,22 +208,64 @@ async function AdminCommitteeContent() {
 
         {/* Data Table */}
         <AdminCommitteeTable initialMembers={members} />
-      </Container>
     </div>
   );
 }
 
 export default function AdminCommitteePage() {
   return (
-    <React.Suspense
-      fallback={
-        <div className="min-h-screen bg-[#040907] flex flex-col items-center justify-center gap-3 text-zinc-400">
-          <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
-          <p className="text-sm font-mono">Loading Committee Console...</p>
-        </div>
-      }
-    >
-      <AdminCommitteeContent />
-    </React.Suspense>
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">
+      {/* Top System Bar */}
+      <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
+        <Container className="h-14 sm:h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
+            >
+              <Home className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-semibold">Home</span>
+            </Link>
+            <span className="text-zinc-600">|</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+              Committee Panel
+            </span>
+          </div>
+
+          <form
+            action={async () => {
+              "use server";
+              await signOut({ redirectTo: "/" });
+            }}
+          >
+            <Button
+              type="submit"
+              variant="ghost"
+              size="sm"
+              className="text-xs text-zinc-400 hover:text-rose-300 hover:bg-rose-950/20"
+            >
+              <LogOut className="w-3.5 h-3.5 mr-1.5" />
+              <span>Sign Out</span>
+            </Button>
+          </form>
+        </Container>
+      </header>
+
+      {/* Main Content Area in Suspense */}
+      <main className="flex-1 py-10">
+        <Container>
+          <React.Suspense
+            fallback={
+              <div className="py-24 text-center text-zinc-400 flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
+                <p className="text-sm">Loading committee console...</p>
+              </div>
+            }
+          >
+            <AdminCommitteeContent />
+          </React.Suspense>
+        </Container>
+      </main>
+    </div>
   );
 }
