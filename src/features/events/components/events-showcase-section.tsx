@@ -9,7 +9,7 @@ export async function EventsShowcaseSection() {
   const events = await getTopEvents();
 
   return (
-    <section className="relative bg-[#030806] py-16 sm:py-24 border-t border-b border-white/5 overflow-hidden text-white">
+    <section className="relative bg-[#030806] pt-10 pb-16 sm:py-24 border-t border-b border-white/5 overflow-hidden text-white">
       {/* Ambient Radial Background Gradient */}
       <div
         className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-950/25 via-transparent to-transparent"

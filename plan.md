@@ -138,3 +138,7 @@
   - **Admin Content Console:** Built `/admin/about` with text editor and 3-photo signed Cloudinary uploaders.
   - **Public About Showcase:** Built `AboutShowcaseSection` on the homepage featuring the RSF logo seal, 3-photo floating motion fan (`motion/react`), and editorial typography.
   - **Real-Time Dynamic Synchronization:** Connected public section to server revalidation so admin edits reflect immediately on the live landing page.
+- [x] Phase 18: Mobile Vertical Rhythm Polish — Hero-to-Events Spacing
+  - **Hero Mobile Constraint Refactor:** Changed mobile hero container from rigid `min-h-[100svh]` to dynamic `min-h-fit` with `pb-10`, eliminating over 380px of empty background gap below the CTA button.
+  - **Events Section Rhythm:** Tightened mobile top padding on `EventsShowcaseSection` to `pt-10`, creating a balanced, cohesive transition between the hero and featured events.
+  - **Desktop Fullscreen Retention:** Preserved `sm:min-h-[100svh]` and centered desktop alignment for widescreen displays.

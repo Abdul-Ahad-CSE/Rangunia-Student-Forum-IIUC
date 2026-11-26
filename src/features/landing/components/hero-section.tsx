@@ -52,7 +52,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] w-full flex flex-col justify-start pt-24 pb-14 sm:justify-center sm:pt-28 sm:pb-24 overflow-hidden bg-[#040907]">
+    <section className="relative min-h-fit sm:min-h-[100svh] w-full flex flex-col justify-start pt-20 pb-10 sm:justify-center sm:pt-28 sm:pb-24 overflow-hidden bg-[#040907]">
       {/* 1. Cinematic Fullscreen Background Image with Smooth Mobile Pan */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
