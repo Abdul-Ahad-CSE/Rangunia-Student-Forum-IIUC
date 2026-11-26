@@ -71,7 +71,7 @@ async function SuperAdminPermissionsContent() {
   const aboutManagers = serializedAdmins.filter((a) => a.canManageAbout).length;
 
   return (
-    <div className="min-h-screen bg-[#040907] text-white">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white">
       {/* Super Admin Top Navigation */}
       <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
         <Container className="flex h-16 items-center justify-between">
@@ -88,46 +88,63 @@ async function SuperAdminPermissionsContent() {
                   ROOT
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-400 truncate max-w-[200px] sm:max-w-none">
+              <p className="text-[11px] text-zinc-400 truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">
                 Authenticated as: {session.user.email}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link href="/admin/super">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Mobile Always-Visible Back Button (< sm) */}
+            <Link href="/admin/super" className="sm:hidden">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs hidden sm:flex"
+                className="border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50 text-xs px-2.5 h-8 flex items-center gap-1 font-semibold"
+              >
+                <ArrowLeft className="h-3.5 w-3.5 text-emerald-400" />
+                <span>Back</span>
+              </Button>
+            </Link>
+
+            {/* Desktop Approval Center Link (sm:) */}
+            <Link href="/admin/super" className="hidden sm:flex">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
               >
                 <CheckCircle2 className="h-3.5 w-3.5 mr-1.5 text-emerald-400" />
                 <span>Approval Center</span>
               </Button>
             </Link>
 
-            <Link href="/admin/dashboard">
+            {/* Desktop Admin Dashboard Link (sm:) */}
+            <Link href="/admin/dashboard" className="hidden sm:flex">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs hidden sm:flex"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs"
               >
                 <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
                 <span>Admin Dashboard</span>
               </Button>
             </Link>
 
+            {/* Responsive Home Trigger */}
             <Link href="/">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1.5"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs px-2.5 sm:px-3 h-8 sm:h-9"
+                title="Home"
               >
-                <Home className="h-3.5 w-3.5 text-emerald-400" />
-                <span>← Home</span>
+                <Home className="h-3.5 w-3.5 text-emerald-400 sm:mr-1.5" />
+                <span className="hidden sm:inline">← Home</span>
               </Button>
             </Link>
 
+            {/* Responsive Sign Out Trigger */}
             <form
               action={async () => {
                 "use server";
@@ -138,10 +155,11 @@ async function SuperAdminPermissionsContent() {
                 type="submit"
                 variant="outline"
                 size="sm"
-                className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs"
+                className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs px-2.5 sm:px-3 h-8 sm:h-9"
+                title="Sign Out"
               >
-                <LogOut className="h-3.5 w-3.5 mr-1.5" />
-                <span>Sign Out</span>
+                <LogOut className="h-3.5 w-3.5 sm:mr-1.5" />
+                <span className="hidden sm:inline">Sign Out</span>
               </Button>
             </form>
           </div>
@@ -149,22 +167,45 @@ async function SuperAdminPermissionsContent() {
       </header>
 
       {/* Main Authority Workspace */}
-      <main className="py-10">
-        <Container className="space-y-8">
+      <main className="py-8 sm:py-10">
+        <Container className="space-y-6 sm:space-y-8">
           {/* Header Summary Cards */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <h1 className="text-3xl font-sans font-extrabold tracking-tight text-white">
+                <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
                   Granular Admin Capabilities
                 </h1>
                 <span className="rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 px-2.5 py-0.5 text-xs font-medium">
                   Phase 4
                 </span>
               </div>
-              <p className="text-sm text-zinc-400 max-w-2xl">
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
                 Assign module-level authority to approved executives. Permissions determine which administrative portals and actions are unlocked for each administrator.
               </p>
+
+              {/* Mobile Quick-Navigation Matrix */}
+              <div className="grid grid-cols-2 gap-2 sm:hidden pt-3">
+                <Link href="/admin/super" className="w-full">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-9 px-2.5 shadow-md"
+                  >
+                    <ArrowLeft className="h-3.5 w-3.5 mr-1.5 text-emerald-400 shrink-0" />
+                    <span className="font-semibold truncate">Authority Center</span>
+                  </Button>
+                </Link>
+
+                <Link href="/admin/dashboard" className="w-full">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9 px-2.5 shadow-md"
+                  >
+                    <Home className="h-3.5 w-3.5 mr-1.5 text-zinc-400 shrink-0" />
+                    <span className="font-semibold truncate">Admin Console</span>
+                  </Button>
+                </Link>
+              </div>
             </div>
 
             {/* Quick Metrics Bar */}
