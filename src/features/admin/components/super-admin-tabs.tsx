@@ -20,20 +20,20 @@ export function SuperAdminTabs({ initialAdmins, initialMembers }: Props) {
   return (
     <div className="space-y-6">
       {/* Tab Switcher */}
-      <div className="flex border-b border-white/10 pb-px gap-2">
+      <div className="grid grid-cols-2 gap-1 w-full sm:flex sm:w-auto border-b border-white/10 pb-px">
         <button
           type="button"
           onClick={() => setActiveTab("admins")}
-          className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all -mb-px ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-semibold border-b-2 transition-all -mb-px ${
             activeTab === "admins"
               ? "border-emerald-400 text-white bg-white/[0.03] rounded-t-xl"
               : "border-transparent text-zinc-400 hover:text-zinc-200"
           }`}
         >
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Executive Admins</span>
+          <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
+          <span className="truncate">Executive Admins</span>
           {pendingAdminsCount > 0 && (
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <span className="text-[10px] font-mono px-1.5 sm:px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">
               {pendingAdminsCount}
             </span>
           )}
@@ -42,16 +42,19 @@ export function SuperAdminTabs({ initialAdmins, initialMembers }: Props) {
         <button
           type="button"
           onClick={() => setActiveTab("members")}
-          className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all -mb-px ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-semibold border-b-2 transition-all -mb-px ${
             activeTab === "members"
               ? "border-emerald-400 text-white bg-white/[0.03] rounded-t-xl"
               : "border-transparent text-zinc-400 hover:text-zinc-200"
           }`}
         >
-          <Users className="w-4 h-4 text-teal-400" />
-          <span>Forum Members (Students & Alumni)</span>
+          <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-400 shrink-0" />
+          <span className="truncate">
+            <span className="sm:hidden">Members</span>
+            <span className="hidden sm:inline">Forum Members (Students & Alumni)</span>
+          </span>
           {pendingMembersCount > 0 && (
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            <span className="text-[10px] font-mono px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">
               {pendingMembersCount}
             </span>
           )}
