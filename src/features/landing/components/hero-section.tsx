@@ -146,7 +146,7 @@ export function HeroSection({ introFinished = false }: HeroSectionProps) {
             {/* 3 Compact Translucent Feature Cards */}
             <motion.div
               variants={itemVariants}
-              className="mt-5 sm:mt-8 flex flex-col gap-2.5 sm:gap-3 w-full max-w-md px-3 text-left"
+              className="mt-30 sm:mt-8 flex flex-col gap-2.5 sm:gap-3 w-full max-w-md px-3 text-left"
             >
               {/* Card A: Alumni Network */}
               <div className="flex items-center gap-3 sm:gap-3.5 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-3 sm:p-3.5 shadow-lg transition-all hover:bg-black/45 hover:border-emerald-500/30">

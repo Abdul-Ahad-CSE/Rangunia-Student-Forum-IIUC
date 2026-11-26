@@ -118,3 +118,7 @@
   - **3 Compact Translucent Feature Cards:** Introduced 3 glassmorphic micro-cards (`Alumni Network & Career Bridge`, `Forum Activities & Events`, `1-on-1 Senior Mentorship`) styled with `backdrop-blur-md bg-black/30 border-white/10` and color-coded icon chips (`bg-emerald-500/20`, `bg-teal-500/20`, `bg-sky-500/20`) to let the campus background shine through clearly.
   - **Repositioned CTA Gateway:** Anchored the full-width mobile `"Join Student Forum"` CTA button cleanly directly below the 3 cards (`mt-6 sm:mt-7 max-w-md`), establishing an intuitive visual hierarchy.
   - **Preserved Mobile Background Pan Animation:** Verified that the continuous horizontal campus background pan on mobile operates smoothly behind the glass cards.
+- [x] Phase 14: Public Portal Streamlining — Hero & Footer Isolation
+  - **Legacy Showcase Removal:** Deprecated and purged `CommunityShowcase` from `src/app/(public)/page.tsx`, removing static photo grids and outdated text.
+  - **Hero & Footer Focused Architecture:** Streamlined the public home page to strictly the cinematic Hero section (`LandingHeroContainer`), global navbar (`LandingNav`), and the platform `Footer`.
+  - **Modular Preparation:** Established a clean, decoupled `<main>` structure ready for upcoming dynamic showcase widgets (Events, Notices, Activities, and About RSF).
