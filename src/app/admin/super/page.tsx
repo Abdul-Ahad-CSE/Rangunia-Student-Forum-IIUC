@@ -82,93 +82,51 @@ async function SuperAdminDashboardContent() {
   const pendingMemberCount = serializedMembers.length;
 
   return (
-    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white">
-      {/* Super Admin Top Navigation */}
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#040907] text-white flex flex-col">
+      {/* Top System Bar (Matches Notice Management Pattern) */}
       <header className="border-b border-white/10 bg-black/40 backdrop-blur-xl sticky top-0 z-30">
-        <Container className="flex h-16 items-center justify-between">
+        <Container className="h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-950/60 text-emerald-400 shadow-md">
-              <Shield className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-white leading-tight">
-                  RSF Super Admin Authority
-                </span>
-                <span className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-bold tracking-wider text-emerald-400">
-                  ROOT
-                </span>
-              </div>
-              <p className="text-[11px] text-zinc-400 truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">
-                Authenticated as: {session?.user?.email}
-              </p>
-            </div>
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
+            >
+              <Home className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-semibold">Home</span>
+            </Link>
+            <span className="text-zinc-600">|</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
+              Super Admin Panel
+            </span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Desktop Navigation Links */}
-            <Link href="/admin/approvals">
+          <div className="flex items-center gap-3">
+            {/* Desktop Quick Nav Links */}
+            <Link href="/admin/dashboard" className="hidden sm:inline-flex">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/40 text-xs hidden md:flex"
+                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white text-xs h-8"
               >
-                <Users className="h-3.5 w-3.5 mr-1.5" />
-                <span>Member Approvals ({pendingMemberCount})</span>
+                <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
+                <span>Admin Console</span>
               </Button>
             </Link>
 
-            <Link href="/admin/super/permissions">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs hidden sm:flex"
-              >
-                <Lock className="h-3.5 w-3.5 mr-1.5" />
-                <span>Admin Permissions</span>
-              </Button>
-            </Link>
-
-            <Link href="/admin/dashboard">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs hidden sm:flex"
-              >
-                <ArrowLeft className="h-3.5 w-3.5 mr-1.5" />
-                <span>Admin Dashboard</span>
-              </Button>
-            </Link>
-
-            {/* Responsive Home Trigger */}
-            <Link href="/">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs px-2.5 sm:px-3 h-8 sm:h-9"
-                title="Home"
-              >
-                <Home className="h-3.5 w-3.5 text-emerald-400 sm:mr-1.5" />
-                <span className="hidden sm:inline">← Home</span>
-              </Button>
-            </Link>
-
-            {/* Responsive Sign Out Trigger */}
             <form
               action={async () => {
                 "use server";
-                await signOut({ redirectTo: "/login" });
+                await signOut({ redirectTo: "/" });
               }}
             >
               <Button
                 type="submit"
-                variant="outline"
+                variant="ghost"
                 size="sm"
-                className="border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs px-2.5 sm:px-3 h-8 sm:h-9"
-                title="Sign Out"
+                className="text-xs text-zinc-400 hover:text-rose-300 hover:bg-rose-950/20 h-8"
               >
-                <LogOut className="h-3.5 w-3.5 sm:mr-1.5" />
-                <span className="hidden sm:inline">Sign Out</span>
+                <LogOut className="w-3.5 h-3.5 mr-1.5" />
+                <span>Sign Out</span>
               </Button>
             </form>
           </div>
@@ -178,80 +136,81 @@ async function SuperAdminDashboardContent() {
       {/* Main Authority Workspace */}
       <main className="py-8 sm:py-10">
         <Container className="space-y-6 sm:space-y-8">
-          {/* Header Summary & Mobile Quick-Actions */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-sans font-extrabold tracking-tight text-white">
-                Forum Authority Center
+          {/* Header Summary & Actions (Matches Notice Management Pattern) */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div className="space-y-1">
+              {/* Breadcrumb Navigation */}
+              <div className="flex items-center gap-2 mb-1">
+                <Link
+                  href="/admin/dashboard"
+                  className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Admin Console</span>
+                </Link>
+                <span className="text-zinc-600">/</span>
+                <span className="text-xs text-emerald-400 font-medium">Super Admin Authority</span>
+              </div>
+
+              {/* Prominent Title with Shield Icon */}
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+                <Shield className="w-7 h-7 text-emerald-400 shrink-0" />
+                <span>Forum Authority Center</span>
               </h1>
-              <p className="mt-1 text-xs sm:text-sm text-zinc-400">
-                Oversee executive admin appointments, review pending member registrations, and manage system privileges.
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
+                Oversee executive appointments, review pending member registrations, and govern platform capabilities.
               </p>
+            </div>
 
-              {/* Mobile Executive Quick-Actions Matrix (Visible strictly on mobile < sm) */}
-              <div className="grid grid-cols-2 gap-2 sm:hidden pt-3">
-                <Link href="/admin/super/permissions" className="w-full">
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-9 px-2.5 shadow-md"
-                  >
-                    <Lock className="h-3.5 w-3.5 mr-1.5 text-emerald-400 shrink-0" />
-                    <span className="font-semibold truncate">Permissions</span>
-                  </Button>
-                </Link>
+            {/* Mobile & Desktop Action Triggers */}
+            <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-center">
+              <Link href="/admin/super/permissions">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-9 px-3.5 font-semibold shadow-sm"
+                >
+                  <Lock className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                  <span>Admin Permissions</span>
+                </Button>
+              </Link>
 
-                <Link href="/admin/approvals" className="w-full">
-                  <Button
-                    variant="outline"
-                    className="w-full justify-between border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/40 text-xs h-9 px-2.5 shadow-md"
-                  >
-                    <div className="flex items-center truncate mr-1">
-                      <Users className="h-3.5 w-3.5 mr-1.5 text-teal-400 shrink-0" />
-                      <span className="font-semibold truncate">Approvals</span>
-                    </div>
-                    {pendingMemberCount > 0 && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-teal-500/30 text-teal-200 border border-teal-500/40">
-                        {pendingMemberCount}
-                      </span>
-                    )}
-                  </Button>
-                </Link>
+              <Link href="/admin/approvals">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-teal-500/30 bg-teal-950/20 text-teal-300 hover:bg-teal-950/40 text-xs h-9 px-3.5 font-semibold shadow-sm"
+                >
+                  <Users className="w-3.5 h-3.5 mr-1.5 text-teal-400" />
+                  <span>Member Approvals ({pendingMemberCount})</span>
+                </Button>
+              </Link>
+            </div>
+          </div>
 
-                <Link href="/admin/dashboard" className="w-full col-span-2">
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start border-white/15 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 text-xs h-9 px-2.5 shadow-md"
-                  >
-                    <ArrowLeft className="h-3.5 w-3.5 mr-1.5 text-zinc-400 shrink-0" />
-                    <span className="font-semibold truncate">Go to Main Admin Console</span>
-                  </Button>
-                </Link>
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-3 gap-2 w-full sm:flex sm:w-auto sm:items-center sm:gap-3">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
+              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+              <div className="min-w-0 w-full sm:w-auto">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Admins</p>
+                <p className="text-sm sm:text-base font-bold text-amber-300">{pendingAdminCount}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 w-full sm:flex sm:w-auto sm:items-center sm:gap-3">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Admins</p>
-                  <p className="text-sm sm:text-base font-bold text-amber-300">{pendingAdminCount}</p>
-                </div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
+              <Users className="w-4 h-4 text-teal-400 shrink-0" />
+              <div className="min-w-0 w-full sm:w-auto">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Members</p>
+                <p className="text-sm sm:text-base font-bold text-teal-300">{pendingMemberCount}</p>
               </div>
+            </div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <Users className="w-4 h-4 text-teal-400 shrink-0" />
-                <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Pending Members</p>
-                  <p className="text-sm sm:text-base font-bold text-teal-300">{pendingMemberCount}</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <div className="min-w-0 w-full sm:w-auto">
-                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Approved Admins</p>
-                  <p className="text-sm sm:text-base font-bold text-emerald-300">{approvedAdminCount}</p>
-                </div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-1 sm:gap-2 rounded-xl border border-white/10 bg-white/5 p-2 sm:px-4 sm:py-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="min-w-0 w-full sm:w-auto">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-400 truncate w-full">Approved Admins</p>
+                <p className="text-sm sm:text-base font-bold text-emerald-300">{approvedAdminCount}</p>
               </div>
             </div>
           </div>
