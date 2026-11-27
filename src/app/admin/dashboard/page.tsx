@@ -186,35 +186,39 @@ async function AdminDashboardContent() {
               </Link>
             )}
 
-            <Link href="/">
+            <Link href="/" title="Home" aria-label="Home">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 text-xs h-9 flex items-center gap-1.5 shadow-xs"
+                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 h-9 w-9 p-0 flex items-center justify-center shadow-xs"
+                title="Home"
+                aria-label="Home"
               >
-                <Home className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>← Home</span>
+                <Home className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </Button>
             </Link>
 
-            <ThemeToggle />
+            {/* Mode & Sign Out pushed a little to the right */}
+            <div className="flex items-center gap-2 sm:gap-3 ml-1 sm:ml-2">
+              <ThemeToggle />
 
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <Button
-                type="submit"
-                variant="outline"
-                size="sm"
-                className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-white hover:bg-rose-50 dark:hover:bg-white/10 text-xs h-9 shadow-xs"
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut({ redirectTo: "/login" });
+                }}
               >
-                <LogOut className="w-3.5 h-3.5 mr-1.5" />
-                <span>Sign Out</span>
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="border-zinc-200 dark:border-white/15 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-white hover:bg-rose-50 dark:hover:bg-white/10 text-xs h-9 px-2.5 sm:px-3 shadow-xs flex items-center gap-1.5 whitespace-nowrap"
+                >
+                  <LogOut className="w-3.5 h-3.5 text-rose-500 sm:text-current" />
+                  <span>Sign Out</span>
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
 

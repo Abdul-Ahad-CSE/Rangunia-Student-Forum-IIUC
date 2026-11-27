@@ -210,3 +210,7 @@
   - **Navbar Subtitle Removal:** Excised the "IIUC Chapter" text and pulse indicator from the brand lockup, eliminating vertical height blowout.
   - **Brand Lockup Realignment:** Beautifully aligned "Rangunia Students Forum" with single-line whitespace preservation (`whitespace-nowrap`), centered flex layout, and responsive typography (`text-sm sm:text-base md:text-lg font-bold`), completely resolving mobile line breaks and hero banner collision.
   - **Build Verification & Zero Functional Mutation:** Validated compilation with `npm run build` and preserved drawer navigation links and routing.
+- [x] Phase 35: Admin Dashboard Header Polish — Icon-Only Home & Spacing Balance
+  - **Icon-Only Home Navigation:** Replaced the wide `← Home` text button on `/admin/dashboard` with a compact `Home` icon-only trigger (`h-9 w-9 p-0`), saving ~50px of horizontal space on mobile viewports.
+  - **Mode & Sign-Out Spacing Adjustment:** Grouped the Theme Toggle and Sign Out actions with a dedicated left margin (`ml-1 sm:ml-2`), nudging them comfortably to the right without crowding.
+  - **Sign-Out Clipping Elimination:** Added `whitespace-nowrap` and optimized button padding to guarantee the Sign Out button is never clipped or cut off on mobile devices.
