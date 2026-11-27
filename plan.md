@@ -214,3 +214,8 @@
   - **Icon-Only Home Navigation:** Replaced the wide `← Home` text button on `/admin/dashboard` with a compact `Home` icon-only trigger (`h-9 w-9 p-0`), saving ~50px of horizontal space on mobile viewports.
   - **Mode & Sign-Out Spacing Adjustment:** Grouped the Theme Toggle and Sign Out actions with a dedicated left margin (`ml-1 sm:ml-2`), nudging them comfortably to the right without crowding.
   - **Sign-Out Clipping Elimination:** Added `whitespace-nowrap` and optimized button padding to guarantee the Sign Out button is never clipped or cut off on mobile devices.
+- [x] Phase 36: Public Navbar Floating Island Redesign & Icon-Only Sign-In Standardization
+  - **Floating Island Pill Architecture:** Refactored `<nav>` from edge-to-edge full width into a sleek floating pill (`top-2.5 sm:top-4`, `max-w-6xl`, `rounded-2xl`, tinted off-white `#f4f7f5`/90 light mode & `#07130f`/85 dark mode with backdrop blur and elevation shadow).
+  - **Compact Island Geometry:** Scaled navbar height to `h-14 sm:h-16` and adjusted inner container padding to `px-3.5 sm:px-6` with responsive logo sizing (`sm:h-10 sm:w-10`).
+  - **Mobile Sign-In Standardization:** Converted unauthenticated mobile text button into a dedicated icon-only trigger (`LogIn` icon, `h-9 w-9 rounded-xl`), positioned with `<ThemeToggle />` on its left to achieve 100% geometric symmetry with the authenticated student state.
+  - **Floating Mobile Drawer Menu:** Upgraded drawer sheet into a detached floating card with `mt-2 rounded-2xl` matching the island pill styling.

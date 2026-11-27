@@ -12,6 +12,7 @@ import {
   KeyRound,
   GraduationCap,
   Briefcase,
+  LogIn,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
@@ -57,19 +58,19 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-zinc-200/80 dark:border-white/10 bg-white/85 dark:bg-black/40 backdrop-blur-xl transition-all">
-      <Container className="flex h-16 sm:h-20 items-center justify-between">
+    <nav className="fixed top-2.5 sm:top-4 left-3 right-3 sm:left-6 sm:right-6 max-w-6xl mx-auto z-40 rounded-2xl border border-zinc-200/90 dark:border-white/10 bg-[#f4f7f5]/90 dark:bg-[#07130f]/85 backdrop-blur-xl shadow-md shadow-zinc-950/[0.04] dark:shadow-black/40 transition-all">
+      <Container className="flex h-14 sm:h-16 px-3.5 sm:px-6 items-center justify-between">
         {/* Brand Lockup */}
         <Link
           href="/"
           className="flex items-center gap-2.5 sm:gap-3 transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg p-1 shrink-0"
         >
-          <div className="relative h-9 w-9 sm:h-11 sm:w-11 shrink-0 overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-1 shadow-md">
+          <div className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-1 shadow-md">
             <Image
               src="/images/rsf_logo.png"
               alt="RSF Logo"
-              width={44}
-              height={44}
+              width={40}
+              height={40}
               className="h-full w-full object-contain"
               priority
             />
@@ -173,13 +174,13 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
               </Button>
             </Link>
           ) : (
-            <Link href="/login">
+            <Link href="/login" title="Sign In" aria-label="Sign In">
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                className="text-xs text-zinc-700 dark:text-zinc-200 h-9 px-3 border border-zinc-200 dark:border-white/10 bg-zinc-100/80 dark:bg-white/5 font-medium"
+                className="h-9 w-9 p-0 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-200/80 dark:hover:bg-white/10 flex items-center justify-center shadow-xs"
               >
-                Sign In
+                <LogIn className="w-4 h-4" />
               </Button>
             </Link>
           )}
@@ -196,7 +197,7 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#06100c]/95 backdrop-blur-2xl px-6 py-6 md:hidden">
+        <div className="mt-2 rounded-2xl border border-zinc-200/90 dark:border-white/10 bg-[#f4f7f5]/95 dark:bg-[#06100c]/95 backdrop-blur-2xl p-5 shadow-2xl md:hidden">
           <div className="flex flex-col space-y-4">
             <Link
               href="/directory"
