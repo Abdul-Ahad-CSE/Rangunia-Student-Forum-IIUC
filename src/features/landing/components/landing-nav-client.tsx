@@ -62,28 +62,22 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
         {/* Brand Lockup */}
         <Link
           href="/"
-          className="flex items-center gap-3 transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg p-1"
+          className="flex items-center gap-2.5 sm:gap-3 transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg p-1 shrink-0"
         >
-          <div className="relative h-10 w-10 sm:h-12 sm:w-12 overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-1 shadow-md">
+          <div className="relative h-9 w-9 sm:h-11 sm:w-11 shrink-0 overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-1 shadow-md">
             <Image
               src="/images/rsf_logo.png"
               alt="RSF Logo"
-              width={48}
-              height={48}
+              width={44}
+              height={44}
               className="h-full w-full object-contain"
               priority
             />
           </div>
-          <div className="flex flex-col text-left">
-            <span className="font-bold tracking-tight text-zinc-900 dark:text-white text-sm sm:text-base leading-tight">
+          <div className="flex flex-col justify-center text-left">
+            <span className="font-bold tracking-tight text-zinc-900 dark:text-white text-sm sm:text-base md:text-lg leading-tight whitespace-nowrap">
               Rangunia Students Forum
             </span>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase">
-                IIUC Chapter
-              </span>
-              <span className="inline-block h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
           </div>
         </Link>
 
@@ -131,14 +125,13 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
           {user ? (
-            <Link href={dashboardHref}>
+            <Link href={dashboardHref} title={dashboardLabel} aria-label={dashboardLabel}>
               <Button
                 size="sm"
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 px-3.5 shadow-md shadow-emerald-950 flex items-center gap-2 border border-emerald-400/30 transition-all hover:scale-[1.02]"
+                className="h-9 w-9 p-0 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-md shadow-emerald-950 flex items-center justify-center border border-emerald-400/30 transition-all hover:scale-[1.05]"
+                aria-label={dashboardLabel}
               >
-                <RoleIcon className="w-3.5 h-3.5 text-emerald-200" />
-                <span>{dashboardLabel}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <RoleIcon className="w-4 h-4 text-white" />
               </Button>
             </Link>
           ) : (
@@ -169,14 +162,14 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
         <div className="flex md:hidden items-center gap-2">
           <ThemeToggle />
           {user ? (
-            <Link href={dashboardHref}>
+            <Link href={dashboardHref} title={dashboardLabel} aria-label={dashboardLabel}>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-xs text-emerald-700 dark:text-emerald-300 h-9 px-2.5 border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 font-medium flex items-center gap-1.5"
+                className="h-9 w-9 p-0 rounded-xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 flex items-center justify-center hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-all shadow-sm"
+                aria-label={dashboardLabel}
               >
-                <RoleIcon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span className="max-w-[100px] truncate">{dashboardLabel}</span>
+                <RoleIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </Button>
             </Link>
           ) : (
@@ -192,11 +185,11 @@ export function LandingNavClient({ session }: LandingNavClientProps) {
           )}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 dark:border-white/15 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200 dark:border-white/15 bg-zinc-100/80 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
             aria-label="Toggle Navigation Menu"
             aria-expanded={isOpen}
           >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </Container>
