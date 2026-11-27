@@ -139,13 +139,13 @@ export function AlumniProfileForm({ initialData }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* SECTION 1: Academic & Personal Information */}
-      <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/85 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
         <CardHeader className="border-b border-white/5 pb-4">
-          <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+          <CardTitle className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-teal-400" />
             <span>Academic &amp; Personal Information</span>
           </CardTitle>
-          <CardDescription className="text-xs text-zinc-400">
+          <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400">
             Update your present residence, forum contributions, professional employment, and career trajectory.
           </CardDescription>
         </CardHeader>
@@ -153,7 +153,7 @@ export function AlumniProfileForm({ initialData }: Props) {
         <CardContent className="pt-6 space-y-4">
           {/* Present Address */}
           <div className="space-y-2">
-            <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-teal-400" />
               <span>Present Address</span>
             </Label>
@@ -162,14 +162,14 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="e.g. Nasirabad, Chittagong / Dhanmondi, Dhaka / London, UK"
               value={presentAddress}
               onChange={(e) => setPresentAddress(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Forum Role */}
             <div className="space-y-2">
-              <Label htmlFor="forumRole" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="forumRole" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-teal-400" />
                 <span>Forum Role</span>
               </Label>
@@ -178,13 +178,13 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Former President, Senior Advisor, General Member"
                 value={forumRole}
                 onChange={(e) => setForumRole(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
 
             {/* Academic CGPA */}
             <div className="space-y-2">
-              <Label htmlFor="cgpa" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="cgpa" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                 <span>Academic CGPA</span>
               </Label>
@@ -193,14 +193,14 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. 3.82"
                 value={cgpa}
                 onChange={(e) => setCgpa(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
           </div>
 
           {/* Skills */}
           <div className="space-y-2">
-            <Label htmlFor="skills" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="skills" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-teal-400" />
               <span>Skills</span>
             </Label>
@@ -209,14 +209,14 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="e.g. Cloud Architecture, Machine Learning, Leadership, FinTech"
               value={skills}
               onChange={(e) => setSkills(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Job Position / Business */}
             <div className="space-y-2">
-              <Label htmlFor="jobPosition" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="jobPosition" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Briefcase className="w-3.5 h-3.5 text-teal-400" />
                 <span>Job Position / Business</span>
               </Label>
@@ -225,13 +225,13 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Principal Software Engineer, Founder &amp; CEO"
                 value={jobPosition}
                 onChange={(e) => setJobPosition(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
 
             {/* Industry */}
             <div className="space-y-2">
-              <Label htmlFor="industry" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="industry" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Building2 className="w-3.5 h-3.5 text-teal-400" />
                 <span>Industry</span>
               </Label>
@@ -240,7 +240,7 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Information Technology, Banking, Telecommunications"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
           </div>
@@ -248,7 +248,7 @@ export function AlumniProfileForm({ initialData }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Work Location */}
             <div className="space-y-2">
-              <Label htmlFor="workLocation" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="workLocation" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-teal-400" />
                 <span>Work Location</span>
               </Label>
@@ -257,13 +257,13 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Dhaka, Chittagong, Remote, Dubai"
                 value={workLocation}
                 onChange={(e) => setWorkLocation(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
 
             {/* Experience */}
             <div className="space-y-2">
-              <Label htmlFor="experience" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="experience" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-teal-400" />
                 <span>Experience</span>
               </Label>
@@ -272,14 +272,14 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. 5 years, 8 years"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
           </div>
 
           {/* Personal & Professional Details */}
           <div className="space-y-2">
-            <Label htmlFor="personalDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="personalDetails" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-teal-400" />
               <span>Personal &amp; Professional Details</span>
             </Label>
@@ -289,20 +289,20 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="Share career milestones, areas of mentorship expertise, or advice for junior Rangunia students..."
               value={personalDetails}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPersonalDetails(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
           </div>
         </CardContent>
       </Card>
 
       {/* SECTION 2: Higher Education Section */}
-      <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/85 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
         <CardHeader className="border-b border-white/5 pb-4">
-          <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+          <CardTitle className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-teal-400" />
             <span>Higher Education</span>
           </CardTitle>
-          <CardDescription className="text-xs text-zinc-400">
+          <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400">
             Share postgraduate studies, overseas academic accomplishments, research publications, and scholarships.
           </CardDescription>
         </CardHeader>
@@ -311,7 +311,7 @@ export function AlumniProfileForm({ initialData }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Current University */}
             <div className="space-y-2">
-              <Label htmlFor="higherStudyUniversity" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="higherStudyUniversity" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-teal-400" />
                 <span>Current University</span>
               </Label>
@@ -320,13 +320,13 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Sapienza University of Rome, Technical University of Munich"
                 value={higherStudyUniversity}
                 onChange={(e) => setHigherStudyUniversity(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
 
             {/* Country */}
             <div className="space-y-2">
-              <Label htmlFor="higherStudyCountry" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="higherStudyCountry" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Compass className="w-3.5 h-3.5 text-teal-400" />
                 <span>Country</span>
               </Label>
@@ -335,7 +335,7 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Italy, United States, Germany, Japan"
                 value={higherStudyCountry}
                 onChange={(e) => setHigherStudyCountry(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
           </div>
@@ -343,7 +343,7 @@ export function AlumniProfileForm({ initialData }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Degree */}
             <div className="space-y-2">
-              <Label htmlFor="higherStudyDegree" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="higherStudyDegree" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-teal-400" />
                 <span>Degree</span>
               </Label>
@@ -352,13 +352,13 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. MSc in Computer Science, PhD, MBA"
                 value={higherStudyDegree}
                 onChange={(e) => setHigherStudyDegree(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
 
             {/* Scholarship */}
             <div className="space-y-2">
-              <Label htmlFor="scholarshipInfo" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="scholarshipInfo" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                 <span>Scholarship</span>
               </Label>
@@ -367,14 +367,14 @@ export function AlumniProfileForm({ initialData }: Props) {
                 placeholder="e.g. Erasmus Mundus, Fulbright, DAAD, Government Grant"
                 value={scholarshipInfo}
                 onChange={(e) => setScholarshipInfo(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
               />
             </div>
           </div>
 
           {/* Research / Thesis Title */}
           <div className="space-y-2">
-            <Label htmlFor="researchThesisTitle" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="researchThesisTitle" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-teal-400" />
               <span>Research / Thesis Title</span>
             </Label>
@@ -383,13 +383,13 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="e.g. Optimizing Distributed Machine Learning Pipelines in Heterogeneous Clouds"
               value={researchThesisTitle}
               onChange={(e) => setResearchThesisTitle(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
             />
           </div>
 
           {/* Higher Education Details */}
           <div className="space-y-2">
-            <Label htmlFor="higherEducationDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="higherEducationDetails" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-teal-400" />
               <span>Higher Education Details</span>
             </Label>
@@ -399,20 +399,20 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="Describe your research focus, lab affiliation, supervisor, publications, or postgrad highlights..."
               value={higherEducationDetails}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHigherEducationDetails(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
           </div>
         </CardContent>
       </Card>
 
       {/* 3. Mentorship Settings */}
-      <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
         <CardHeader className="pb-3 border-b border-white/5">
-          <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+          <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-teal-400" />
             <span>Mentorship Settings</span>
           </CardTitle>
-          <CardDescription className="text-xs text-zinc-400">
+          <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400">
             Offer career mentorship, academic advice, or industry guidance to current IIUC students.
           </CardDescription>
         </CardHeader>
@@ -421,7 +421,7 @@ export function AlumniProfileForm({ initialData }: Props) {
           {/* Availability Toggle */}
           <div className="flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/[0.02]">
             <div className="space-y-0.5">
-              <Label htmlFor="mentorshipAvailable" className="text-xs font-semibold text-white cursor-pointer">
+              <Label htmlFor="mentorshipAvailable" className="text-xs font-semibold text-zinc-900 dark:text-white cursor-pointer">
                 Available for mentorship?
               </Label>
               <p className="text-[11px] text-zinc-400">
@@ -437,7 +437,7 @@ export function AlumniProfileForm({ initialData }: Props) {
 
           {/* Mentorship Details & Opportunities */}
           <div className="space-y-2">
-            <Label htmlFor="mentorshipDetails" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="mentorshipDetails" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-teal-400" />
               <span>Mentorship Details &amp; Opportunities</span>
             </Label>
@@ -447,7 +447,7 @@ export function AlumniProfileForm({ initialData }: Props) {
               placeholder="e.g. Open to mentoring students in Full-Stack Web Development, reviewing CVs for tech roles, or offering guidance for MSc admissions in Europe..."
               value={mentorshipDetails}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMentorshipDetails(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
           </div>
         </CardContent>

@@ -70,19 +70,19 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
   };
 
   return (
-    <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
-      <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
+    <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/85 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl">
+      <CardHeader className="pb-3 border-b border-zinc-200 dark:border-white/5 flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-            <UserCheck className="w-4 h-4 text-teal-400" />
+          <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <UserCheck className="w-4 h-4 text-teal-500 dark:text-teal-400" />
             <span>Mentorship Requests</span>
             {requests.length > 0 && (
-              <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/30 font-mono text-[10px] px-1.5 py-0">
+              <Badge className="bg-teal-500/20 text-teal-700 dark:text-teal-300 border-teal-500/30 font-mono text-[10px] px-1.5 py-0">
                 {requests.length} New
               </Badge>
             )}
           </CardTitle>
-          <CardDescription className="text-xs text-zinc-400 pt-0.5">
+          <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400 pt-0.5">
             Review and respond to mentorship requests from university students.
           </CardDescription>
         </div>
@@ -90,8 +90,8 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
 
       <CardContent className="pt-4">
         {requests.length === 0 ? (
-          <div className="py-8 text-center text-zinc-500 space-y-2">
-            <Inbox className="w-8 h-8 mx-auto text-zinc-600" />
+          <div className="py-8 text-center text-zinc-500 dark:text-zinc-400 space-y-2">
+            <Inbox className="w-8 h-8 mx-auto text-zinc-400 dark:text-zinc-600" />
             <p className="text-xs">No pending mentorship requests at this time.</p>
           </div>
         ) : (
@@ -107,11 +107,11 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
               return (
                 <div
                   key={req.id}
-                  className="p-3.5 rounded-xl border border-white/5 bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors hover:bg-white/[0.04]"
+                  className="p-3.5 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors hover:bg-zinc-100 dark:hover:bg-white/[0.04]"
                 >
                   <div className="flex items-start gap-3 min-w-0 flex-1">
                     {/* Student Avatar */}
-                    <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center text-teal-300 font-bold font-mono text-sm">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center text-teal-700 dark:text-teal-300 font-bold font-mono text-sm">
                       {req.student.photoUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -128,24 +128,24 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
                       <div className="flex items-center gap-2 flex-wrap">
                         <Link
                           href={`/directory/${req.student.id}`}
-                          className="font-semibold text-white text-xs sm:text-sm hover:text-teal-300 transition-colors flex items-center gap-1 group"
+                          className="font-semibold text-zinc-900 dark:text-white text-xs sm:text-sm hover:text-teal-600 dark:hover:text-teal-300 transition-colors flex items-center gap-1 group"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <span className="truncate">{req.student.fullName}</span>
-                          <ExternalLink className="w-3 h-3 text-zinc-500 group-hover:text-teal-400 shrink-0" />
+                          <ExternalLink className="w-3 h-3 text-zinc-400 dark:text-zinc-500 group-hover:text-teal-600 dark:group-hover:text-teal-400 shrink-0" />
                         </Link>
                         <Badge
                           variant="outline"
-                          className="border-emerald-500/20 bg-emerald-950/20 text-emerald-300 text-[10px] font-normal"
+                          className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-300 text-[10px] font-normal"
                         >
                           {req.student.department}
                         </Badge>
                       </div>
 
-                      <p className="text-[11px] text-zinc-400 flex items-center gap-2">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 flex items-center gap-2">
                         <span>Session: {req.student.session}</span>
-                        <span className="text-zinc-600">•</span>
+                        <span className="text-zinc-400 dark:text-zinc-600">•</span>
                         <span className="flex items-center gap-1 text-zinc-500">
                           <Clock className="w-3 h-3" />
                           <span>{formattedDate}</span>
@@ -154,8 +154,8 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
 
                       {req.notes && (
                         <div className="pt-1">
-                          <p className="text-[11px] text-zinc-300 bg-black/30 p-2 rounded-lg border border-white/5 flex items-start gap-1.5 leading-relaxed">
-                            <MessageSquare className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
+                          <p className="text-[11px] text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-black/30 p-2 rounded-lg border border-zinc-200 dark:border-white/5 flex items-start gap-1.5 leading-relaxed">
+                            <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
                             <span>&ldquo;{req.notes}&rdquo;</span>
                           </p>
                         </div>
@@ -164,13 +164,13 @@ export function MentorshipRequestsManager({ requests }: MentorshipRequestsManage
                   </div>
 
                   {/* Accept / Decline Action Buttons */}
-                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5">
+                  <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-zinc-200 dark:border-white/5">
                     <Button
                       type="button"
                       size="sm"
                       disabled={isBusy}
                       onClick={() => handleDecline(req.id)}
-                      className="h-8 px-2.5 text-xs border border-white/10 bg-white/5 hover:bg-rose-950/30 hover:border-rose-500/30 hover:text-rose-300 text-zinc-300 transition-colors"
+                      className="h-8 px-2.5 text-xs border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:border-rose-500/30 hover:text-rose-700 dark:hover:text-rose-300 text-zinc-700 dark:text-zinc-300 transition-colors"
                     >
                       {isBusy ? (
                         <Loader2 className="w-3 h-3 animate-spin" />

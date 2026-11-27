@@ -186,13 +186,13 @@ export function ActivityFormDialog({
         }
       />
 
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#07130f] border border-white/10 text-white p-6 rounded-2xl shadow-2xl">
-        <DialogHeader className="border-b border-white/10 pb-4">
-          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-emerald-400" />
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#07130f] border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white p-6 rounded-2xl shadow-2xl">
+        <DialogHeader className="border-b border-zinc-200 dark:border-white/10 pb-4">
+          <DialogTitle className="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <Activity className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <span>{mode === "create" ? "Document New Forum Activity" : "Edit Activity"}</span>
           </DialogTitle>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-zinc-600 dark:text-zinc-400">
             {mode === "create"
               ? "Publish social initiatives, workshops, volunteer drives, or relief activities."
               : "Update activity details, schedule, location, or photo gallery."}
@@ -202,15 +202,15 @@ export function ActivityFormDialog({
         <form onSubmit={handleSubmit} className="space-y-5 pt-4">
           {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="activity-title" className="text-xs font-semibold text-zinc-300">
-              Activity Title <span className="text-rose-400">*</span>
+            <Label htmlFor="activity-title" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Activity Title <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Input
               id="activity-title"
               placeholder="e.g. Winter Clothes Distribution in Rangunia & Betagi"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-sm"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-sm"
               required
             />
           </div>
@@ -218,46 +218,46 @@ export function ActivityFormDialog({
           {/* Date, Time, Location */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="activity-date" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Date</span> <span className="text-rose-400">*</span>
+              <Label htmlFor="activity-date" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Date</span> <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 id="activity-date"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="border-white/10 bg-white/5 text-white focus-visible:border-emerald-500 text-xs [color-scheme:dark]"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white focus-visible:border-emerald-500 text-xs"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="activity-time" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Time Span</span> <span className="text-rose-400">*</span>
+              <Label htmlFor="activity-time" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Time Span</span> <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 id="activity-time"
                 placeholder="e.g. 10:00 AM - 3:00 PM"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="activity-location" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Location</span> <span className="text-rose-400">*</span>
+              <Label htmlFor="activity-location" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Location</span> <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 id="activity-location"
                 placeholder="e.g. Rangunia College Premises"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs"
                 required
               />
             </div>
@@ -266,10 +266,10 @@ export function ActivityFormDialog({
           {/* Multiple Photos Upload (Cloudinary) */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-semibold text-zinc-300">
+              <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                 Activity Photos &amp; Highlights ({photos.length} uploaded)
               </Label>
-              <span className="text-[10px] text-zinc-400">
+              <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
                 First photo acts as the primary cover
               </span>
             </div>
@@ -319,17 +319,17 @@ export function ActivityFormDialog({
                 {({ open }) => (
                   <div
                     onClick={() => open?.()}
-                    className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
+                    className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-zinc-300 dark:border-white/15 bg-zinc-50 dark:bg-white/[0.02] hover:bg-zinc-100 dark:hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                      <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
                         <UploadCloud className="w-5 h-5" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                        <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                           Upload Activity Photos
                         </p>
-                        <p className="text-[10px] text-zinc-500">
+                        <p className="text-[11px] text-zinc-500">
                           Select one or multiple photos (PNG, JPG, WebP up to 5MB each)
                         </p>
                       </div>
@@ -339,7 +339,7 @@ export function ActivityFormDialog({
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                      className="h-7 text-xs border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
                     >
                       Add Photos
                     </Button>
@@ -354,7 +354,7 @@ export function ActivityFormDialog({
                 {photos.map((url, idx) => (
                   <div
                     key={idx}
-                    className="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-zinc-950 group shadow-md"
+                    className="relative aspect-video rounded-xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-950 group shadow-md"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -388,8 +388,8 @@ export function ActivityFormDialog({
 
           {/* Description */}
           <div className="space-y-2">
-            <Label htmlFor="activity-description" className="text-xs font-semibold text-zinc-300">
-              Activity Description &amp; Impact <span className="text-rose-400">*</span>
+            <Label htmlFor="activity-description" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Activity Description &amp; Impact <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Textarea
               id="activity-description"
@@ -397,20 +397,20 @@ export function ActivityFormDialog({
               placeholder="Describe what occurred, beneficiaries reached, volunteer involvement, and community impact..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-y"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-y"
               required
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-white/10">
             <Button
               type="button"
               variant="outline"
               size="sm"
               disabled={isSubmitting}
               onClick={() => setOpen(false)}
-              className="border-white/10 text-zinc-300 hover:text-white text-xs"
+              className="border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white text-xs"
             >
               Cancel
             </Button>

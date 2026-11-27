@@ -46,19 +46,19 @@ async function ApprovalsDashboardContent() {
   // Access Denied Gate
   if (!hasCapability) {
     return (
-      <div className="min-h-screen bg-[#040907] flex items-center justify-center p-4 text-white">
+      <div className="min-h-screen bg-zinc-50 dark:bg-[#040907] flex items-center justify-center p-4 text-zinc-900 dark:text-white">
         <div className="max-w-md w-full p-8 rounded-2xl border border-destructive/40 bg-destructive/10 text-center space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-destructive/20 border border-destructive/40 flex items-center justify-center mx-auto text-rose-400">
+          <div className="w-14 h-14 rounded-2xl bg-destructive/20 border border-destructive/40 flex items-center justify-center mx-auto text-rose-500 dark:text-rose-400">
             <ShieldAlert className="w-8 h-8" />
           </div>
-          <h2 className="text-xl font-bold text-white">Administrative Access Denied</h2>
-          <p className="text-xs text-zinc-300 leading-relaxed">
-            Your executive account does not possess the <code className="text-rose-300 font-mono">canManageProfiles</code> permission.
+          <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Administrative Access Denied</h2>
+          <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            Your executive account does not possess the <code className="text-rose-600 dark:text-rose-300 font-mono">canManageProfiles</code> permission.
             Please request approval capability access from the Super Admin.
           </p>
           <div className="pt-2">
             <Link href="/admin/dashboard">
-              <Button variant="outline" className="border-white/10 text-white text-xs">
+              <Button variant="outline" className="border-zinc-200 dark:border-white/10 text-zinc-800 dark:text-white text-xs">
                 <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
                 <span>Return to Admin Dashboard</span>
               </Button>

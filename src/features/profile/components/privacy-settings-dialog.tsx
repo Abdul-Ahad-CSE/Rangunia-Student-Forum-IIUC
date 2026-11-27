@@ -120,23 +120,23 @@ export function PrivacySettingsDialog({ initialSettings }: PrivacySettingsDialog
         <span>Manage Privacy</span>
       </DialogTrigger>
 
-      <DialogContent className="border border-white/10 bg-[#07130f] text-white shadow-2xl sm:max-w-lg p-6">
-        <DialogHeader className="border-b border-white/5 pb-4">
+      <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f] text-zinc-900 dark:text-white shadow-2xl sm:max-w-lg p-6">
+        <DialogHeader className="border-b border-zinc-200 dark:border-white/5 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <DialogTitle className="text-base font-bold text-white flex items-center gap-2">
+              <DialogTitle className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
                 <span>Public Privacy Controls</span>
                 <Badge
                   variant="outline"
-                  className="border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-[10px] font-mono"
+                  className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-mono"
                 >
                   Server Shield Active
                 </Badge>
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-400 mt-0.5">
+              <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
                 Toggle which fields are visible in the public directory. Changes apply instantly.
               </DialogDescription>
             </div>
@@ -153,21 +153,21 @@ export function PrivacySettingsDialog({ initialSettings }: PrivacySettingsDialog
             return (
               <div
                 key={item.key}
-                className="flex items-center justify-between p-3.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors gap-3"
+                className="flex items-center justify-between p-3.5 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] hover:bg-zinc-100 dark:hover:bg-white/[0.04] transition-colors gap-3"
               >
                 <div className="flex items-start gap-3 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="space-y-0.5 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-xs font-semibold text-white truncate">{item.title}</p>
+                      <p className="text-xs font-semibold text-zinc-900 dark:text-white truncate">{item.title}</p>
                       <Badge
                         variant="outline"
                         className={
                           isVisible
-                            ? "border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-[9px] py-0 px-1.5"
-                            : "border-zinc-700 bg-zinc-900/60 text-zinc-400 text-[9px] py-0 px-1.5"
+                            ? "border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[9px] py-0 px-1.5"
+                            : "border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-400 text-[9px] py-0 px-1.5"
                         }
                       >
                         {isVisible ? (
@@ -181,7 +181,7 @@ export function PrivacySettingsDialog({ initialSettings }: PrivacySettingsDialog
                         )}
                       </Badge>
                     </div>
-                    <p className="text-[11px] text-zinc-400 leading-snug">{item.description}</p>
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">{item.description}</p>
                   </div>
                 </div>
 

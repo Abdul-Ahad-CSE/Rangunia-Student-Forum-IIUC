@@ -50,20 +50,20 @@ export function EventRegistrationsTable({
   return (
     <div className="space-y-4">
       {/* Search & Counter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl shadow-sm">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500" />
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search registrations by name, student ID, department..."
-            className="pl-9.5 border-white/10 bg-black/40 text-white placeholder:text-zinc-500 text-xs sm:text-sm focus-visible:border-emerald-500 rounded-xl h-9"
+            className="pl-9.5 border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-black/40 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs sm:text-sm focus-visible:border-emerald-500 rounded-xl h-9"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-mono text-xs px-3 py-1">
-            <Users className="w-3.5 h-3.5 mr-1 text-emerald-400" />
+          <Badge className="bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/40 font-mono text-xs px-3 py-1">
+            <Users className="w-3.5 h-3.5 mr-1 text-emerald-600 dark:text-emerald-400" />
             <span>Total Registered: {registrations.length}</span>
           </Badge>
         </div>
@@ -71,9 +71,9 @@ export function EventRegistrationsTable({
 
       {/* Registrations List / Table */}
       {filtered.length === 0 ? (
-        <div className="p-12 text-center rounded-2xl border border-white/10 bg-white/[0.02]">
-          <Users className="w-10 h-10 text-zinc-500 mx-auto mb-3 opacity-60" />
-          <h3 className="text-base font-semibold text-white">
+        <div className="p-12 text-center rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02]">
+          <Users className="w-10 h-10 text-zinc-400 dark:text-zinc-500 mx-auto mb-3 opacity-60" />
+          <h3 className="text-base font-semibold text-zinc-900 dark:text-white">
             {registrations.length === 0
               ? "No member registrations recorded yet"
               : "No registrations match your search filter"}
@@ -85,10 +85,10 @@ export function EventRegistrationsTable({
           </p>
         </div>
       ) : (
-        <div className="rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl overflow-hidden shadow-xl">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/80 backdrop-blur-xl overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="border-b border-white/10 bg-white/[0.02] text-zinc-400 font-mono text-[11px] uppercase">
+              <thead className="border-b border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02] text-zinc-600 dark:text-zinc-400 font-mono text-[11px] uppercase">
                 <tr>
                   <th className="py-3.5 px-4 font-semibold">Member</th>
                   <th className="py-3.5 px-4 font-semibold">Student ID</th>
@@ -98,7 +98,7 @@ export function EventRegistrationsTable({
                   <th className="py-3.5 px-4 text-right font-semibold">Profile</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-zinc-300">
+              <tbody className="divide-y divide-zinc-200 dark:divide-white/5 text-zinc-700 dark:text-zinc-300">
                 {filtered.map((item, idx) => {
                   const u = item.user;
                   const regDate = new Date(item.createdAt).toLocaleDateString("en-US", {
@@ -110,13 +110,13 @@ export function EventRegistrationsTable({
                   });
 
                   return (
-                    <tr key={item.id} className="hover:bg-white/[0.02] transition-colors">
+                    <tr key={item.id} className="hover:bg-zinc-50 dark:hover:bg-white/[0.02] transition-colors">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
-                          <span className="text-zinc-500 font-mono text-[10px] w-5 text-right">
+                          <span className="text-zinc-400 dark:text-zinc-500 font-mono text-[10px] w-5 text-right">
                             {idx + 1}.
                           </span>
-                          <div className="w-8 h-8 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center font-bold text-white text-xs">
+                          <div className="w-8 h-8 rounded-lg overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center font-bold text-zinc-900 dark:text-white text-xs">
                             {u.photoUrl ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img src={u.photoUrl} alt={u.fullName} className="w-full h-full object-cover" />
@@ -124,19 +124,19 @@ export function EventRegistrationsTable({
                               u.fullName.charAt(0).toUpperCase()
                             )}
                           </div>
-                          <span className="font-semibold text-white truncate max-w-[180px]">
+                          <span className="font-semibold text-zinc-900 dark:text-white truncate max-w-[180px]">
                             {u.fullName}
                           </span>
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 font-mono text-emerald-400">
+                      <td className="py-3 px-4 font-mono text-emerald-600 dark:text-emerald-400">
                         {u.studentId}
                       </td>
 
                       <td className="py-3 px-4">
                         <div className="space-y-0.5">
-                          <p className="text-white font-medium">{u.department}</p>
+                          <p className="text-zinc-900 dark:text-white font-medium">{u.department}</p>
                           <p className="text-[11px] text-zinc-500">
                             {u.session} {u.batch ? `• Batch ${u.batch}` : ""}
                           </p>

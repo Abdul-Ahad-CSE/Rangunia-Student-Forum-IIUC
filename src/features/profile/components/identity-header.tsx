@@ -105,9 +105,9 @@ export function IdentityHeader({
               type="button"
               variant="ghost"
               size="sm"
-              className="h-8 px-2.5 text-xs text-zinc-300 hover:text-white hover:bg-white/10 flex items-center gap-1.5"
+              className="h-8 px-2.5 text-xs text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 flex items-center gap-1.5"
             >
-              <Home className="w-3.5 h-3.5 text-emerald-400" />
+              <Home className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>← Home</span>
             </Button>
           </Link>
@@ -117,7 +117,7 @@ export function IdentityHeader({
             variant="ghost"
             size="sm"
             onClick={() => onSignOut()}
-            className="h-8 px-2.5 text-xs text-zinc-300 hover:text-white hover:bg-white/10"
+            className="h-8 px-2.5 text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-white hover:bg-rose-50 dark:hover:bg-white/10"
           >
             <LogOut className="w-3.5 h-3.5 mr-1" />
             <span>Sign Out</span>
@@ -276,10 +276,10 @@ export function IdentityHeader({
             {/* 3. Batch */}
             <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] font-medium text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <Hash className="w-3 h-3 text-emerald-400" />
+                <Hash className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Batch</span>
               </span>
-              <span className="text-white font-mono font-medium truncate block">
+              <span className="text-zinc-900 dark:text-white font-mono font-medium truncate block">
                 {batch ? (batch.toLowerCase().startsWith("batch") ? batch : `Batch: ${batch}`) : "Batch: N/A"}
               </span>
             </div>
@@ -287,7 +287,7 @@ export function IdentityHeader({
             {/* 4. Session */}
             <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] font-medium text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-emerald-400" />
+                <Calendar className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Session</span>
               </span>
               <span className="text-zinc-900 dark:text-white font-medium truncate block">
@@ -298,10 +298,10 @@ export function IdentityHeader({
             {/* 5. Blood Group */}
             <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] font-medium text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <Droplet className="w-3 h-3 text-rose-400" />
+                <Droplet className="w-3 h-3 text-rose-500 dark:text-rose-400" />
                 <span>Blood Group</span>
               </span>
-              <span className="text-rose-300 font-mono font-semibold truncate block">
+              <span className="text-rose-600 dark:text-rose-300 font-mono font-semibold truncate block">
                 {formattedBlood || "Unlisted"}
               </span>
             </div>
@@ -309,7 +309,7 @@ export function IdentityHeader({
             {/* 6. Gender (hardcoded/displayed as Male per forum privacy rules) */}
             <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] font-medium text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <UserIcon className="w-3 h-3 text-emerald-400" />
+                <UserIcon className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Gender</span>
               </span>
               <span className="text-zinc-900 dark:text-white font-medium truncate block">
@@ -320,10 +320,10 @@ export function IdentityHeader({
             {/* 7. Permanent Address (Spans 2 columns on sm) */}
             <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] col-span-2">
               <span className="text-[10px] font-medium text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-emerald-400" />
+                <MapPin className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Permanent Address (Rangunia Origin)</span>
               </span>
-              <span className="text-white font-medium truncate block" title={permanentAddress || "Rangunia, Chittagong"}>
+              <span className="text-zinc-900 dark:text-white font-medium truncate block" title={permanentAddress || "Rangunia, Chittagong"}>
                 {permanentAddress || "Rangunia, Chittagong"}
               </span>
             </div>

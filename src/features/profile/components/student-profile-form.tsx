@@ -94,13 +94,13 @@ export function StudentProfileForm({ userId, initialData }: Props) {
   };
 
   return (
-    <Card className="border border-white/10 bg-[#07130f]/85 backdrop-blur-xl text-white shadow-xl">
+    <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/85 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
       <CardHeader className="border-b border-white/5 pb-4">
-        <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+        <CardTitle className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-emerald-400" />
           <span>Academic & Personal Information</span>
         </CardTitle>
-        <CardDescription className="text-xs text-zinc-400">
+        <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400">
           Directly edit your academic trajectory, present campus address, career interests, and uploaded CV document.
         </CardDescription>
       </CardHeader>
@@ -109,7 +109,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* 1. Present Address */}
           <div className="space-y-2">
-            <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-emerald-400" />
               <span>Present Address (Campus / Hall / Mess)</span>
             </Label>
@@ -118,7 +118,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
               placeholder="e.g. Kumira Campus Area, Halishahar, Chittagong"
               value={presentAddress}
               onChange={(e) => setPresentAddress(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
             />
             <p className="text-[11px] text-zinc-500">
               Your active stay during academic semesters. Privacy can be controlled in Privacy Settings.
@@ -128,7 +128,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* 2. CGPA */}
             <div className="space-y-2">
-              <Label htmlFor="cgpa" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="cgpa" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Academic CGPA</span>
               </Label>
@@ -137,13 +137,13 @@ export function StudentProfileForm({ userId, initialData }: Props) {
                 placeholder="e.g. 3.82 (Optional)"
                 value={cgpa}
                 onChange={(e) => setCgpa(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
               />
             </div>
 
             {/* 3. Club/Forum Role */}
             <div className="space-y-2">
-              <Label htmlFor="clubRole" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+              <Label htmlFor="clubRole" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Club / Forum Role</span>
               </Label>
@@ -152,14 +152,14 @@ export function StudentProfileForm({ userId, initialData }: Props) {
                 placeholder="e.g. Moderator, Volunteer, General Member"
                 value={clubRole}
                 onChange={(e) => setClubRole(e.target.value)}
-                className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
               />
             </div>
           </div>
 
           {/* 4. Skills */}
           <div className="space-y-2">
-            <Label htmlFor="skills" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="skills" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
               <span>Skills (Comma-separated)</span>
             </Label>
@@ -168,7 +168,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
               placeholder="e.g. Python, Machine Learning, Next.js, Public Speaking"
               value={skills}
               onChange={(e) => setSkills(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
             />
             <p className="text-[11px] text-zinc-500">
               Separate each skill with a comma to help peers discover collaborators.
@@ -177,7 +177,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
 
           {/* 5. Interested Career Sector */}
           <div className="space-y-2">
-            <Label htmlFor="interestedSector" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="interestedSector" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <Compass className="w-3.5 h-3.5 text-emerald-400" />
               <span>Interested Career Sector</span>
             </Label>
@@ -186,7 +186,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
               placeholder="e.g. Web Development, AI/ML, Civil Engineering, Telecommunications"
               value={interestedSector}
               onChange={(e) => setInterestedSector(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
             />
           </div>
 
@@ -218,8 +218,8 @@ export function StudentProfileForm({ userId, initialData }: Props) {
               }}
             >
               {({ open }) => (
-                <div className="space-y-2.5 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                  <Label htmlFor="cvUpload" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <div className="space-y-2.5 p-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02]">
+                  <Label htmlFor="cvUpload" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                     <FileUp className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Curriculum Vitae / Resume (PDF Only)</span>
                   </Label>
@@ -256,7 +256,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
                           variant="outline"
                           size="sm"
                           onClick={() => open?.()}
-                          className="h-8 text-xs border-white/10 bg-white/5 text-zinc-200 hover:text-white"
+                          className="h-8 text-xs border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white"
                         >
                           Replace
                         </Button>
@@ -283,7 +283,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
                           <FileUp className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
+                          <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                             Upload PDF Resume / CV
                           </p>
                           <p className="text-[10px] text-zinc-500">
@@ -296,7 +296,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                        className="h-7 text-xs border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
                       >
                         Browse PDF
                       </Button>
@@ -309,7 +309,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
 
           {/* 7. Details / Bio */}
           <div className="space-y-2">
-            <Label htmlFor="details" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+            <Label htmlFor="details" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-emerald-400" />
               <span>Personal Details & Academic Interests</span>
             </Label>
@@ -319,7 +319,7 @@ export function StudentProfileForm({ userId, initialData }: Props) {
               placeholder="Tell other Rangunia students about your semester journey, project ideas, or campus activities..."
               value={details}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-none"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-none"
             />
           </div>
 

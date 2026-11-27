@@ -118,21 +118,21 @@ export function EventRecapDialog({
       )}
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="border border-white/10 bg-[#07130f]/95 backdrop-blur-2xl text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/95 backdrop-blur-2xl text-zinc-900 dark:text-white max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             <DialogHeader>
-              <DialogTitle className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-teal-400" />
+              <DialogTitle className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                 <span>Post-Event Recap &amp; Gallery</span>
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-300 leading-relaxed pt-1">
+              <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed pt-1">
                 Document outcomes, attendance highlights, key moments, and upload official gallery photos for &ldquo;{eventTitle}&rdquo;.
               </DialogDescription>
             </DialogHeader>
 
             {/* Recap Text */}
             <div className="space-y-1.5">
-              <Label htmlFor="post-event-recap" className="text-xs font-medium text-zinc-200">
+              <Label htmlFor="post-event-recap" className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
                 Event Summary &amp; Outcomes
               </Label>
               <Textarea
@@ -141,22 +141,22 @@ export function EventRecapDialog({
                 onChange={(e) => setRecap(e.target.value)}
                 placeholder="Share how the event went, notable guests, community participation, and forum accomplishments..."
                 rows={5}
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs focus-visible:border-teal-500 rounded-xl leading-relaxed"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs focus-visible:border-teal-500 rounded-xl leading-relaxed"
               />
             </div>
 
             {/* Gallery Photos Upload */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label className="text-xs font-medium text-zinc-200 flex items-center gap-1.5">
-                  <Camera className="w-3.5 h-3.5 text-teal-400" />
+                <Label className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                   <span>Event Photo Gallery ({photos.length})</span>
                 </Label>
                 {photos.length > 0 && (
                   <button
                     type="button"
                     onClick={() => setPhotos([])}
-                    className="text-[11px] text-rose-400 hover:text-rose-300"
+                    className="text-[11px] text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300"
                   >
                     Clear all photos
                   </button>
@@ -164,7 +164,7 @@ export function EventRecapDialog({
               </div>
 
               {/* Upload Dropzone */}
-              <React.Suspense fallback={<div className="h-20 w-full rounded-xl border border-white/10 bg-white/5 animate-pulse" />}>
+              <React.Suspense fallback={<div className="h-20 w-full rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 animate-pulse" />}>
                 <CldUploadWidget
                   signatureEndpoint="/api/cloudinary/sign"
                   config={{
@@ -191,14 +191,14 @@ export function EventRecapDialog({
                   {({ open }) => (
                     <div
                       onClick={() => open?.()}
-                      className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
+                      className="flex items-center justify-between p-3.5 rounded-xl border border-dashed border-zinc-300 dark:border-white/15 bg-zinc-50 dark:bg-white/[0.02] hover:bg-zinc-100 dark:hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
                           <UploadCloud className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                          <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                             Upload Recap Photos
                           </p>
                           <p className="text-[10px] text-zinc-500">
@@ -211,7 +211,7 @@ export function EventRecapDialog({
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                        className="h-7 text-xs border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
                       >
                         Add Photos
                       </Button>
@@ -248,13 +248,13 @@ export function EventRecapDialog({
               )}
             </div>
 
-            <DialogFooter className="flex items-center justify-end gap-2 pt-3 border-t border-white/5">
+            <DialogFooter className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-200 dark:border-white/5">
               <Button
                 type="button"
                 variant="ghost"
                 disabled={isSubmitting}
                 onClick={() => setOpen(false)}
-                className="text-xs text-zinc-400 hover:text-white"
+                className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
               >
                 Cancel
               </Button>

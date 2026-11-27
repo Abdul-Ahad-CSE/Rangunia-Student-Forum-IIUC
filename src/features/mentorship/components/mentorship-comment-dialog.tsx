@@ -81,31 +81,31 @@ export function MentorshipCommentDialog({
         onClick={() => handleOpenChange(true)}
         className={
           triggerClassName ||
-          "border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-emerald-950/20 text-zinc-300 hover:text-emerald-200 text-xs font-medium gap-1.5"
+          "border-zinc-200 dark:border-white/10 hover:border-emerald-500/40 bg-zinc-100 dark:bg-white/5 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 text-zinc-700 dark:text-zinc-300 hover:text-emerald-700 dark:hover:text-emerald-200 text-xs font-medium gap-1.5"
         }
       >
         {hasComment ? (
           <>
-            <Edit3 className="w-3.5 h-3.5 text-emerald-400" />
+            <Edit3 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Edit Comment</span>
           </>
         ) : (
           <>
-            <MessageSquarePlus className="w-3.5 h-3.5 text-teal-400" />
+            <MessageSquarePlus className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
             <span>Leave a Comment</span>
           </>
         )}
       </Button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="border border-white/10 bg-[#07130f]/95 backdrop-blur-2xl text-white max-w-lg">
+        <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/95 backdrop-blur-2xl text-zinc-900 dark:text-white max-w-lg shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <DialogHeader>
-              <DialogTitle className="text-base font-bold text-white flex items-center gap-2">
-                <MessageSquarePlus className="w-5 h-5 text-emerald-400" />
+              <DialogTitle className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                <MessageSquarePlus className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 <span>{hasComment ? "Edit Mentorship Feedback" : "Mentorship Experience & Testimonial"}</span>
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-300 leading-relaxed pt-1">
+              <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed pt-1">
                 {isAlumni
                   ? `Share your thoughts and feedback regarding mentoring ${partnerName}. This will be publicly showcased on both profile cards as an official testimonial.`
                   : `Share your thoughts on the guidance and assistance received from ${partnerName}. This will be publicly showcased on both profile cards as an official testimonial.`}
@@ -113,7 +113,7 @@ export function MentorshipCommentDialog({
             </DialogHeader>
 
             <div className="space-y-2">
-              <label htmlFor="mentorship-comment" className="text-xs font-medium text-zinc-300 block">
+              <label htmlFor="mentorship-comment" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 block">
                 Your Public Testimonial / Feedback
               </label>
               <Textarea
@@ -126,9 +126,9 @@ export function MentorshipCommentDialog({
                     : `e.g., "${partnerName} provided invaluable career insights, CV review, and clear guidance for getting into tech..."`
                 }
                 rows={4}
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl"
               />
-              <p className="text-[11px] text-zinc-500">
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                 You can write or edit this at any point. Clearing the text and saving will remove the comment.
               </p>
             </div>
@@ -139,7 +139,7 @@ export function MentorshipCommentDialog({
                 variant="ghost"
                 disabled={isSubmitting}
                 onClick={() => setOpen(false)}
-                className="text-xs text-zinc-400 hover:text-white"
+                className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
               >
                 Cancel
               </Button>

@@ -87,30 +87,30 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* 1. Main Narrative Details */}
-      <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center gap-2 border-b border-white/10 pb-4">
-            <Sparkles className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-lg font-semibold text-white">Narrative & Editorial Copy</h2>
+          <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-white/10 pb-4">
+            <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Narrative & Editorial Copy</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="about-title" className="text-xs font-semibold text-zinc-300">
-                Primary Title <span className="text-rose-400">*</span>
+              <Label htmlFor="about-title" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Primary Title <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 id="about-title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Rangunia Students Forum (IIUC)"
-                className="bg-black/40 border-white/10 text-white focus-visible:ring-emerald-500"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus-visible:ring-emerald-500"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="about-subtitle" className="text-xs font-semibold text-zinc-300">
+              <Label htmlFor="about-subtitle" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                 Subheading / Tagline
               </Label>
               <Input
@@ -118,17 +118,17 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
                 value={subtitle}
                 onChange={(e) => setSubtitle(e.target.value)}
                 placeholder="Rooted in Rangunia, Thriving at IIUC"
-                className="bg-black/40 border-white/10 text-white focus-visible:ring-emerald-500"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus-visible:ring-emerald-500"
               />
             </div>
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="about-content" className="text-xs font-semibold text-zinc-300">
-                Story, Mission & History Content <span className="text-rose-400">*</span>
+              <Label htmlFor="about-content" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Story, Mission & History Content <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
-              <span className="text-[11px] font-mono text-zinc-500">
+              <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
                 {content.length} characters
               </span>
             </div>
@@ -138,10 +138,10 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
               onChange={(e) => setContent(e.target.value)}
               rows={8}
               placeholder="Write the full mission statement, university brotherhood values, and community welfare initiatives..."
-              className="bg-black/40 border-white/10 text-white focus-visible:ring-emerald-500 font-sans leading-relaxed text-sm resize-y"
+              className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus-visible:ring-emerald-500 font-sans leading-relaxed text-sm resize-y"
               required
             />
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
               Paragraph breaks will automatically render as spaced editorial blocks on the public landing page.
             </p>
           </div>
@@ -149,14 +149,14 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
       </Card>
 
       {/* 2. Three-Photo Cloudinary Manager */}
-      <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl">
+      <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl">
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-white/10 pb-4">
             <div className="flex items-center gap-2">
-              <ImageIcon className="w-5 h-5 text-emerald-400" />
+              <ImageIcon className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <div>
-                <h2 className="text-lg font-semibold text-white">Three-Photo Showcase Triad</h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Three-Photo Showcase Triad</h2>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
                   Signed Cloudinary uploads for the 3 floating motion images displayed on the homepage.
                 </p>
               </div>
@@ -171,15 +171,15 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
               return (
                 <div
                   key={slotIndex}
-                  className="rounded-2xl border border-white/10 bg-black/40 p-4 space-y-3.5 flex flex-col justify-between"
+                  className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-black/40 p-4 space-y-3.5 flex flex-col justify-between"
                 >
                   <div className="space-y-1">
-                    <span className="text-xs font-bold text-emerald-300 block">{label.title}</span>
-                    <span className="text-[10px] text-zinc-500 block">{label.desc}</span>
+                    <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 block">{label.title}</span>
+                    <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">{label.desc}</span>
                   </div>
 
                   {/* Thumbnail Preview */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950 group">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-950 group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={currentPhoto}
@@ -202,7 +202,7 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
                   {/* Cloudinary Upload Trigger */}
                   <React.Suspense
                     fallback={
-                      <div className="h-9 w-full rounded-lg border border-white/10 bg-white/5 animate-pulse" />
+                      <div className="h-9 w-full rounded-lg border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 animate-pulse" />
                     }
                   >
                     <CldUploadWidget
@@ -238,9 +238,9 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
                           type="button"
                           variant="outline"
                           onClick={() => open?.()}
-                          className="w-full h-9 border-white/10 bg-white/5 hover:bg-emerald-950/40 hover:border-emerald-500/30 text-zinc-200 text-xs font-semibold flex items-center justify-center gap-2"
+                          className="w-full h-9 border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:border-emerald-500/30 text-zinc-800 dark:text-zinc-200 text-xs font-semibold flex items-center justify-center gap-2"
                         >
-                          <UploadCloud className="w-4 h-4 text-emerald-400" />
+                          <UploadCloud className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                           <span>Replace Photo {slotIndex + 1}</span>
                         </Button>
                       )}
@@ -254,12 +254,12 @@ export function AdminAboutForm({ initialData }: AdminAboutFormProps) {
       </Card>
 
       {/* Save Action Bar */}
-      <div className="flex items-center justify-end gap-4 pt-4 border-t border-white/10">
+      <div className="flex items-center justify-end gap-4 pt-4 border-t border-zinc-200 dark:border-white/10">
         <Button
           type="button"
           variant="outline"
           onClick={() => router.push("/admin/dashboard")}
-          className="border-white/10 bg-white/5 text-zinc-300 hover:text-white"
+          className="border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
         >
           Cancel
         </Button>

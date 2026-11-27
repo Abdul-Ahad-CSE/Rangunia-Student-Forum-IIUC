@@ -119,9 +119,9 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
         </div>
 
         {pendingAdmins.length === 0 ? (
-          <div className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] text-center text-zinc-400">
-            <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto mb-2 opacity-80" />
-            <p className="text-base font-medium text-white">All caught up!</p>
+          <div className="p-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02] text-center text-zinc-600 dark:text-zinc-400">
+            <CheckCircle className="w-10 h-10 text-emerald-500 dark:text-emerald-400 mx-auto mb-2 opacity-80" />
+            <p className="text-base font-medium text-zinc-900 dark:text-white">All caught up!</p>
             <p className="text-xs text-zinc-500 mt-1">There are no pending admin registration applications.</p>
           </div>
         ) : (
@@ -129,11 +129,11 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
             {pendingAdmins.map((admin) => (
               <div
                 key={admin.id}
-                className="rounded-2xl border border-amber-500/30 bg-[#07130f]/90 p-5 backdrop-blur-xl shadow-xl flex flex-col justify-between space-y-4"
+                className="rounded-2xl border border-amber-200 dark:border-amber-500/30 bg-white/95 dark:bg-[#07130f]/90 p-5 backdrop-blur-xl shadow-xl text-zinc-900 dark:text-white flex flex-col justify-between space-y-4"
               >
                 {/* Header Profile Info */}
                 <div className="flex items-start gap-4">
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-white/15 bg-zinc-900 shrink-0 flex items-center justify-center">
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-zinc-200 dark:border-white/15 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center">
                     {admin.photoUrl ? (
                       <Image
                         src={admin.photoUrl}
@@ -144,19 +144,19 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                         unoptimized
                       />
                     ) : (
-                      <User className="w-8 h-8 text-zinc-500" />
+                      <User className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
                     )}
                   </div>
 
                   <div className="space-y-1 min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-bold text-base text-white truncate">{admin.name}</h3>
-                      <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-[10px]">
+                      <h3 className="font-bold text-base text-zinc-900 dark:text-white truncate">{admin.name}</h3>
+                      <Badge className="bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30 text-[10px]">
                         Pending
                       </Badge>
                     </div>
-                    <p className="text-xs font-semibold text-emerald-400">{admin.position}</p>
-                    <p className="text-xs text-zinc-400 flex items-center gap-1.5">
+                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">{admin.position}</p>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5" />
                       <span>{admin.department} • Sec {admin.section} • {admin.enrollment}</span>
                     </p>
@@ -164,24 +164,24 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                 </div>
 
                 {/* Detailed Information Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border-t border-b border-white/5 py-3 text-zinc-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border-t border-b border-zinc-200 dark:border-white/5 py-3 text-zinc-700 dark:text-zinc-300">
                   <div className="flex items-center gap-2">
-                    <User className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>ID: <strong className="text-white">{admin.studentId}</strong></span>
+                    <User className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>ID: <strong className="text-zinc-900 dark:text-white">{admin.studentId}</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <Phone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{admin.phone}</span>
                   </div>
                   <div className="flex items-center gap-2 sm:col-span-2 truncate">
-                    <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <Mail className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span className="truncate">{admin.email}</span>
                   </div>
                   <div className="flex items-start gap-2 sm:col-span-2">
-                    <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                    <div className="text-[11px] text-zinc-400">
-                      <p><span className="text-zinc-300">Current:</span> {admin.currentAddress}</p>
-                      <p><span className="text-zinc-300">Permanent:</span> {admin.permanentAddress}</p>
+                    <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="text-[11px] text-zinc-600 dark:text-zinc-400">
+                      <p><span className="text-zinc-700 dark:text-zinc-300 font-medium">Current:</span> {admin.currentAddress}</p>
+                      <p><span className="text-zinc-700 dark:text-zinc-300 font-medium">Permanent:</span> {admin.permanentAddress}</p>
                     </div>
                   </div>
                 </div>
@@ -199,7 +199,7 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                       variant="outline"
                       onClick={() => handleReject(admin.id)}
                       disabled={processingId === admin.id}
-                      className="border-rose-500/30 text-rose-300 hover:bg-rose-950/40 hover:text-white h-9 px-3 text-xs"
+                      className="border-rose-500/30 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-900 dark:hover:text-white h-9 px-3 text-xs"
                     >
                       <XCircle className="w-3.5 h-3.5 mr-1" />
                       <span>Reject</span>
@@ -209,7 +209,7 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                       size="sm"
                       onClick={() => handleApprove(admin.id)}
                       disabled={processingId === admin.id}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold h-9 px-4 text-xs shadow-md shadow-emerald-950"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold h-9 px-4 text-xs shadow-md shadow-emerald-950/40"
                     >
                       {processingId === admin.id ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" />
@@ -228,11 +228,11 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
 
       {/* PROCESSED EXECUTIVES ARCHIVE */}
       {processedAdmins.length > 0 && (
-        <div className="space-y-4 pt-6 border-t border-white/10">
+        <div className="space-y-4 pt-6 border-t border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-lg font-bold text-white">Registered Executives Directory</h2>
-            <Badge variant="outline" className="text-zinc-400 border-white/15">
+            <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-lg font-bold text-zinc-900 dark:text-white">Registered Executives Directory</h2>
+            <Badge variant="outline" className="text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-white/15">
               {processedAdmins.length} Total
             </Badge>
           </div>
@@ -241,9 +241,9 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
             {processedAdmins.map((admin) => (
               <div
                 key={admin.id}
-                className="rounded-xl border border-white/10 bg-white/[0.02] p-4 flex items-center gap-3"
+                className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-white/[0.02] p-4 flex items-center gap-3 shadow-sm"
               >
-                <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center">
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center">
                   {admin.photoUrl ? (
                     <Image
                       src={admin.photoUrl}
@@ -254,23 +254,23 @@ export function AdminApprovalList({ initialAdmins }: AdminApprovalListProps) {
                       unoptimized
                     />
                   ) : (
-                    <User className="w-6 h-6 text-zinc-500" />
+                    <User className="w-6 h-6 text-zinc-400 dark:text-zinc-500" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">
-                    <p className="text-sm font-semibold text-white truncate">{admin.name}</p>
+                    <p className="text-sm font-semibold text-zinc-900 dark:text-white truncate">{admin.name}</p>
                     <Badge
                       className={`text-[9px] px-1.5 py-0 ${
                         admin.approvalStatus === "APPROVED"
-                          ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
-                          : "bg-rose-500/20 text-rose-300 border-rose-500/30"
+                          ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                          : "bg-rose-500/20 text-rose-700 dark:text-rose-300 border-rose-500/30"
                       }`}
                     >
                       {admin.approvalStatus}
                     </Badge>
                   </div>
-                  <p className="text-xs text-zinc-400 truncate">{admin.position}</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 truncate">{admin.position}</p>
                   <p className="text-[11px] text-zinc-500">{admin.studentId} • {admin.department}</p>
                 </div>
               </div>

@@ -124,21 +124,21 @@ export function RequestMentorshipButton({
         <span>Request Mentorship</span>
       </DialogTrigger>
 
-      <DialogContent className="border border-white/10 bg-[#07130f]/95 backdrop-blur-2xl text-white max-w-md">
+      <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/95 backdrop-blur-2xl text-zinc-900 dark:text-white max-w-md shadow-2xl">
         <DialogHeader>
-          <DialogTitle className="text-base font-bold text-white flex items-center gap-2">
-            <UserCheck className="w-5 h-5 text-teal-400" />
+          <DialogTitle className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <UserCheck className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             <span>Request Mentorship from {alumniName}</span>
           </DialogTitle>
-          <DialogDescription className="text-xs text-zinc-400 leading-relaxed pt-1">
+          <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed pt-1">
             Connect with this alumni for academic guidance, career roadmap advice, or postgraduate preparation.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-2">
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-xs font-medium text-zinc-300 flex items-center gap-1.5">
-              <MessageSquare className="w-3.5 h-3.5 text-teal-400" />
+            <Label htmlFor="notes" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span>What specific guidance are you seeking?</span>
             </Label>
             <Textarea
@@ -147,9 +147,9 @@ export function RequestMentorshipButton({
               placeholder="e.g. Seeking advice regarding postgraduate applications in Europe, CV review for software roles, or thesis research guidance..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
             />
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
               Your student profile information will be shared with the mentor for their review.
             </p>
           </div>
@@ -160,7 +160,7 @@ export function RequestMentorshipButton({
               variant="ghost"
               disabled={isLoading}
               onClick={() => setOpen(false)}
-              className="text-xs text-zinc-400 hover:text-white"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             >
               Cancel
             </Button>

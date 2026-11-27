@@ -267,13 +267,13 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
             return (
               <div
                 key={admin.id}
-                className="p-5 rounded-2xl border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl transition-all space-y-4"
+                className="p-5 rounded-2xl border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl transition-all space-y-4"
               >
                 {/* Admin Card Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-white/5 pb-4">
                   <div className="flex items-center gap-3.5">
                     {/* Admin Avatar */}
-                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-emerald-500/30 bg-zinc-900 shrink-0 flex items-center justify-center text-emerald-400 font-bold font-mono text-base">
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-emerald-500/30 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold font-mono text-base">
                       {admin.photoUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -282,37 +282,37 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <User className="w-6 h-6 text-emerald-400" />
+                        <User className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                       )}
                     </div>
 
                     {/* Admin Meta */}
                     <div className="space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-bold text-white text-base leading-tight">
+                        <h4 className="font-bold text-zinc-900 dark:text-white text-base leading-tight">
                           {admin.name}
                         </h4>
                         <Badge
                           variant="outline"
-                          className="border-emerald-500/30 bg-emerald-950/30 text-emerald-300 text-[10px]"
+                          className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 text-[10px]"
                         >
                           {admin.position}
                         </Badge>
                         {hasAllPerms && (
-                          <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px] font-mono">
-                            <Sparkles className="w-2.5 h-2.5 mr-1 text-emerald-400" />
+                          <Badge className="bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/40 text-[10px] font-mono">
+                            <Sparkles className="w-2.5 h-2.5 mr-1 text-emerald-600 dark:text-emerald-400" />
                             Full Authority
                           </Badge>
                         )}
                         {hasNoPerms && (
-                          <Badge className="bg-zinc-800 text-zinc-400 border-white/10 text-[10px] font-mono">
+                          <Badge className="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-white/10 text-[10px] font-mono">
                             No Permissions
                           </Badge>
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 text-xs text-zinc-400 flex-wrap">
-                        <span className="font-mono text-zinc-300">{admin.studentId}</span>
+                      <div className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400 flex-wrap">
+                        <span className="font-mono text-zinc-800 dark:text-zinc-300">{admin.studentId}</span>
                         <span>•</span>
                         <span>{admin.department}</span>
                         <span>•</span>
@@ -326,7 +326,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   {/* Bulk Actions */}
                   <div className="flex items-center gap-2 shrink-0">
                     {isUpdating && (
-                      <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono pr-2">
+                      <span className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-mono pr-2">
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         <span>Saving...</span>
                       </span>
@@ -338,7 +338,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                       size="sm"
                       onClick={() => handleSetAll(admin.id, true)}
                       disabled={isUpdating || hasAllPerms}
-                      className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/40 text-xs h-7.5 px-2.5"
+                      className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 text-xs h-7.5 px-2.5"
                     >
                       <span>Grant All 6</span>
                     </Button>
@@ -349,7 +349,7 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                       size="sm"
                       onClick={() => handleSetAll(admin.id, false)}
                       disabled={isUpdating || hasNoPerms}
-                      className="border-white/10 bg-white/5 text-zinc-400 hover:text-rose-300 hover:bg-rose-950/30 text-xs h-7.5 px-2.5"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-xs h-7.5 px-2.5"
                     >
                       <span>Revoke All</span>
                     </Button>
@@ -362,16 +362,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageProfiles
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <UserCheck className={`w-3.5 h-3.5 ${admin.canManageProfiles ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <UserCheck className={`w-3.5 h-3.5 ${admin.canManageProfiles ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>Member Profiles</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Verify student &amp; alumni profiles and moderate directory records.
                       </p>
                     </div>
@@ -388,16 +388,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageEvents
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <Calendar className={`w-3.5 h-3.5 ${admin.canManageEvents ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <Calendar className={`w-3.5 h-3.5 ${admin.canManageEvents ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>Event Management</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Organize forums, seminars, iftar gatherings, and sports meetups.
                       </p>
                     </div>
@@ -414,16 +414,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageNotices
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <FileText className={`w-3.5 h-3.5 ${admin.canManageNotices ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <FileText className={`w-3.5 h-3.5 ${admin.canManageNotices ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>Notice Management</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Publish and broadcast official forum announcements and notices.
                       </p>
                     </div>
@@ -440,16 +440,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageActivities
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <Activity className={`w-3.5 h-3.5 ${admin.canManageActivities ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <Activity className={`w-3.5 h-3.5 ${admin.canManageActivities ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>Activity Management</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Coordinate ongoing projects, skill workshops, and community initiatives.
                       </p>
                     </div>
@@ -466,16 +466,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageCommittee
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <Users className={`w-3.5 h-3.5 ${admin.canManageCommittee ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <Users className={`w-3.5 h-3.5 ${admin.canManageCommittee ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>Committee Management</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Manage executive committee, advisory panels, and leadership portfolios.
                       </p>
                     </div>
@@ -492,16 +492,16 @@ export function AdminPermissionsManager({ initialAdmins }: AdminPermissionsManag
                   <div
                     className={`p-3.5 rounded-xl border transition-all flex items-start justify-between gap-3 ${
                       admin.canManageAbout
-                        ? "border-emerald-500/40 bg-emerald-950/20"
-                        : "border-white/5 bg-white/[0.02]"
+                        ? "border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/20"
+                        : "border-zinc-200 dark:border-white/5 bg-zinc-50/70 dark:bg-white/[0.02]"
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                        <Info className={`w-3.5 h-3.5 ${admin.canManageAbout ? "text-emerald-400" : "text-zinc-500"}`} />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-white">
+                        <Info className={`w-3.5 h-3.5 ${admin.canManageAbout ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-400 dark:text-zinc-500"}`} />
                         <span>About Management</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-tight">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                         Update forum history, constitution, mission statement, and about pages.
                       </p>
                     </div>

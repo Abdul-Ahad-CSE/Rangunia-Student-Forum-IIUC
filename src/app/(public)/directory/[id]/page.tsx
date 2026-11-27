@@ -108,19 +108,19 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
   if (!rawUser) {
     return (
       <div className="py-16 text-center space-y-5 max-w-md mx-auto">
-        <div className="w-16 h-16 rounded-2xl bg-zinc-900/80 border border-white/10 flex items-center justify-center text-zinc-500 mx-auto">
+        <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-white/10 flex items-center justify-center text-zinc-500 mx-auto">
           <Lock className="w-8 h-8" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-white">Member Profile Not Found</h1>
-          <p className="text-xs text-zinc-400 leading-relaxed">
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Member Profile Not Found</h1>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
             The requested member profile does not exist, has been made private, or is pending administrative approval.
           </p>
         </div>
         <Link href="/directory">
           <Button
             variant="outline"
-            className="border-emerald-500/30 bg-emerald-950/20 text-emerald-300 hover:bg-emerald-950/50"
+            className="border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/50"
           >
             <ArrowLeft className="w-4 h-4 mr-1.5" />
             <span>Return to Directory</span>
@@ -352,13 +352,13 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                 )}
               </div>
 
-              <p className="text-xs text-zinc-400 flex items-center gap-1.5 flex-wrap">
-                <span className="flex items-center gap-1 text-zinc-300">
-                  <Building className="w-3.5 h-3.5 text-emerald-400" />
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5 flex-wrap">
+                <span className="flex items-center gap-1 text-zinc-700 dark:text-zinc-300">
+                  <Building className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>{member.department}</span>
                 </span>
-                <span className="text-zinc-600">•</span>
-                <span className="font-mono text-emerald-400">
+                <span className="text-zinc-400 dark:text-zinc-600">•</span>
+                <span className="font-mono text-emerald-600 dark:text-emerald-400">
                   {member.batch ? (member.batch.toLowerCase().startsWith("batch") ? member.batch : `Batch: ${member.batch}`) : member.session}
                 </span>
               </p>
@@ -366,44 +366,44 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           </div>
 
           {/* Core Identity Attributes */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs pt-2 border-t border-white/5">
-            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs pt-2 border-t border-zinc-200 dark:border-white/5">
+            <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5">Student ID</span>
-              <span className="font-mono font-semibold text-white truncate block">
+              <span className="font-mono font-semibold text-zinc-900 dark:text-white truncate block">
                 {member.studentId}
               </span>
             </div>
 
-            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5">Batch</span>
-              <span className="font-mono font-medium text-white truncate block">
+              <span className="font-mono font-medium text-zinc-900 dark:text-white truncate block">
                 {member.batch ? (member.batch.toLowerCase().startsWith("batch") ? member.batch : `Batch: ${member.batch}`) : "Batch: N/A"}
               </span>
             </div>
 
-            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5">Session</span>
-              <span className="text-white font-medium truncate block">
+              <span className="text-zinc-900 dark:text-white font-medium truncate block">
                 {member.session}
               </span>
             </div>
 
-            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <Droplet className="w-3 h-3 text-rose-400" />
+                <Droplet className="w-3 h-3 text-rose-500 dark:text-rose-400" />
                 <span>Blood Group</span>
               </span>
-              <span className="font-mono font-semibold text-rose-300 truncate block">
+              <span className="font-mono font-semibold text-rose-600 dark:text-rose-300 truncate block">
                 {formattedBlood || "Unlisted"}
               </span>
             </div>
 
-            <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+            <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
               <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                <UserIcon className="w-3 h-3 text-emerald-400" />
+                <UserIcon className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Gender</span>
               </span>
-              <span className="text-white font-medium truncate block">
+              <span className="text-zinc-900 dark:text-white font-medium truncate block">
                 {member.gender === "FEMALE" ? "Female" : "Male"}
               </span>
             </div>
@@ -411,9 +411,9 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
           {/* Active Mentorship Relationship Callout */}
           {activeMentorships.length > 0 && (
-            <div className="mt-3 p-3 rounded-xl border border-teal-500/20 bg-teal-950/20 flex items-center gap-2 flex-wrap text-xs">
-              <span className="font-semibold text-teal-300 flex items-center gap-1.5">
-                <UserCheck className="w-3.5 h-3.5 text-teal-400" />
+            <div className="mt-3 p-3 rounded-xl border border-teal-200 dark:border-teal-500/20 bg-teal-50 dark:bg-teal-950/20 flex items-center gap-2 flex-wrap text-xs">
+              <span className="font-semibold text-teal-800 dark:text-teal-300 flex items-center gap-1.5">
+                <UserCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                 {isAlumni ? "Currently Mentoring:" : "Mentored by:"}
               </span>
               <div className="flex items-center gap-2 flex-wrap">
@@ -423,7 +423,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                     <Link
                       key={sess.id}
                       href={`/directory/${partner.id}`}
-                      className="text-white hover:text-teal-300 underline underline-offset-2 transition-colors font-medium"
+                      className="text-teal-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-300 underline underline-offset-2 transition-colors font-medium"
                     >
                       {partner.fullName} ({partner.department})
                       {idx < activeMentorships.length - 1 ? "," : ""}
@@ -438,19 +438,19 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
       {/* Prominent Mentorship Availability Banner & Request Module */}
       {isAlumni && member.alumniProfile?.mentorshipAvailable && (
-        <Card className="border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-[#07130f]/90 to-emerald-950/30 backdrop-blur-xl text-white shadow-2xl overflow-hidden relative">
+        <Card className="border border-teal-200 dark:border-teal-500/30 bg-gradient-to-r from-teal-50 via-white to-emerald-50 dark:from-teal-950/40 dark:via-[#07130f]/90 dark:to-emerald-950/30 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl overflow-hidden relative">
           <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1.5 flex-1">
               <div className="flex items-center gap-2">
-                <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/40 text-xs px-2.5 py-0.5">
-                  <Sparkles className="w-3.5 h-3.5 mr-1 text-teal-300" />
+                <Badge className="bg-teal-100 dark:bg-teal-500/20 text-teal-800 dark:text-teal-300 border-teal-200 dark:border-teal-500/40 text-xs px-2.5 py-0.5">
+                  <Sparkles className="w-3.5 h-3.5 mr-1 text-teal-600 dark:text-teal-300" />
                   Available for Mentorship
                 </Badge>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white tracking-tight">
                 Career Guidance &amp; Academic Advising
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl">
                 {member.alumniProfile.mentorshipDetails ||
                   "This alumni is open to answering questions, offering career coaching, and reviewing academic or job trajectories for forum students."}
               </p>
@@ -473,17 +473,17 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
       {/* Academic & Professional Trajectory */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Left Card: Academic / Professional Details */}
-        <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
-          <CardHeader className="pb-3 border-b border-white/5">
-            <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+        <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
+          <CardHeader className="pb-3 border-b border-zinc-200 dark:border-white/5">
+            <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
               {isAlumni ? (
                 <>
-                  <Briefcase className="w-4 h-4 text-teal-400" />
+                  <Briefcase className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                   <span>Professional Profile</span>
                 </>
               ) : (
                 <>
-                  <GraduationCap className="w-4 h-4 text-emerald-400" />
+                  <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>Academic Standing</span>
                 </>
               )}
@@ -492,40 +492,40 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           <CardContent className="pt-4 space-y-4 text-xs">
             {isAlumni && member.alumniProfile ? (
               <div className="space-y-3">
-                <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02] space-y-1">
+                <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] space-y-1">
                   <span className="text-[10px] text-zinc-500 block">Current Role &amp; Organization</span>
-                  <p className="font-semibold text-white text-sm">
+                  <p className="font-semibold text-zinc-900 dark:text-white text-sm">
                     {member.alumniProfile.jobPosition || "Professional"}
                     {member.alumniProfile.company ? ` at ${member.alumniProfile.company}` : ""}
                   </p>
                   {member.alumniProfile.industry && (
-                    <p className="text-[11px] text-zinc-400">Industry: {member.alumniProfile.industry}</p>
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Industry: {member.alumniProfile.industry}</p>
                   )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   {member.alumniProfile.workLocation && (
-                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Work Location</span>
-                      <span className="text-white font-medium">{member.alumniProfile.workLocation}</span>
+                      <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.workLocation}</span>
                     </div>
                   )}
                   {member.alumniProfile.experienceYears != null && member.alumniProfile.experienceYears > 0 && (
-                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Experience</span>
-                      <span className="text-white font-medium">{member.alumniProfile.experienceYears} Years</span>
+                      <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.experienceYears} Years</span>
                     </div>
                   )}
                   {member.alumniProfile.cgpa && (
-                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Academic CGPA</span>
-                      <span className="text-teal-400 font-mono font-semibold">{member.alumniProfile.cgpa}</span>
+                      <span className="text-teal-600 dark:text-teal-400 font-mono font-semibold">{member.alumniProfile.cgpa}</span>
                     </div>
                   )}
                   {member.alumniProfile.graduationYear && (
-                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Graduation Year</span>
-                      <span className="text-white font-medium">{member.alumniProfile.graduationYear}</span>
+                      <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.graduationYear}</span>
                     </div>
                   )}
                 </div>
@@ -537,7 +537,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       {member.alumniProfile.skills.map((skill, idx) => (
                         <span
                           key={idx}
-                          className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-white/10 bg-white/[0.03] text-zinc-200"
+                          className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/[0.03] text-zinc-800 dark:text-zinc-200"
                         >
                           {skill}
                         </span>
@@ -547,15 +547,15 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                 )}
 
                 {member.alumniProfile.personalDetails && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02] space-y-1">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] space-y-1">
                     <span className="text-[10px] text-zinc-500 block">Personal &amp; Professional Summary</span>
-                    <p className="text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.personalDetails}</p>
+                    <p className="text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.personalDetails}</p>
                   </div>
                 )}
 
                 {member.alumniProfile.mentorshipAvailable && (
-                  <div className="p-3 rounded-xl border border-teal-500/30 bg-teal-950/20 text-teal-200 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-teal-400 shrink-0" />
+                  <div className="p-3 rounded-xl border border-teal-200 dark:border-teal-500/30 bg-teal-50 dark:bg-teal-950/20 text-teal-800 dark:text-teal-200 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
                     <span className="text-xs font-medium">Available for Career &amp; Academic Mentorship</span>
                   </div>
                 )}
@@ -563,34 +563,34 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
             ) : member.studentProfile ? (
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block">Current Semester</span>
-                    <span className="text-white font-semibold">{member.studentProfile.currentSemester}</span>
+                    <span className="text-zinc-900 dark:text-white font-semibold">{member.studentProfile.currentSemester}</span>
                   </div>
                   {member.studentProfile.cgpa && (
-                    <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                    <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                       <span className="text-[10px] text-zinc-500 block">Academic CGPA</span>
-                      <span className="text-emerald-400 font-mono font-semibold">{member.studentProfile.cgpa}</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-mono font-semibold">{member.studentProfile.cgpa}</span>
                     </div>
                   )}
                 </div>
 
                 {member.studentProfile.clubRole && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02] flex items-center justify-between">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] flex items-center justify-between">
                     <span className="text-[10px] text-zinc-500">Club / Forum Engagement</span>
-                    <Badge variant="outline" className="border-emerald-500/30 text-emerald-300 text-[10px]">
+                    <Badge variant="outline" className="border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px]">
                       {member.studentProfile.clubRole}
                     </Badge>
                   </div>
                 )}
 
                 {member.studentProfile.interestedSector && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                      <Compass className="w-3 h-3 text-emerald-400" />
+                      <Compass className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                       <span>Career Focus Track</span>
                     </span>
-                    <span className="text-zinc-200 font-medium">{member.studentProfile.interestedSector}</span>
+                    <span className="text-zinc-800 dark:text-zinc-200 font-medium">{member.studentProfile.interestedSector}</span>
                   </div>
                 )}
 
@@ -602,7 +602,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       {member.studentProfile.skills.map((skill, idx) => (
                         <span
                           key={idx}
-                          className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-white/10 bg-white/[0.03] text-zinc-200"
+                          className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/[0.03] text-zinc-800 dark:text-zinc-200"
                         >
                           {skill}
                         </span>
@@ -689,43 +689,43 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
             {/* Contact Links */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               {/* Phone */}
-              <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+              <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                 <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                  <Phone className="w-3 h-3 text-emerald-400" />
+                  <Phone className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span>Phone Number</span>
                 </span>
                 {member.phone ? (
                   <a
                     href={`tel:${member.phone}`}
-                    className="text-zinc-200 hover:text-emerald-300 font-mono truncate block"
+                    className="text-zinc-800 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-300 font-mono truncate block"
                   >
                     {member.phone}
                   </a>
                 ) : (
                   <span className="text-zinc-500 flex items-center gap-1 italic">
-                    <Lock className="w-2.5 h-2.5 text-zinc-600" />
+                    <Lock className="w-2.5 h-2.5 text-zinc-400 dark:text-zinc-600" />
                     <span>Hidden</span>
                   </span>
                 )}
               </div>
 
               {/* Email */}
-              <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+              <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                 <span className="text-[10px] text-zinc-500 block mb-0.5 flex items-center gap-1">
-                  <Mail className="w-3 h-3 text-emerald-400" />
+                  <Mail className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span>Email Address</span>
                 </span>
                 {member.email ? (
                   <a
                     href={`mailto:${member.email}`}
-                    className="text-zinc-200 hover:text-emerald-300 truncate block"
+                    className="text-zinc-800 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-300 truncate block"
                     title={member.email}
                   >
                     {member.email}
                   </a>
                 ) : (
                   <span className="text-zinc-500 flex items-center gap-1 italic">
-                    <Lock className="w-2.5 h-2.5 text-zinc-600" />
+                    <Lock className="w-2.5 h-2.5 text-zinc-400 dark:text-zinc-600" />
                     <span>Hidden</span>
                   </span>
                 )}
@@ -734,7 +734,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
             {/* Social Links */}
             {member.socialLinks && Object.keys(member.socialLinks).length > 0 && (
-              <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02] space-y-1.5">
+              <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] space-y-1.5">
                 <span className="text-[10px] text-zinc-500 block font-mono">Social &amp; Professional Profiles</span>
                 <div className="flex items-center gap-3">
                   {member.socialLinks.linkedin && (
@@ -742,7 +742,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       href={member.socialLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-zinc-400 hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
+                      className="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span>LinkedIn</span>
@@ -753,7 +753,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       href={member.socialLinks.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-zinc-400 hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
+                      className="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span>Facebook</span>
@@ -764,7 +764,7 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                       href={member.socialLinks.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-zinc-400 hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
+                      className="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 text-xs transition-colors"
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span>GitHub</span>
@@ -786,64 +786,64 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
           member.alumniProfile.scholarshipInfo ||
           member.alumniProfile.researchThesisTitle ||
           member.alumniProfile.higherEducationDetails) && (
-          <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
-            <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-teal-400" />
+          <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
+            <CardHeader className="pb-3 border-b border-zinc-200 dark:border-white/5 flex flex-row items-center justify-between">
+              <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 <span>Higher Education &amp; Research</span>
               </CardTitle>
-              <Badge variant="outline" className="border-teal-500/30 bg-teal-950/20 text-teal-300 text-[10px]">
+              <Badge variant="outline" className="border-teal-500/30 bg-teal-50 dark:bg-teal-950/20 text-teal-700 dark:text-teal-300 text-[10px]">
                 Postgraduate / Global Academia
               </Badge>
             </CardHeader>
             <CardContent className="pt-4 space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {member.alumniProfile.higherStudyDegree && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block">Degree / Program</span>
-                    <span className="text-white font-medium">{member.alumniProfile.higherStudyDegree}</span>
+                    <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.higherStudyDegree}</span>
                   </div>
                 )}
                 {member.alumniProfile.higherStudyUniversity && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block">University / Institution</span>
-                    <span className="text-white font-medium">{member.alumniProfile.higherStudyUniversity}</span>
+                    <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.higherStudyUniversity}</span>
                   </div>
                 )}
                 {member.alumniProfile.higherStudyCountry && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
-                      <Globe className="w-3 h-3 text-teal-400" />
+                      <Globe className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                       <span>Country</span>
                     </span>
-                    <span className="text-white font-medium">{member.alumniProfile.higherStudyCountry}</span>
+                    <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.higherStudyCountry}</span>
                   </div>
                 )}
                 {member.alumniProfile.scholarshipInfo && (
-                  <div className="p-2.5 rounded-lg border border-white/5 bg-white/[0.02]">
+                  <div className="p-2.5 rounded-lg border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
                     <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
-                      <Award className="w-3 h-3 text-amber-400" />
+                      <Award className="w-3 h-3 text-amber-500 dark:text-amber-400" />
                       <span>Scholarship / Fellowship</span>
                     </span>
-                    <span className="text-white font-medium">{member.alumniProfile.scholarshipInfo}</span>
+                    <span className="text-zinc-900 dark:text-white font-medium">{member.alumniProfile.scholarshipInfo}</span>
                   </div>
                 )}
               </div>
 
               {member.alumniProfile.researchThesisTitle && (
-                <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02] space-y-1">
+                <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] space-y-1">
                   <span className="text-[10px] text-zinc-500 block flex items-center gap-1">
-                    <BookOpen className="w-3 h-3 text-teal-400" />
+                    <BookOpen className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                     <span>Research / Thesis Title</span>
                   </span>
-                  <p className="text-zinc-200 font-medium text-xs sm:text-sm">{member.alumniProfile.researchThesisTitle}</p>
+                  <p className="text-zinc-800 dark:text-zinc-200 font-medium text-xs sm:text-sm">{member.alumniProfile.researchThesisTitle}</p>
                 </div>
               )}
 
               {member.alumniProfile.higherEducationDetails && (
-                <div className="p-3 rounded-xl border border-white/5 bg-white/[0.02] space-y-1">
+                <div className="p-3 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] space-y-1">
                   <span className="text-[10px] text-zinc-500 block">Higher Education Notes &amp; Insights</span>
-                  <p className="text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.higherEducationDetails}</p>
+                  <p className="text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">{member.alumniProfile.higherEducationDetails}</p>
                 </div>
               )}
             </CardContent>
@@ -852,12 +852,12 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
       {/* Member Bio / Forum Statement */}
       {member.bio && (
-        <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white">
-          <CardHeader className="pb-2 border-b border-white/5">
-            <CardTitle className="text-sm font-semibold text-zinc-300">About / Personal Bio</CardTitle>
+        <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
+          <CardHeader className="pb-2 border-b border-zinc-200 dark:border-white/5">
+            <CardTitle className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">About / Personal Bio</CardTitle>
           </CardHeader>
           <CardContent className="pt-4">
-            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed italic">
+            <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed italic">
               &ldquo;{member.bio}&rdquo;
             </p>
           </CardContent>
@@ -866,17 +866,17 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
       {/* Mentorship History & Public Testimonials Section */}
       {publicMentorshipHistory.length > 0 && (
-        <Card className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white shadow-xl">
-          <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
+        <Card className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm">
+          <CardHeader className="pb-3 border-b border-zinc-200 dark:border-white/5 flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
-                <History className="w-4 h-4 text-emerald-400" />
+              <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                <History className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Mentorship History &amp; Testimonials</span>
-                <Badge variant="outline" className="border-white/10 text-zinc-400 font-mono text-[10px]">
+                <Badge variant="outline" className="border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-zinc-400 font-mono text-[10px]">
                   {publicMentorshipHistory.length} {publicMentorshipHistory.length === 1 ? "Session" : "Sessions"}
                 </Badge>
               </CardTitle>
-              <p className="text-xs text-zinc-400 pt-0.5">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 pt-0.5">
                 Public record of completed mentorship engagements, forum guidance, and bilateral testimonials.
               </p>
             </div>
@@ -902,11 +902,11 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
               return (
                 <div
                   key={sess.id}
-                  className="p-3.5 rounded-xl border border-white/5 bg-white/[0.02] flex flex-col gap-3 text-xs"
+                  className="p-3.5 rounded-xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02] flex flex-col gap-3 text-xs"
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <div className="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-zinc-900 shrink-0 flex items-center justify-center text-zinc-300 font-bold font-mono text-xs">
+                      <div className="w-9 h-9 rounded-lg overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center text-zinc-700 dark:text-zinc-300 font-bold font-mono text-xs">
                         {partnerPhoto ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={partnerPhoto} alt={partnerName} className="w-full h-full object-cover" />
@@ -922,15 +922,15 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
                           </span>
                           <Link
                             href={`/directory/${partner.id}`}
-                            className="font-semibold text-white hover:text-emerald-300 transition-colors flex items-center gap-1 group"
+                            className="font-semibold text-zinc-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors flex items-center gap-1 group"
                           >
                             <span className="truncate">{partnerName}</span>
-                            <ExternalLink className="w-3 h-3 text-zinc-500 group-hover:text-emerald-400 shrink-0" />
+                            <ExternalLink className="w-3 h-3 text-zinc-400 group-hover:text-emerald-500 shrink-0" />
                           </Link>
-                          <span className="text-zinc-600">•</span>
-                          <span className="text-zinc-400 text-[11px]">{partnerDept}</span>
+                          <span className="text-zinc-400 dark:text-zinc-600">•</span>
+                          <span className="text-zinc-500 dark:text-zinc-400 text-[11px]">{partnerDept}</span>
                           {sess.status === "ACTIVE" && (
-                            <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/30 text-[10px] py-0 px-1.5 font-mono">
+                            <Badge className="bg-teal-50 dark:bg-teal-500/20 text-teal-800 dark:text-teal-300 border-teal-200 dark:border-teal-500/30 text-[10px] py-0 px-1.5 font-mono">
                               Active
                             </Badge>
                           )}
@@ -945,8 +945,8 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
                     {/* Formatted Duration Badge */}
                     <div className="shrink-0">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-950/20 text-emerald-300 font-mono text-[11px]">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 font-mono text-[11px]">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                         <span>{durationText}</span>
                       </span>
                     </div>
@@ -954,34 +954,34 @@ async function MemberProfileContent({ params }: PublicProfilePageProps) {
 
                   {/* Render Public Testimonials & Comments */}
                   {(sess.alumniComment || sess.studentComment) && (
-                    <div className="pt-2.5 border-t border-white/5 space-y-2 text-xs">
+                    <div className="pt-2.5 border-t border-zinc-200 dark:border-white/5 space-y-2 text-xs">
                       {sess.alumniComment && (
-                        <div className="p-2.5 rounded-lg border border-teal-500/15 bg-teal-950/20 space-y-1">
-                          <span className="text-[10px] text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
-                            <Quote className="w-3 h-3 text-teal-400" />
+                        <div className="p-2.5 rounded-lg border border-teal-200 dark:border-teal-500/15 bg-teal-50/60 dark:bg-teal-950/20 space-y-1">
+                          <span className="text-[10px] text-teal-700 dark:text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                            <Quote className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                             <span>
                               {isSessionAlumni
                                 ? "Mentor Evaluation"
                                 : `Mentor Feedback (${sess.alumni.fullName})`}
                             </span>
                           </span>
-                          <p className="text-zinc-200 text-xs italic leading-relaxed">
+                          <p className="text-zinc-800 dark:text-zinc-200 text-xs italic leading-relaxed">
                             &ldquo;{sess.alumniComment}&rdquo;
                           </p>
                         </div>
                       )}
 
                       {sess.studentComment && (
-                        <div className="p-2.5 rounded-lg border border-emerald-500/15 bg-emerald-950/20 space-y-1">
-                          <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
-                            <Quote className="w-3 h-3 text-emerald-400" />
+                        <div className="p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-500/15 bg-emerald-50/60 dark:bg-emerald-950/20 space-y-1">
+                          <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                            <Quote className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                             <span>
                               {!isSessionAlumni
                                 ? "Student Reflection"
                                 : `Student Testimonial (${sess.student.fullName})`}
                             </span>
                           </span>
-                          <p className="text-zinc-200 text-xs italic leading-relaxed">
+                          <p className="text-zinc-800 dark:text-zinc-200 text-xs italic leading-relaxed">
                             &ldquo;{sess.studentComment}&rdquo;
                           </p>
                         </div>

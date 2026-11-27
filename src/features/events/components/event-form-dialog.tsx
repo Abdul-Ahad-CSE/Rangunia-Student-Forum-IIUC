@@ -203,21 +203,21 @@ export function EventFormDialog({
       )}
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="border border-white/10 bg-[#07130f]/95 backdrop-blur-2xl text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/95 backdrop-blur-2xl text-zinc-900 dark:text-white max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             <DialogHeader>
-              <DialogTitle className="text-lg font-bold text-white flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-emerald-400" />
+              <DialogTitle className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 <span>{isEditing ? "Edit Event Details" : "Create Forum Event"}</span>
               </DialogTitle>
-              <DialogDescription className="text-xs text-zinc-300 leading-relaxed pt-1">
+              <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed pt-1">
                 Configure event dates, venue location, registration deadline, and promotional banner.
               </DialogDescription>
             </DialogHeader>
 
             {/* Event Title */}
             <div className="space-y-1.5">
-              <Label htmlFor="event-title" className="text-xs font-medium text-zinc-200">
+              <Label htmlFor="event-title" className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
                 Event Title *
               </Label>
               <Input
@@ -225,20 +225,20 @@ export function EventFormDialog({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Annual Iftar & Grand Reunion 2026"
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs sm:text-sm focus-visible:border-emerald-500 rounded-xl"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs sm:text-sm focus-visible:border-emerald-500 rounded-xl"
                 required
               />
             </div>
 
             {/* Banner Upload */}
             <div className="space-y-2">
-              <Label className="text-xs font-medium text-zinc-200 flex items-center justify-between">
+              <Label className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
                 <span>Event Banner Image (Optional)</span>
                 {bannerUrl && (
                   <button
                     type="button"
                     onClick={() => setBannerUrl(null)}
-                    className="text-[11px] text-rose-400 hover:text-rose-300 flex items-center gap-1"
+                    className="text-[11px] text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 flex items-center gap-1"
                   >
                     <X className="w-3 h-3" />
                     <span>Remove banner</span>
@@ -346,8 +346,8 @@ export function EventFormDialog({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Event Date */}
               <div className="space-y-1.5">
-                <Label htmlFor="event-date" className="text-xs font-medium text-zinc-200 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                <Label htmlFor="event-date" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>Event Date *</span>
                 </Label>
                 <Input
@@ -355,15 +355,15 @@ export function EventFormDialog({
                   type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
-                  className="bg-black/40 border-white/10 text-white text-xs focus-visible:border-emerald-500 rounded-xl"
+                  className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white text-xs focus-visible:border-emerald-500 rounded-xl"
                   required
                 />
               </div>
 
               {/* Event Time */}
               <div className="space-y-1.5">
-                <Label htmlFor="event-time" className="text-xs font-medium text-zinc-200 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-emerald-400" />
+                <Label htmlFor="event-time" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>Event Time *</span>
                 </Label>
                 <Input
@@ -371,15 +371,15 @@ export function EventFormDialog({
                   value={eventTime}
                   onChange={(e) => setEventTime(e.target.value)}
                   placeholder="e.g. 3:30 PM - 7:00 PM"
-                  className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl"
+                  className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl"
                   required
                 />
               </div>
 
               {/* Venue */}
               <div className="space-y-1.5">
-                <Label htmlFor="event-venue" className="text-xs font-medium text-zinc-200 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                <Label htmlFor="event-venue" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>Venue Location *</span>
                 </Label>
                 <Input
@@ -387,15 +387,15 @@ export function EventFormDialog({
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
                   placeholder="e.g. IIUC Central Auditorium, Kumira"
-                  className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl"
+                  className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl"
                   required
                 />
               </div>
 
               {/* Registration Deadline */}
               <div className="space-y-1.5">
-                <Label htmlFor="registration-deadline" className="text-xs font-medium text-zinc-200 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                <Label htmlFor="registration-deadline" className="text-xs font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>Registration Deadline *</span>
                 </Label>
                 <Input
@@ -403,7 +403,7 @@ export function EventFormDialog({
                   type="datetime-local"
                   value={registrationDeadline}
                   onChange={(e) => setRegistrationDeadline(e.target.value)}
-                  className="bg-black/40 border-white/10 text-white text-xs focus-visible:border-emerald-500 rounded-xl"
+                  className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white text-xs focus-visible:border-emerald-500 rounded-xl"
                   required
                 />
               </div>
@@ -411,7 +411,7 @@ export function EventFormDialog({
 
             {/* Description */}
             <div className="space-y-1.5">
-              <Label htmlFor="event-description" className="text-xs font-medium text-zinc-200">
+              <Label htmlFor="event-description" className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
                 Detailed Description &amp; Schedule *
               </Label>
               <Textarea
@@ -420,18 +420,18 @@ export function EventFormDialog({
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe the purpose, agenda, guest speakers, dress code, and participation guidelines..."
                 rows={5}
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl leading-relaxed"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs focus-visible:border-emerald-500 rounded-xl leading-relaxed"
                 required
               />
             </div>
 
-            <DialogFooter className="flex items-center justify-end gap-2 pt-3 border-t border-white/5">
+            <DialogFooter className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-200 dark:border-white/5">
               <Button
                 type="button"
                 variant="ghost"
                 disabled={isSubmitting}
                 onClick={() => setOpen(false)}
-                className="text-xs text-zinc-400 hover:text-white"
+                className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
               >
                 Cancel
               </Button>

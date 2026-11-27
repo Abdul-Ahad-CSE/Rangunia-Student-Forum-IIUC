@@ -77,12 +77,12 @@ async function ProfileContent() {
   if (!user) {
     return (
       <div className="py-16 text-center space-y-4">
-        <h2 className="text-xl font-bold text-white">Profile Account Not Found</h2>
-        <p className="text-xs text-zinc-400">
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Profile Account Not Found</h2>
+        <p className="text-xs text-zinc-600 dark:text-zinc-400">
           The requested member profile could not be located in our records.
         </p>
         <Link href="/login">
-          <Button variant="outline" className="border-white/10 text-white">
+          <Button variant="outline" className="border-zinc-200 dark:border-white/10 text-zinc-800 dark:text-white hover:bg-zinc-100 dark:hover:bg-white/10">
             Return to Login
           </Button>
         </Link>

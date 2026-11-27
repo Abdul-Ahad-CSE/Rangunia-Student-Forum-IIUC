@@ -82,19 +82,19 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
 
   return (
     <>
-      <Card className="border border-teal-500/30 bg-[#07130f]/90 backdrop-blur-xl text-white shadow-2xl relative overflow-hidden">
+      <Card className="border border-teal-500/30 dark:border-teal-500/30 bg-white/95 dark:bg-[#07130f]/90 backdrop-blur-xl text-zinc-900 dark:text-white shadow-xl dark:shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-32 bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <CardHeader className="pb-3 border-b border-white/5 flex flex-row items-center justify-between">
+        <CardHeader className="pb-3 border-b border-zinc-200/80 dark:border-white/5 flex flex-row items-center justify-between">
           <div>
-            <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
+            <CardTitle className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-teal-400" />
               <span>{isAlumni ? "Active Mentoring Engagements" : "Active Mentorship Program"}</span>
-              <Badge className="bg-teal-500/20 text-teal-300 border-teal-500/30 font-mono text-[10px]">
+              <Badge className="bg-teal-500/20 text-teal-700 dark:text-teal-300 border-teal-500/30 font-mono text-[10px]">
                 Active ({sessions.length})
               </Badge>
             </CardTitle>
-            <CardDescription className="text-xs text-zinc-400 pt-0.5">
+            <CardDescription className="text-xs text-zinc-600 dark:text-zinc-400 pt-0.5">
               {isAlumni
                 ? "Students you are currently mentoring and advising in their academic/professional journey."
                 : "Your official forum mentorship partnership."}
@@ -120,12 +120,12 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
             return (
               <div
                 key={sess.id}
-                className="p-4 rounded-xl border border-teal-500/20 bg-teal-950/20 flex flex-col gap-3"
+                className="p-4 rounded-xl border border-teal-200 dark:border-teal-500/20 bg-teal-50/50 dark:bg-teal-950/20 flex flex-col gap-3"
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
                   {/* Partner Avatar */}
-                  <div className="w-11 h-11 rounded-xl overflow-hidden border border-teal-500/30 bg-zinc-900 shrink-0 flex items-center justify-center text-teal-300 font-bold font-mono text-base">
+                  <div className="w-11 h-11 rounded-xl overflow-hidden border border-teal-500/30 bg-zinc-100 dark:bg-zinc-900 shrink-0 flex items-center justify-center text-teal-700 dark:text-teal-300 font-bold font-mono text-base">
                     {partnerPhoto ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={partnerPhoto} alt={partnerName} className="w-full h-full object-cover" />
@@ -136,12 +136,12 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
 
                   <div className="min-w-0 space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-[10px] text-teal-400 font-mono uppercase tracking-wider">
+                      <p className="text-[10px] text-teal-600 dark:text-teal-400 font-mono uppercase tracking-wider">
                         {isAlumni ? "Currently Mentoring" : "Mentored by"}
                       </p>
-                      <span className="text-zinc-600">•</span>
-                      <span className="text-[11px] text-zinc-400 flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-zinc-500" />
+                      <span className="text-zinc-400 dark:text-zinc-600">•</span>
+                      <span className="text-[11px] text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                        <Calendar className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                         <span>Started {startedDate}</span>
                       </span>
                     </div>
@@ -149,21 +149,21 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
                     <div className="flex items-center gap-2 flex-wrap">
                       <Link
                         href={`/directory/${partnerId}`}
-                        className="font-bold text-white text-sm sm:text-base hover:text-teal-300 transition-colors flex items-center gap-1 group"
+                        className="font-bold text-zinc-900 dark:text-white text-sm sm:text-base hover:text-teal-600 dark:hover:text-teal-300 transition-colors flex items-center gap-1 group"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <span className="truncate">{partnerName}</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-teal-400 shrink-0" />
+                        <ExternalLink className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 group-hover:text-teal-600 dark:group-hover:text-teal-400 shrink-0" />
                       </Link>
 
-                      <Badge variant="outline" className="border-white/10 text-zinc-300 text-[10px]">
+                      <Badge variant="outline" className="border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300 text-[10px]">
                         {partnerDept}
                       </Badge>
                     </div>
 
                     {!isAlumni && sess.alumni.alumniProfile?.jobPosition && (
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400">
                         {sess.alumni.alumniProfile.jobPosition}
                         {sess.alumni.alumniProfile.company ? ` at ${sess.alumni.alumniProfile.company}` : ""}
                       </p>
@@ -172,7 +172,7 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
                 </div>
 
                 {/* Action Buttons: Leave/Edit Comment & End Session */}
-                <div className="w-full sm:w-auto shrink-0 flex items-center justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5 flex-wrap">
+                <div className="w-full sm:w-auto shrink-0 flex items-center justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-zinc-200 dark:border-white/5 flex-wrap">
                   <MentorshipCommentDialog
                     sessionId={sess.id}
                     partnerName={partnerName}
@@ -188,7 +188,7 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
                       setSelectedSessionId(sess.id);
                       setDialogOpen(true);
                     }}
-                    className="border-white/10 hover:border-amber-500/40 bg-white/5 hover:bg-amber-950/20 text-zinc-300 hover:text-amber-200 text-xs font-medium"
+                    className="border-zinc-200 dark:border-white/10 hover:border-amber-500/40 bg-zinc-100 dark:bg-white/5 hover:bg-amber-50 dark:hover:bg-amber-950/20 text-zinc-700 dark:text-zinc-300 hover:text-amber-700 dark:hover:text-amber-200 text-xs font-medium"
                   >
                     <span>End Mentorship Session</span>
                   </Button>
@@ -197,26 +197,26 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
 
               {/* Render Existing Testimonials / Comments */}
               {(sess.alumniComment || sess.studentComment) && (
-                <div className="mt-3 pt-3 border-t border-teal-500/15 space-y-2 text-xs">
+                <div className="mt-3 pt-3 border-t border-teal-200/60 dark:border-teal-500/15 space-y-2 text-xs">
                   {sess.alumniComment && (
-                    <div className="p-3 rounded-lg border border-teal-500/20 bg-teal-950/30 space-y-1">
-                      <span className="text-[10px] text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
-                        <Quote className="w-3 h-3 text-teal-400" />
+                    <div className="p-3 rounded-lg border border-teal-200 dark:border-teal-500/20 bg-teal-50/70 dark:bg-teal-950/30 space-y-1">
+                      <span className="text-[10px] text-teal-700 dark:text-teal-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                        <Quote className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                         <span>Alumni Mentorship Note ({sess.alumni.fullName})</span>
                       </span>
-                      <p className="text-zinc-200 text-xs italic leading-relaxed">
+                      <p className="text-zinc-800 dark:text-zinc-200 text-xs italic leading-relaxed">
                         &ldquo;{sess.alumniComment}&rdquo;
                       </p>
                     </div>
                   )}
 
                   {sess.studentComment && (
-                    <div className="p-3 rounded-lg border border-teal-500/20 bg-teal-950/30 space-y-1">
-                      <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
-                        <Quote className="w-3 h-3 text-emerald-400" />
+                    <div className="p-3 rounded-lg border border-teal-200 dark:border-teal-500/20 bg-teal-50/70 dark:bg-teal-950/30 space-y-1">
+                      <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono flex items-center gap-1 uppercase tracking-wide">
+                        <Quote className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                         <span>Student Experience Note ({sess.student.fullName})</span>
                       </span>
-                      <p className="text-zinc-200 text-xs italic leading-relaxed">
+                      <p className="text-zinc-800 dark:text-zinc-200 text-xs italic leading-relaxed">
                         &ldquo;{sess.studentComment}&rdquo;
                       </p>
                     </div>
@@ -231,13 +231,13 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
 
       {/* Confirmation Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="border border-white/10 bg-[#07130f]/95 backdrop-blur-2xl text-white max-w-md">
+        <DialogContent className="border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f]/95 backdrop-blur-2xl text-zinc-900 dark:text-white max-w-md shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-base font-bold text-white flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-amber-400" />
+            <DialogTitle className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-amber-500 dark:text-amber-400" />
               <span>Conclude Mentorship Session?</span>
             </DialogTitle>
-            <DialogDescription className="text-xs text-zinc-300 leading-relaxed pt-1">
+            <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed pt-1">
               Are you sure you would like to end this active mentorship engagement? This will mark the session as
               completed and record the full duration in both member mentorship histories.
             </DialogDescription>
@@ -249,7 +249,7 @@ export function ActiveMentorshipCard({ sessions, isAlumni }: ActiveMentorshipCar
               variant="ghost"
               disabled={isEnding}
               onClick={() => setDialogOpen(false)}
-              className="text-xs text-zinc-400 hover:text-white"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             >
               Keep Session Active
             </Button>

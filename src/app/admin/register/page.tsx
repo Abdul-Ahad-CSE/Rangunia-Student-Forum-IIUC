@@ -212,7 +212,7 @@ export default function AdminRegisterPage() {
                 {/* Full Name & Student ID */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="name" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Full Name</span>
                     </Label>
@@ -220,7 +220,7 @@ export default function AdminRegisterPage() {
                       id="name"
                       placeholder="e.g. Mohammad Abdullah"
                       {...register("name")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.name && (
                       <p className="text-xs text-rose-400">{errors.name.message}</p>
@@ -228,7 +228,7 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="studentId" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="studentId" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
                       <span>IIUC Student ID</span>
                     </Label>
@@ -236,7 +236,7 @@ export default function AdminRegisterPage() {
                       id="studentId"
                       placeholder="e.g. C213045"
                       {...register("studentId")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.studentId && (
                       <p className="text-xs text-rose-400">{errors.studentId.message}</p>
@@ -245,9 +245,9 @@ export default function AdminRegisterPage() {
                 </div>
 
                 {/* SPECIAL GENDER PRIVACY GATEKEEPER (TOP OF FORM) */}
-                <div className="space-y-2 p-3.5 rounded-xl border border-white/10 bg-white/[0.02]">
+                <div className="space-y-2 p-3.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02]">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs font-semibold text-zinc-300">
+                    <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Gender Verification
                     </Label>
                     <span className="text-[11px] text-zinc-400 flex items-center gap-1 font-medium">
@@ -268,7 +268,7 @@ export default function AdminRegisterPage() {
                       className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${
                         selectedGender === "Male"
                           ? "border-emerald-500 bg-emerald-950/60 text-emerald-300 shadow-md shadow-emerald-950"
-                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/20"
+                          : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-white/20"
                       }`}
                     >
                       <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
@@ -308,7 +308,7 @@ export default function AdminRegisterPage() {
                       transition={{ duration: 0.6, ease: "easeOut" }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.94 }}
-                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
+                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:border-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 dark:hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
                       title="Click for privacy protocol"
                     >
                       <span className="w-3.5 h-3.5 rounded-full border border-zinc-500" />
@@ -328,7 +328,7 @@ export default function AdminRegisterPage() {
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="email" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Mail className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Official Email Address</span>
                     </Label>
@@ -337,7 +337,7 @@ export default function AdminRegisterPage() {
                       type="email"
                       placeholder="you@example.com"
                       {...register("email")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.email && (
                       <p className="text-xs text-rose-400">{errors.email.message}</p>
@@ -345,7 +345,7 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="phone" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Phone className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Phone Number</span>
                     </Label>
@@ -353,7 +353,7 @@ export default function AdminRegisterPage() {
                       id="phone"
                       placeholder="e.g. +8801812345678"
                       {...register("phone")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.phone && (
                       <p className="text-xs text-rose-400">{errors.phone.message}</p>
@@ -363,7 +363,7 @@ export default function AdminRegisterPage() {
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                  <Label htmlFor="password" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                     <Lock className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Admin Password (Min 8 Characters)</span>
                   </Label>
@@ -372,7 +372,7 @@ export default function AdminRegisterPage() {
                     type="password"
                     placeholder="••••••••••••"
                     {...register("password")}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                    className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                   />
                   {errors.password && (
                     <p className="text-xs text-rose-400">{errors.password.message}</p>
@@ -382,14 +382,14 @@ export default function AdminRegisterPage() {
                 {/* Department, Section, Enrollment */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="department" className="text-xs font-semibold text-zinc-300">
+                    <Label htmlFor="department" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Department
                     </Label>
                     <Input
                       id="department"
                       placeholder="e.g. CSE, EEE, BBA"
                       {...register("department")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.department && (
                       <p className="text-xs text-rose-400">{errors.department.message}</p>
@@ -397,14 +397,14 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="section" className="text-xs font-semibold text-zinc-300">
+                    <Label htmlFor="section" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Section / Semester
                     </Label>
                     <Input
                       id="section"
                       placeholder="e.g. 5A or 6th"
                       {...register("section")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.section && (
                       <p className="text-xs text-rose-400">{errors.section.message}</p>
@@ -412,14 +412,14 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="enrollment" className="text-xs font-semibold text-zinc-300">
+                    <Label htmlFor="enrollment" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Enrollment Session
                     </Label>
                     <Input
                       id="enrollment"
                       placeholder="e.g. Spring 24"
                       {...register("enrollment")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.enrollment && (
                       <p className="text-xs text-rose-400">{errors.enrollment.message}</p>
@@ -430,14 +430,14 @@ export default function AdminRegisterPage() {
                 {/* Position in Forum & Photo URL */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="position" className="text-xs font-semibold text-zinc-300">
+                    <Label htmlFor="position" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Position in Forum
                     </Label>
                     <Input
                       id="position"
                       placeholder="e.g. General Executive, Treasurer"
                       {...register("position")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.position && (
                       <p className="text-xs text-rose-400">{errors.position.message}</p>
@@ -446,11 +446,11 @@ export default function AdminRegisterPage() {
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="photo-file" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                      <Label htmlFor="photo-file" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                         <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
                         <span>Executive Profile Photo</span>
                       </Label>
-                      <span className="text-[10px] text-zinc-400 font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] text-zinc-400 font-medium bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 px-2 py-0.5 rounded-full text-zinc-600 dark:text-zinc-400">
                         Optional
                       </span>
                     </div>
@@ -466,7 +466,7 @@ export default function AdminRegisterPage() {
                           />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="text-xs font-medium text-white truncate">
+                          <p className="text-xs font-medium text-zinc-900 dark:text-white truncate">
                             {photoFileName || "Photo uploaded"}
                           </p>
                           <p className="text-[10px] text-emerald-400">Ready to save</p>
@@ -516,7 +516,7 @@ export default function AdminRegisterPage() {
                                   <Upload className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <p className="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors">
+                                  <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                                     Choose Photo from Device
                                   </p>
                                   <p className="text-[10px] text-zinc-500">PNG, JPG, WebP up to 5MB</p>
@@ -526,7 +526,7 @@ export default function AdminRegisterPage() {
                                 type="button"
                                 variant="outline"
                                 size="sm"
-                                className="h-7 text-xs border-white/10 bg-white/5 text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
+                                className="h-7 text-xs border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-700 dark:text-zinc-300 pointer-events-none group-hover:border-emerald-500/40"
                               >
                                 Browse
                               </Button>
@@ -544,7 +544,7 @@ export default function AdminRegisterPage() {
                 {/* Current & Permanent Address */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="currentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="currentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Current Address (Campus/Chittagong)</span>
                     </Label>
@@ -552,7 +552,7 @@ export default function AdminRegisterPage() {
                       id="currentAddress"
                       placeholder="e.g. Kumira, Sitakunda / Halishahar"
                       {...register("currentAddress")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.currentAddress && (
                       <p className="text-xs text-rose-400">{errors.currentAddress.message}</p>
@@ -560,7 +560,7 @@ export default function AdminRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Permanent Address (Rangunia)</span>
                     </Label>
@@ -568,7 +568,7 @@ export default function AdminRegisterPage() {
                       id="permanentAddress"
                       placeholder="e.g. Betagi, Rangunia, Chittagong"
                       {...register("permanentAddress")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500"
                     />
                     {errors.permanentAddress && (
                       <p className="text-xs text-rose-400">{errors.permanentAddress.message}</p>
@@ -595,7 +595,7 @@ export default function AdminRegisterPage() {
                 </div>
               </form>
 
-              <div className="mt-6 pt-5 border-t border-white/5 text-center text-xs text-zinc-400">
+              <div className="mt-6 pt-5 border-t border-zinc-200 dark:border-white/5 text-center text-xs text-zinc-500 dark:text-zinc-400">
                 Already approved as an Admin?{" "}
                 <Link href="/login" className="text-emerald-400 hover:underline font-semibold">
                   Sign in here

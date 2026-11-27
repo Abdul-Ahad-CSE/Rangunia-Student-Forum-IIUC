@@ -164,13 +164,13 @@ export function NoticeFormDialog({
         }
       />
 
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#07130f] border border-white/10 text-white p-6 rounded-2xl shadow-2xl">
-        <DialogHeader className="border-b border-white/10 pb-4">
-          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-emerald-400" />
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#07130f] border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white p-6 rounded-2xl shadow-2xl">
+        <DialogHeader className="border-b border-zinc-200 dark:border-white/10 pb-4">
+          <DialogTitle className="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <span>{mode === "create" ? "Publish Official Notice" : "Edit Notice"}</span>
           </DialogTitle>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-zinc-600 dark:text-zinc-400">
             {mode === "create"
               ? "Broadcast an announcement, academic update, or forum circular."
               : "Update notice details, publication date, or banner image."}
@@ -180,40 +180,40 @@ export function NoticeFormDialog({
         <form onSubmit={handleSubmit} className="space-y-5 pt-4">
           {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="notice-title" className="text-xs font-semibold text-zinc-300">
-              Notice Title <span className="text-rose-400">*</span>
+            <Label htmlFor="notice-title" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Notice Title <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Input
               id="notice-title"
               placeholder="e.g. Schedule for Annual General Meeting & Iftar Mahfil 2026"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-sm"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-sm"
               required
             />
           </div>
 
           {/* Date */}
           <div className="space-y-2">
-            <Label htmlFor="notice-date" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Publication Date</span> <span className="text-rose-400">*</span>
+            <Label htmlFor="notice-date" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Publication Date</span> <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Input
               id="notice-date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="border-white/10 bg-white/5 text-white focus-visible:border-emerald-500 text-xs [color-scheme:dark]"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white focus-visible:border-emerald-500 text-xs"
               required
             />
           </div>
 
           {/* Banner Photo (Cloudinary) */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold text-zinc-300 flex items-center justify-between">
+            <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
               <span>Notice Banner / Circular Image</span>
-              <span className="text-[10px] text-zinc-400 font-normal">Optional</span>
+              <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-normal">Optional</span>
             </Label>
 
             {bannerUrl ? (
@@ -275,13 +275,13 @@ export function NoticeFormDialog({
                   {({ open }) => (
                     <div
                       onClick={() => open?.()}
-                      className="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group text-center space-y-2"
+                      className="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-zinc-300 dark:border-white/15 bg-zinc-50 dark:bg-white/[0.02] hover:bg-zinc-100 dark:hover:bg-white/[0.05] hover:border-emerald-500/40 transition-all cursor-pointer group text-center space-y-2"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
                         <UploadCloud className="w-5 h-5" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                        <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                           Upload Notice Banner / Circular
                         </p>
                         <p className="text-[11px] text-zinc-500">
@@ -297,8 +297,8 @@ export function NoticeFormDialog({
 
           {/* Notice Content */}
           <div className="space-y-2">
-            <Label htmlFor="notice-content" className="text-xs font-semibold text-zinc-300">
-              Notice Content / Full Statement <span className="text-rose-400">*</span>
+            <Label htmlFor="notice-content" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Notice Content / Full Statement <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Textarea
               id="notice-content"
@@ -306,20 +306,20 @@ export function NoticeFormDialog({
               placeholder="Write the full announcement, guidelines, instructions, or meeting agenda..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-y"
+              className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-emerald-500 text-xs resize-y"
               required
             />
           </div>
 
           {/* Dialog Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-white/10">
             <Button
               type="button"
               variant="outline"
               size="sm"
               disabled={isSubmitting}
               onClick={() => setOpen(false)}
-              className="border-white/10 text-zinc-300 hover:text-white text-xs"
+              className="border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white text-xs"
             >
               Cancel
             </Button>

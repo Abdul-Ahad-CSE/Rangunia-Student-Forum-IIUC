@@ -241,17 +241,17 @@ export function CommitteeFormDialog({
         }
       />
 
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#07130f] border border-white/10 text-white p-6 rounded-2xl shadow-2xl">
-        <DialogHeader className="border-b border-white/10 pb-4">
-          <DialogTitle className="text-lg font-bold text-white flex items-center gap-2">
-            <Users className="w-5 h-5 text-emerald-400" />
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#07130f] border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white p-6 rounded-2xl shadow-2xl">
+        <DialogHeader className="border-b border-zinc-200 dark:border-white/10 pb-4">
+          <DialogTitle className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <Users className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <span>
               {mode === "create"
                 ? "Appoint Committee Member"
                 : `Edit Committee Member: ${initialData?.name || ""}`}
             </span>
           </DialogTitle>
-          <p className="text-xs text-zinc-400 pt-1">
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 pt-1">
             Configure advisors or executive members with decimal rank-based tiering and strict privacy overrides.
           </p>
         </DialogHeader>
@@ -259,8 +259,8 @@ export function CommitteeFormDialog({
         <form onSubmit={handleSubmit} className="space-y-5 pt-4">
           {/* Member Role / Type Selection */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold text-zinc-300">
-              Committee Role Type <span className="text-rose-400">*</span>
+            <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Committee Role Type <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -268,14 +268,14 @@ export function CommitteeFormDialog({
                 onClick={() => setType("EXECUTIVE")}
                 className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-semibold transition-all ${
                   type === "EXECUTIVE"
-                    ? "border-emerald-500 bg-emerald-950/50 text-emerald-300 shadow-md shadow-emerald-950"
-                    : "border-white/10 bg-white/[0.02] text-zinc-400 hover:border-white/20 hover:text-zinc-200"
+                    ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 shadow-md shadow-emerald-950/20"
+                    : "border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02] text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
                 <Award className="w-4 h-4" />
                 <div className="text-left">
                   <div>Executive Member</div>
-                  <div className="text-[10px] font-normal text-zinc-400">
+                  <div className="text-[10px] font-normal text-zinc-500 dark:text-zinc-400">
                     Tiered by Decimal Rank
                   </div>
                 </div>
@@ -286,14 +286,14 @@ export function CommitteeFormDialog({
                 onClick={() => setType("ADVISOR")}
                 className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-semibold transition-all ${
                   type === "ADVISOR"
-                    ? "border-amber-500 bg-amber-950/40 text-amber-300 shadow-md shadow-amber-950"
-                    : "border-white/10 bg-white/[0.02] text-zinc-400 hover:border-white/20 hover:text-zinc-200"
+                    ? "border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 shadow-md shadow-amber-950/20"
+                    : "border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02] text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
               >
-                <Sparkles className="w-4 h-4 text-amber-400" />
+                <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                 <div className="text-left">
                   <div>Honorable Advisor</div>
-                  <div className="text-[10px] font-normal text-zinc-400">
+                  <div className="text-[10px] font-normal text-zinc-500 dark:text-zinc-400">
                     Pinned to Top Tier
                   </div>
                 </div>
@@ -304,31 +304,31 @@ export function CommitteeFormDialog({
           {/* Full Name & Gender */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-zinc-300">
-                Full Name <span className="text-rose-400">*</span>
+              <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Full Name <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 placeholder="e.g. Engr. Tanvir Ahmed"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-zinc-300">
-                Gender <span className="text-rose-400">*</span>
+              <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Gender <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <select
                 value={gender}
                 onChange={(e) => handleGenderChange(e.target.value)}
-                className="w-full h-9 rounded-md bg-black/40 border border-white/10 px-3 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="w-full h-9 rounded-md bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 px-3 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500"
               >
-                <option value="Male" className="bg-zinc-900 text-white">
+                <option value="Male" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
                   Male
                 </option>
-                <option value="Female" className="bg-zinc-900 text-white">
+                <option value="Female" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
                   Female (Privacy Protected)
                 </option>
               </select>
@@ -338,21 +338,21 @@ export function CommitteeFormDialog({
           {/* Department & Designation */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-zinc-300">
-                Department <span className="text-rose-400">*</span>
+              <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Department <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 placeholder="e.g. CSE, EEE, Pharmacy, BBA"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 required
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-zinc-300">
-                Designation <span className="text-rose-400">*</span>
+              <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                Designation <span className="text-rose-500 dark:text-rose-400">*</span>
               </Label>
               <Input
                 placeholder={
@@ -363,21 +363,21 @@ export function CommitteeFormDialog({
                 value={designation}
                 onChange={(e) => setDesignation(e.target.value)}
                 required
-                className="bg-black/40 border-white/10 text-white placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
+                className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:border-emerald-500 text-xs"
               />
             </div>
           </div>
 
           {/* Rank Field - ONLY for EXECUTIVE members */}
           {type === "EXECUTIVE" ? (
-            <div className="space-y-1.5 p-3.5 rounded-xl border border-emerald-500/20 bg-emerald-950/20">
+            <div className="space-y-1.5 p-3.5 rounded-xl border border-emerald-500/20 bg-emerald-50/50 dark:bg-emerald-950/20">
               <div className="flex items-center justify-between">
-                <Label className="text-xs font-semibold text-emerald-300 flex items-center gap-1.5">
+                <Label className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
                   <Award className="w-3.5 h-3.5" />
                   <span>Executive Rank (Decimal Float)</span>
-                  <span className="text-rose-400">*</span>
+                  <span className="text-rose-500 dark:text-rose-400">*</span>
                 </Label>
-                <span className="text-[11px] font-mono text-zinc-400">
+                <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
                   Floor = Tier ({rank ? `Tier ${Math.floor(parseFloat(rank) || 0)}` : "Tier 1"})
                 </span>
               </div>
@@ -389,35 +389,35 @@ export function CommitteeFormDialog({
                 value={rank}
                 onChange={(e) => setRank(e.target.value)}
                 required
-                className="bg-black/50 border-white/10 text-white font-mono text-xs focus:border-emerald-500"
+                className="bg-zinc-50 dark:bg-black/50 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white font-mono text-xs focus:border-emerald-500"
               />
-              <p className="text-[11px] text-zinc-400 leading-tight">
+              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
                 Executives sharing the same integer part (e.g. 1.0 and 1.1) are grouped horizontally into Tier 1 (Presidium).
               </p>
             </div>
           ) : (
-            <div className="p-3 rounded-xl border border-amber-500/20 bg-amber-950/10 flex items-center gap-2 text-xs text-amber-300/90 font-mono">
-              <Info className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="p-3 rounded-xl border border-amber-500/20 bg-amber-50 dark:bg-amber-950/10 flex items-center gap-2 text-xs text-amber-800 dark:text-amber-300/90 font-mono">
+              <Info className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
               <span>Advisors bypass rank ordering and are pinned to the top of the committee showcase.</span>
             </div>
           )}
 
           {/* Photo Management with Strict Female Privacy Override */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold text-zinc-300">
-              Member Avatar Photo <span className="text-rose-400">*</span>
+            <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Member Avatar Photo <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
 
             {isFemale ? (
               // CRITICAL FEMALE PRIVACY OVERRIDE:
               // Completely hide/disable Cloudinary CldUploadWidget.
               // Display /hijabi.png preview and lockdown notice.
-              <div className="p-4 rounded-xl border border-rose-500/30 bg-rose-950/20 space-y-3">
-                <div className="flex items-center gap-2 text-rose-300 text-xs font-semibold">
-                  <Shield className="w-4 h-4 text-rose-400" />
+              <div className="p-4 rounded-xl border border-rose-300 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 space-y-3">
+                <div className="flex items-center gap-2 text-rose-700 dark:text-rose-300 text-xs font-semibold">
+                  <Shield className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                   <span>Strict Female Privacy Override Active</span>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed">
+                <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   Per the Rangunia Students Forum constitutional privacy policy, female committee member photos are strictly masked with the verified modesty avatar. Custom image uploading is permanently disabled.
                 </p>
                 <div className="flex items-center gap-4 pt-1">
@@ -430,10 +430,10 @@ export function CommitteeFormDialog({
                     />
                   </div>
                   <div className="space-y-1">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-rose-500/40 bg-rose-950/60 text-[10px] font-mono text-rose-300 font-bold">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-rose-300 dark:border-rose-500/40 bg-rose-100 dark:bg-rose-950/60 text-[10px] font-mono text-rose-700 dark:text-rose-300 font-bold">
                       LOCKED: /hijabi.png
                     </span>
-                    <p className="text-[10px] text-zinc-400">
+                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400">
                       Payload will be enforced to &quot;/hijabi.png&quot; on submission.
                     </p>
                   </div>
@@ -551,8 +551,8 @@ export function CommitteeFormDialog({
 
           {/* Quote / Statement */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-zinc-300">
-              Inspiring Quote or Statement <span className="text-rose-400">*</span>
+            <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              Inspiring Quote or Statement <span className="text-rose-500 dark:text-rose-400">*</span>
             </Label>
             <Textarea
               rows={3}
@@ -560,27 +560,27 @@ export function CommitteeFormDialog({
               value={quote}
               onChange={(e) => setQuote(e.target.value)}
               required
-              className="bg-black/40 border-white/10 text-white placeholder:text-zinc-600 focus:border-emerald-500 text-xs resize-none"
+              className="bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:border-emerald-500 text-xs resize-none"
             />
-            <p className="text-[10px] text-zinc-500">
+            <p className="text-[10px] text-zinc-500 dark:text-zinc-400">
               This quote is featured prominently on the public committee showcase card.
             </p>
           </div>
 
           {/* Form Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-white/10">
             <Button
               type="button"
               variant="ghost"
               onClick={() => setOpen(false)}
-              className="text-xs text-zinc-400 hover:text-white"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs min-w-[140px] shadow-md shadow-emerald-950 flex items-center justify-center gap-2"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs min-w-[140px] shadow-md shadow-emerald-950/40 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>

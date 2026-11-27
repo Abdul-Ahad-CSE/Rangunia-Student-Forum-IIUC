@@ -127,16 +127,16 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
       {/* Search & Filter Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500" />
           <Input
             placeholder="Search by name, student ID, department, email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 h-10 border-white/10 bg-white/5 text-white placeholder:text-zinc-500 text-xs sm:text-sm"
+            className="pl-9 h-10 border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-xs sm:text-sm"
           />
         </div>
 
-        <div className="w-full grid grid-cols-3 gap-1 sm:flex sm:w-auto items-center p-1 rounded-xl border border-white/10 bg-black/40 text-xs">
+        <div className="w-full grid grid-cols-3 gap-1 sm:flex sm:w-auto items-center p-1 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-black/40 text-xs">
           <Button
             type="button"
             variant="ghost"
@@ -145,7 +145,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
             className={`h-8 px-3 rounded-lg text-xs font-semibold ${
               filterRole === "ALL"
                 ? "bg-emerald-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             <span>All ({members.length})</span>
@@ -159,7 +159,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
             className={`h-8 px-3 rounded-lg text-xs font-semibold ${
               filterRole === "STUDENT"
                 ? "bg-emerald-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5 mr-1" />
@@ -174,7 +174,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
             className={`h-8 px-3 rounded-lg text-xs font-semibold ${
               filterRole === "ALUMNI"
                 ? "bg-teal-600 text-white shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
             }`}
           >
             <Briefcase className="w-3.5 h-3.5 mr-1" />
@@ -185,13 +185,13 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
 
       {/* Member Cards / Queue */}
       {filteredMembers.length === 0 ? (
-        <Card className="border border-white/10 bg-[#07130f]/60 backdrop-blur-md text-white text-center py-16 px-4">
+        <Card className="border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/60 backdrop-blur-md text-zinc-900 dark:text-white text-center py-16 px-4 shadow-sm">
           <CardContent className="space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
               <Sparkles className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-white">No Pending Registrations</h3>
-            <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            <h3 className="text-base font-bold text-zinc-900 dark:text-white">No Pending Registrations</h3>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto">
               {searchQuery || filterRole !== "ALL"
                 ? "No pending members match your active filters or search terms."
                 : "All submitted student and alumni registrations have been reviewed and processed."}
@@ -205,14 +205,14 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
             return (
               <Card
                 key={member.id}
-                className="border border-white/10 bg-[#07130f]/80 backdrop-blur-xl text-white transition-all hover:border-white/20 shadow-lg"
+                className="border border-zinc-200/80 dark:border-white/10 bg-white/90 dark:bg-[#07130f]/80 backdrop-blur-xl text-zinc-900 dark:text-white transition-all hover:border-zinc-300 dark:hover:border-white/20 shadow-lg"
               >
                 <CardContent className="p-5">
                   <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
                     {/* Member Profile Snapshot */}
                     <div className="flex items-start gap-4 min-w-0 flex-1">
                       {/* Avatar */}
-                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-white/15 bg-zinc-900 shrink-0">
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-zinc-200 dark:border-white/15 bg-zinc-100 dark:bg-zinc-900 shrink-0">
                         {member.photoUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
@@ -221,7 +221,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-emerald-950/60 text-emerald-300 font-bold font-mono text-lg">
+                          <div className="w-full h-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold font-mono text-lg">
                             {member.fullName.charAt(0).toUpperCase()}
                           </div>
                         )}
@@ -230,15 +230,15 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                       {/* Info Details */}
                       <div className="space-y-1 min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h4 className="font-bold text-base text-white tracking-tight truncate">
+                          <h4 className="font-bold text-base text-zinc-900 dark:text-white tracking-tight truncate">
                             {member.fullName}
                           </h4>
                           <Badge
                             variant="outline"
                             className={
                               member.isAlumni
-                                ? "border-teal-500/40 bg-teal-950/40 text-teal-300 text-[10px] font-semibold"
-                                : "border-emerald-500/40 bg-emerald-950/40 text-emerald-300 text-[10px] font-semibold"
+                                ? "border-teal-500/40 bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 text-[10px] font-semibold"
+                                : "border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-semibold"
                             }
                           >
                             {member.isAlumni ? (
@@ -254,12 +254,12 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                             )}
                           </Badge>
 
-                          <span className="text-[10px] font-mono bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">
+                          <span className="text-[10px] font-mono bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 px-2 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
                             {member.studentId}
                           </span>
 
                           {member.bloodGroup && (
-                            <span className="text-[10px] font-semibold text-rose-300 bg-rose-950/30 border border-rose-500/30 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span className="text-[10px] font-semibold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-300 dark:border-rose-500/30 px-2 py-0.5 rounded flex items-center gap-1">
                               <Droplet className="w-2.5 h-2.5 fill-rose-500" />
                               <span>{member.bloodGroup.replace("_POSITIVE", "+").replace("_NEGATIVE", "-")}</span>
                             </span>
@@ -267,27 +267,27 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                         </div>
 
                         {/* Meta Line */}
-                        <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-zinc-400">
+                        <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-zinc-600 dark:text-zinc-400">
                           <span className="flex items-center gap-1">
-                            <Building className="w-3 h-3 text-zinc-500" />
+                            <Building className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                             {member.department} ({member.session})
                           </span>
 
                           <span className="flex items-center gap-1">
-                            <Mail className="w-3 h-3 text-zinc-500" />
+                            <Mail className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                             <span className="truncate max-w-[200px]">{member.email}</span>
                           </span>
 
                           {member.phone && (
                             <span className="flex items-center gap-1">
-                              <Phone className="w-3 h-3 text-zinc-500" />
+                              <Phone className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                               <span>{member.phone}</span>
                             </span>
                           )}
 
                           {member.address && (
                             <span className="flex items-center gap-1">
-                              <MapPin className="w-3 h-3 text-zinc-500" />
+                              <MapPin className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                               <span className="truncate max-w-[180px]">{member.address}</span>
                             </span>
                           )}
@@ -295,13 +295,13 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
 
                         {/* Role-Specific Detail Snippet */}
                         {member.isAlumni && (member.jobPosition || member.company) && (
-                          <p className="text-[11px] text-teal-300/90 pt-0.5">
+                          <p className="text-[11px] text-teal-700 dark:text-teal-300/90 pt-0.5">
                             💼 {member.jobPosition || "Professional"}
                             {member.company ? ` at ${member.company}` : ""}
                           </p>
                         )}
                         {!member.isAlumni && member.currentSemester && (
-                          <p className="text-[11px] text-emerald-300/90 pt-0.5">
+                          <p className="text-[11px] text-emerald-700 dark:text-emerald-300/90 pt-0.5">
                             📚 Enrolled Semester: {member.currentSemester}
                           </p>
                         )}
@@ -309,14 +309,14 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                     </div>
 
                     {/* Action Controls */}
-                    <div className="flex items-center gap-2 self-end lg:self-center shrink-0 w-full sm:w-auto pt-2 lg:pt-0 border-t lg:border-t-0 border-white/5">
+                    <div className="flex items-center gap-2 self-end lg:self-center shrink-0 w-full sm:w-auto pt-2 lg:pt-0 border-t lg:border-t-0 border-zinc-200 dark:border-white/5">
                       <Button
                         type="button"
                         disabled={isProcessing}
                         onClick={() => handleDelete(member.id, member.fullName)}
                         variant="ghost"
                         size="sm"
-                        className="h-9 px-2 text-zinc-400 hover:text-rose-400 hover:bg-rose-950/30 text-xs shrink-0"
+                        className="h-9 px-2 text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-xs shrink-0"
                         title="Delete record permanently"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -328,7 +328,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                         onClick={() => handleReject(member.id, member.fullName)}
                         variant="outline"
                         size="sm"
-                        className="flex-1 sm:flex-none border-rose-500/30 bg-rose-950/20 text-rose-300 hover:bg-rose-950/40 hover:text-white text-xs h-9"
+                        className="flex-1 sm:flex-none border-rose-300 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/40 hover:text-rose-900 dark:hover:text-white text-xs h-9"
                       >
                         {isProcessing ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -345,7 +345,7 @@ export function MemberApprovalList({ initialMembers, onActionComplete }: Props) 
                         disabled={isProcessing}
                         onClick={() => handleApprove(member.id, member.fullName)}
                         size="sm"
-                        className="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 shadow-md shadow-emerald-950"
+                        className="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-9 shadow-md shadow-emerald-950/40"
                       >
                         {isProcessing ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -211,7 +211,7 @@ export default function AlumniRegisterPage() {
                 {/* 1. Full Name & IIUC Student ID */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="fullName" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="fullName" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-teal-400" />
                       <span>Full Name</span>
                     </Label>
@@ -219,7 +219,7 @@ export default function AlumniRegisterPage() {
                       id="fullName"
                       placeholder="e.g. Engr. Nurul Alam"
                       {...register("fullName")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.fullName && (
                       <p className="text-xs text-rose-400">{errors.fullName.message}</p>
@@ -227,7 +227,7 @@ export default function AlumniRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="studentId" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="studentId" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
                       <span>IIUC Student ID</span>
                     </Label>
@@ -235,7 +235,7 @@ export default function AlumniRegisterPage() {
                       id="studentId"
                       placeholder="e.g. C173045"
                       {...register("studentId")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.studentId && (
                       <p className="text-xs text-rose-400">{errors.studentId.message}</p>
@@ -244,9 +244,9 @@ export default function AlumniRegisterPage() {
                 </div>
 
                 {/* 2. SPECIAL GENDER PRIVACY GATEKEEPER (TOP OF FORM) */}
-                <div className="space-y-2 p-3.5 rounded-xl border border-white/10 bg-white/[0.02]">
+                <div className="space-y-2 p-3.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.02]">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs font-semibold text-zinc-300">
+                    <Label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                       Gender Verification
                     </Label>
                     <span className="text-[11px] text-zinc-400 flex items-center gap-1 font-medium">
@@ -267,7 +267,7 @@ export default function AlumniRegisterPage() {
                       className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${
                         selectedGender === "Male"
                           ? "border-teal-500 bg-teal-950/60 text-teal-300 shadow-md shadow-teal-950"
-                          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/20"
+                          : "border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-white/20"
                       }`}
                     >
                       <span
@@ -311,7 +311,7 @@ export default function AlumniRegisterPage() {
                       transition={{ duration: 0.6, ease: "easeOut" }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.94 }}
-                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:border-rose-500/40 hover:bg-rose-950/20 hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
+                      className="relative flex items-center justify-center gap-2 p-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:border-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 dark:hover:text-rose-300 transition-colors cursor-pointer select-none overflow-hidden"
                       title="Click for privacy protocol"
                     >
                       <span className="w-3.5 h-3.5 rounded-full border border-zinc-500" />
@@ -331,11 +331,11 @@ export default function AlumniRegisterPage() {
                 {/* 3. Optional Profile Photo */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="alumni-photo" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="alumni-photo" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <ImageIcon className="w-3.5 h-3.5 text-teal-400" />
                       <span>Alumni Profile Photo</span>
                     </Label>
-                    <span className="text-[10px] text-zinc-400 font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] text-zinc-400 font-medium bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 px-2 py-0.5 rounded-full text-zinc-600 dark:text-zinc-400">
                       Optional
                     </span>
                   </div>
@@ -351,7 +351,7 @@ export default function AlumniRegisterPage() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-medium text-white truncate">
+                        <p className="text-xs font-medium text-zinc-900 dark:text-white truncate">
                           {photoFileName || "Photo uploaded"}
                         </p>
                         <p className="text-[10px] text-teal-400">Ready to save</p>
@@ -431,7 +431,7 @@ export default function AlumniRegisterPage() {
 
                 {/* 4. Graduated Department */}
                 <div className="space-y-2">
-                  <Label htmlFor="department" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                  <Label htmlFor="department" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                     <BookOpen className="w-3.5 h-3.5 text-teal-400" />
                     <span>Graduated Department</span>
                   </Label>
@@ -439,7 +439,7 @@ export default function AlumniRegisterPage() {
                     id="department"
                     placeholder="e.g. CSE, EEE, BBA, Pharmacy"
                     {...register("department")}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                    className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                   />
                   {errors.department && (
                     <p className="text-xs text-rose-400">{errors.department.message}</p>
@@ -449,7 +449,7 @@ export default function AlumniRegisterPage() {
                 {/* Grid Layout: Enrollment Session & Batch on the same row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="session" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="session" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Calendar className="w-3 h-3 text-teal-400" />
                       <span>Enrollment Session</span>
                     </Label>
@@ -457,7 +457,7 @@ export default function AlumniRegisterPage() {
                       id="session"
                       placeholder="e.g. Autumn 2016"
                       {...register("session")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.session && (
                       <p className="text-xs text-rose-400">{errors.session.message}</p>
@@ -465,7 +465,7 @@ export default function AlumniRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="batch" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="batch" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Hash className="w-3.5 h-3.5 text-teal-400" />
                       <span>Batch</span>
                     </Label>
@@ -473,7 +473,7 @@ export default function AlumniRegisterPage() {
                       id="batch"
                       placeholder="e.g. 40th, 57"
                       {...register("batch")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.batch && (
                       <p className="text-xs text-rose-400">{errors.batch.message}</p>
@@ -484,7 +484,7 @@ export default function AlumniRegisterPage() {
                 {/* 6. Email (Login Credential) & Password */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="email" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Mail className="w-3.5 h-3.5 text-teal-400" />
                       <span>Email (Used for Login)</span>
                     </Label>
@@ -493,7 +493,7 @@ export default function AlumniRegisterPage() {
                       type="email"
                       placeholder="alumni@example.com"
                       {...register("email")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.email && (
                       <p className="text-xs text-rose-400">{errors.email.message}</p>
@@ -501,7 +501,7 @@ export default function AlumniRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="password" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="password" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Lock className="w-3.5 h-3.5 text-teal-400" />
                       <span>Password (Min 6 Characters)</span>
                     </Label>
@@ -510,7 +510,7 @@ export default function AlumniRegisterPage() {
                       type="password"
                       placeholder="••••••••••••"
                       {...register("password")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.password && (
                       <p className="text-xs text-rose-400">{errors.password.message}</p>
@@ -521,7 +521,7 @@ export default function AlumniRegisterPage() {
                 {/* 7. Phone & Blood Group */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="phone" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Phone className="w-3.5 h-3.5 text-teal-400" />
                       <span>Phone Number</span>
                     </Label>
@@ -529,7 +529,7 @@ export default function AlumniRegisterPage() {
                       id="phone"
                       placeholder="e.g. +8801812345678"
                       {...register("phone")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.phone && (
                       <p className="text-xs text-rose-400">{errors.phone.message}</p>
@@ -537,14 +537,14 @@ export default function AlumniRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="bloodGroup" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="bloodGroup" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Droplet className="w-3.5 h-3.5 text-rose-400" />
                       <span>Blood Group</span>
                     </Label>
                     <select
                       id="bloodGroup"
                       {...register("bloodGroup")}
-                      className="w-full h-9 rounded-md border border-white/10 bg-[#07130f] px-3 py-1 text-xs text-white focus:outline-none focus:ring-1 focus:ring-teal-500"
+                      className="w-full h-9 rounded-md border border-zinc-200 dark:border-white/10 bg-white dark:bg-[#07130f] px-3 py-1 text-xs text-zinc-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-teal-500"
                     >
                       <option value="">Select Blood Group (Optional)</option>
                       <option value="A_POSITIVE">A+ (A Positive)</option>
@@ -565,7 +565,7 @@ export default function AlumniRegisterPage() {
                 {/* 7. Permanent & Present Address */}
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="permanentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-teal-400" />
                       <span>Permanent Address (Union / Village in Rangunia)</span>
                     </Label>
@@ -573,7 +573,7 @@ export default function AlumniRegisterPage() {
                       id="permanentAddress"
                       placeholder="e.g. Mariumnagar, Rangunia, Chittagong"
                       {...register("permanentAddress")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.permanentAddress && (
                       <p className="text-xs text-rose-400">{errors.permanentAddress.message}</p>
@@ -581,7 +581,7 @@ export default function AlumniRegisterPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="presentAddress" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-teal-400" />
                       <span>Present Address (Current City / Residence)</span>
                     </Label>
@@ -589,7 +589,7 @@ export default function AlumniRegisterPage() {
                       id="presentAddress"
                       placeholder="e.g. Nasirabad, Chittagong / Dhanmondi, Dhaka"
                       {...register("presentAddress")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500"
                     />
                     {errors.presentAddress && (
                       <p className="text-xs text-rose-400">{errors.presentAddress.message}</p>
@@ -600,7 +600,7 @@ export default function AlumniRegisterPage() {
                 {/* 8. Social Links (Facebook first, then LinkedIn) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="facebook" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="facebook" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Globe className="w-3.5 h-3.5 text-teal-400" />
                       <span>Facebook Profile Link (Optional)</span>
                     </Label>
@@ -608,12 +608,12 @@ export default function AlumniRegisterPage() {
                       id="facebook"
                       placeholder="https://facebook.com/username"
                       {...register("facebook")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="linkedin" className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                    <Label htmlFor="linkedin" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Globe className="w-3.5 h-3.5 text-teal-400" />
                       <span>LinkedIn Profile Link (Optional)</span>
                     </Label>
@@ -621,14 +621,14 @@ export default function AlumniRegisterPage() {
                       id="linkedin"
                       placeholder="https://linkedin.com/in/username"
                       {...register("linkedin")}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
+                      className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs"
                     />
                   </div>
                 </div>
 
                 {/* 10. Bio / About */}
                 <div className="space-y-2">
-                  <Label htmlFor="bio" className="text-xs font-semibold text-zinc-300">
+                  <Label htmlFor="bio" className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                     Brief Bio / Professional Summary (Optional)
                   </Label>
                   <Textarea
@@ -636,7 +636,7 @@ export default function AlumniRegisterPage() {
                     rows={3}
                     placeholder="Share your career journey, expertise, or ways you'd like to guide Rangunia juniors..."
                     {...register("bio")}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
+                    className="border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:border-teal-500 text-xs resize-none"
                   />
                   {errors.bio && (
                     <p className="text-xs text-rose-400">{errors.bio.message}</p>
@@ -662,7 +662,7 @@ export default function AlumniRegisterPage() {
                 </div>
               </form>
 
-              <div className="mt-6 pt-5 border-t border-white/5 text-center text-xs text-zinc-400">
+              <div className="mt-6 pt-5 border-t border-zinc-200 dark:border-white/5 text-center text-xs text-zinc-500 dark:text-zinc-400">
                 Already registered with RSF?{" "}
                 <Link href="/login" className="text-teal-400 hover:underline font-semibold">
                   Sign in to your Alumni Portal

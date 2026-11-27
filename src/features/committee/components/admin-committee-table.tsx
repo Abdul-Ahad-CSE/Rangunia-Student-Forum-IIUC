@@ -217,18 +217,18 @@ export function AdminCommitteeTable({
                           />
                         </div>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                          <div className="font-semibold text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
                             <span>{member.name}</span>
                             {isFemale && (
                               <span
                                 title="Female Member Privacy Override (/hijabi.png)"
-                                className="inline-flex items-center text-[10px] text-rose-400 font-mono"
+                                className="inline-flex items-center text-[10px] text-rose-500 dark:text-rose-400 font-mono"
                               >
                                 <Shield className="w-3 h-3" />
                               </span>
                             )}
                           </div>
-                          <div className="text-[11px] text-zinc-400 truncate">
+                          <div className="text-[11px] text-zinc-600 dark:text-zinc-400 truncate">
                             {member.designation}
                           </div>
                         </div>
@@ -238,13 +238,13 @@ export function AdminCommitteeTable({
                     {/* Role Type */}
                     <td className="py-3.5 px-4">
                       {member.type === "ADVISOR" ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-amber-500/30 bg-amber-950/40 text-[11px] font-mono text-amber-300">
-                          <Sparkles className="w-3 h-3 text-amber-400" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-amber-500/30 bg-amber-50 dark:bg-amber-950/40 text-[11px] font-mono text-amber-700 dark:text-amber-300">
+                          <Sparkles className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                           <span>Advisor</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-[11px] font-mono text-emerald-300">
-                          <Award className="w-3 h-3 text-emerald-400" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-[11px] font-mono text-emerald-700 dark:text-emerald-300">
+                          <Award className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                           <span>Executive</span>
                         </span>
                       )}
@@ -253,13 +253,13 @@ export function AdminCommitteeTable({
                     {/* Rank / Tier */}
                     <td className="py-3.5 px-4 font-mono">
                       {member.type === "ADVISOR" ? (
-                        <span className="text-zinc-500 text-[11px]">Pinned (Top)</span>
+                        <span className="text-zinc-500 dark:text-zinc-400 text-[11px]">Pinned (Top)</span>
                       ) : (
                         <div className="space-y-0.5">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-emerald-400 font-bold text-[11px]">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-emerald-700 dark:text-emerald-400 font-bold text-[11px]">
                             Tier {Math.floor(member.rank ?? 0)}
                           </span>
-                          <div className="text-[10px] text-zinc-400">
+                          <div className="text-[10px] text-zinc-500 dark:text-zinc-400">
                             Rank {member.rank?.toFixed(1)}
                           </div>
                         </div>
@@ -268,7 +268,7 @@ export function AdminCommitteeTable({
 
                     {/* Department & Gender */}
                     <td className="py-3.5 px-4">
-                      <div className="font-medium text-zinc-200">{member.department}</div>
+                      <div className="font-medium text-zinc-800 dark:text-zinc-200">{member.department}</div>
                       <div className="text-[10px] text-zinc-500">
                         {isFemale ? "Female (Masked)" : member.gender}
                       </div>
@@ -276,7 +276,7 @@ export function AdminCommitteeTable({
 
                     {/* Quote Excerpt */}
                     <td className="py-3.5 px-4 max-w-xs">
-                      <p className="text-zinc-400 italic line-clamp-2 text-[11px]">
+                      <p className="text-zinc-600 dark:text-zinc-400 italic line-clamp-2 text-[11px]">
                         &quot;{member.quote}&quot;
                       </p>
                     </td>
