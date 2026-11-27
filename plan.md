@@ -219,3 +219,8 @@
   - **Compact Island Geometry:** Scaled navbar height to `h-14 sm:h-16` and adjusted inner container padding to `px-3.5 sm:px-6` with responsive logo sizing (`sm:h-10 sm:w-10`).
   - **Mobile Sign-In Standardization:** Converted unauthenticated mobile text button into a dedicated icon-only trigger (`LogIn` icon, `h-9 w-9 rounded-xl`), positioned with `<ThemeToggle />` on its left to achieve 100% geometric symmetry with the authenticated student state.
   - **Floating Mobile Drawer Menu:** Upgraded drawer sheet into a detached floating card with `mt-2 rounded-2xl` matching the island pill styling.
+- [x] Phase 37: Vercel Production Build & Deployment Fix (Cloudinary URL Sanitization, Edge Middleware Decoupling & Git Deployment)
+  - **Cloudinary URL Sanitization:** Added bulletproof runtime sanitization in `src/app/api/cloudinary/sign/route.ts` using `new URL()` validation to strip quotes/whitespace or safely drop malformed values from `process.env.CLOUDINARY_URL` without using `export const dynamic` (avoiding Next.js 16 `cacheComponents` conflicts), completely eliminating `ERR_INVALID_URL` crashes.
+  - **Auth.js Edge Decoupling:** Created `src/auth.config.ts` containing pure Edge-safe JWT, session, and redirect callbacks with zero database or bcrypt dependencies.
+  - **Edge Middleware Optimization:** Switched `src/middleware.ts` to consume `authConfig`, drastically shrinking the `_middleware` bundle size from 1.04 MB to ~35 KB to easily satisfy Vercel Edge Runtime limits.
+  - **Node.js Auth Runtime Preservation:** Composed `...authConfig` with Prisma and bcrypt Credentials providers in `src/auth.ts`, ensuring 100% functionality of full-stack authentication.

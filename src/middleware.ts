@@ -1,5 +1,8 @@
+import NextAuth from "next-auth";
+import { authConfig } from "@/auth.config";
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+
+const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl } = req;
@@ -27,7 +30,6 @@ export default auth((req) => {
       );
     }
     if (userRole !== "SUPER_ADMIN") {
-      // Forbidden: redirect away from super admin panel
       return NextResponse.redirect(new URL("/admin/dashboard", nextUrl));
     }
   }

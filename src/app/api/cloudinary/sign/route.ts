@@ -1,6 +1,18 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
+// Bulletproof sanitization against surrounding quotes or whitespace in Vercel environment variables
+if (process.env.CLOUDINARY_URL) {
+  try {
+    const sanitized = process.env.CLOUDINARY_URL.replace(/^["']|["']$/g, "").trim();
+    new URL(sanitized);
+    process.env.CLOUDINARY_URL = sanitized;
+  } catch {
+    // If malformed, safely delete from env so the SDK falls back to explicit credentials
+    delete process.env.CLOUDINARY_URL;
+  }
+}
+
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
